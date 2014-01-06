@@ -1,8 +1,6 @@
 <?php
 include __DIR__.'/../src/config.php';
 
-use Noodlehaus\Config;
-
 // json parsing exception
 try {
   config(__DIR__.'/error.json');
@@ -28,7 +26,7 @@ try {
 foreach (array('config.ini', 'config.json') as $path) {
 
   $obj = config(__DIR__."/{$path}");
-  assert($obj instanceof Config);
+  assert($obj instanceof Noodlehaus\Config);
 
   $val = $obj->get('host');
   assert($val === 'localhost', "test for simple get() key");
