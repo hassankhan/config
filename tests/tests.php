@@ -1,23 +1,25 @@
 <?php
 include __DIR__.'/../src/config.php';
 
+use Noodlehaus\Config;
+
 // json parsing exception
 try {
-  config(__DIR__.'/error.json');
+  Config::load(__DIR__.'/error.json');
 } catch (Exception $ex) {
   assert($ex->getMessage() == 'JSON parse error', "json file format exception test");
 }
 
 // ini parsing exception
 try {
-  config(__DIR__.'/error.ini');
+  Config::load(__DIR__.'/error.ini');
 } catch (Exception $ex) {
   assert($ex->getMessage() == 'INI parse error', "ini file format exception test");
 }
 
 // unsupported file format test
 try {
-  config('error.yaml');
+  Config::load('error.yaml');
 } catch (Exception $ex) {
   assert($ex->getMessage() == 'Unsupported configuration format', "unknown format test");
 }
@@ -25,8 +27,8 @@ try {
 // tests with no exceptions
 foreach (array('config.ini', 'config.json') as $path) {
 
-  $obj = config(__DIR__."/{$path}");
-  assert($obj instanceof Noodlehaus\Config);
+  $obj = Config::load(__DIR__."/{$path}");
+  assert($obj instanceof Config);
 
   $val = $obj->get('host');
   assert($val === 'localhost', "test for simple get() key");

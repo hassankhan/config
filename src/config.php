@@ -10,6 +10,17 @@ namespace Noodlehaus {
     private $data = null;
 
     /**
+     * Alternative way of loading a config instance.
+     *
+     * @param string $path config file to load.
+     *
+     * @return Config config instance loaded
+     */
+    public static function load($path) {
+      return new Config($path);
+    }
+
+    /**
      * Constructor. Loads a supported configuration file
      * format.
      *
@@ -101,19 +112,5 @@ namespace Noodlehaus {
     }
   }
 
-}
-
-namespace {
-  /**
-   * Our global scope facade for loading a config file
-   * and fetching an instance of our config class
-   *
-   * @param string $path file path to load
-   *
-   * @return Config config instance containing file data
-   */
-  function config($path) {
-    return new Noodlehaus\Config($path);
-  }
 }
 ?>

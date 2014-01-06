@@ -26,7 +26,10 @@ Below's the code we'll use to work with this file.
 ```php
 <?php
 // load the config
-$conf = config('config.json');
+$conf = Config::load('config.json');
+
+// this also works
+$conf = new Config('config.json');
 
 // get the "debug" flag
 $debug = $conf->get('debug');
