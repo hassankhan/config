@@ -49,8 +49,8 @@ $conf->set('database', array(
   'host' => 'localhost',
   'name' => 'mydatabase'
 ));
+?>
 ```
 
 ## license
 MIT: <http://noodlehaus.mit-license.org>
-?>
