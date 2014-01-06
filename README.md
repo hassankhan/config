@@ -1,7 +1,8 @@
 # config
 
-`config()` is a JSON or INI file configuration loader. Config files
-are parsed and loaded depending on the file's extension name.
+`config()` is a file configuration loader that supports PHP,
+JSON and INI files. Files are parsed and loaded depending on
+the file's extension name.
 
 ## example
 
@@ -21,7 +22,62 @@ Here's an example JSON file that we'll use as `config.json`.
 }
 ```
 
-Below's the code we'll use to work with this file.
+Here's the same config file in PHP format.
+
+```php
+<?php
+return array(
+  'app' => array(
+    'host' => 'localhost',
+    'port' => 80,
+    'base' => '/my/app'
+  ),
+  'security' => array(
+    'security' => 's3cr3t-c0d3'
+  ),
+  'debug' => 'false
+);
+?>
+```
+
+Or in a PHP file that returns a function that creates your config
+
+```php
+<?php
+return function () {
+  // you can be creative with this, return settings
+  // depending on some logic
+  return array(
+    'app' => array(
+      'host' => 'localhost',
+      'port' => 80,
+      'base' => '/my/app'
+    ),
+    'security' => array(
+      'security' => 's3cr3t-c0d3'
+    ),
+    'debug' => 'false
+  );
+};
+?>
+```
+
+Or in INI format.
+
+```ini
+debug = false
+
+[app]
+host = localhost
+port = 80
+base = /my/app
+
+[security]
+secret = s3cr3t-c0d3
+```
+
+Below's the code we'll use to work with any of these files. Just
+change the filename to the one you want to use.
 
 ```php
 <?php

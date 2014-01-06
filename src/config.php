@@ -32,16 +32,27 @@ namespace Noodlehaus {
 
       $info = pathinfo($path);
 
+      // php file
+      if (preg_match('@^php$@i', $info['extension'])) {
+        $temp = require $path;
+        if (is_callable($temp))
+          $temp = call_user_func($temp);
+        if (!$temp || !is_array($temp))
+          throw new \Exception('PHP file does not return an array');
+        $this->data = $temp;
+        return;
+      }
+
       // ini file
-      if (preg_match('@ini@i', $info['extension'])) {
+      if (preg_match('@^ini$@i', $info['extension'])) {
         $this->data = @parse_ini_file($path, true);
-        if ($this->data === false)
+        if (!$this->data)
           throw new \Exception('INI parse error');
         return;
       }
 
       // json file
-      if (preg_match('@json@i', $info['extension'])) {
+      if (preg_match('@^json$@i', $info['extension'])) {
         $this->data = json_decode(file_get_contents($path), true);
         if (json_last_error() !== JSON_ERROR_NONE)
           throw new \Exception('JSON parse error');
