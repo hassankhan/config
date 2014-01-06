@@ -1,0 +1,21 @@
+{
+  "name": "noodlehaus/config",
+  "type": "library",
+  "description": "configuration file loader that supports json, ini, or php hashes",
+  "keywords": ["configuration", "config", "json", "ini", "unframework", "microphp"],
+  "homepage": "http://noodlehaus.github.io/config/",
+  "license": "MIT",
+  "authors": [{
+    "name": "Jesus A. Domingo",
+    "role": "Developer",
+    "homepage": "http://noodlehaus.github.io/"
+  }],
+  "require": {
+    "php": ">= 5.4.0"
+  },
+  "autoload": {
+    "files": [
+      "src/config.php"
+    ]
+  }
+}
