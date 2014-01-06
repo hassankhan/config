@@ -25,6 +25,9 @@ Below's the code we'll use to work with this file.
 
 ```php
 <?php
+// import class
+use Noodlehaus\Config;
+
 // load the config
 $conf = Config::load('config.json');
 
