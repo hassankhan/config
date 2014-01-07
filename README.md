@@ -111,6 +111,9 @@ $conf->set('database', array(
   'host' => 'localhost',
   'name' => 'mydatabase'
 ));
+
+// remove a value from the config (does not save to file)
+$conf->set('app.timeout', null);
 ?>
 ```
 
