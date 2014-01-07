@@ -25,7 +25,7 @@ try {
 }
 
 // tests with no exceptions
-foreach (array('config-exec.php', 'config.php', 'config.ini', 'config.json') as $path) {
+foreach (array('config.json') as $path) {
 
   $obj = Config::load(__DIR__."/{$path}");
   assert($obj instanceof Config);
@@ -67,10 +67,29 @@ foreach (array('config-exec.php', 'config.php', 'config.ini', 'config.json') as 
     'host' => 'localhost',
     'name' => 'mydatabase'
   ));
+
   $val = $obj->get('database');
-  assert(is_array($val), "test for mass key assignment in set()");
+  assert(
+    is_array($val),
+    "test for mass key assignment in set()"
+  );
+
   $val = $obj->get('database.host');
-  assert($val === 'localhost', "test nested path against mass key assignment with set()");
+  assert(
+    $val === 'localhost',
+    "test nested path against mass key assignment with set()"
+  );
+
+  $obj->set('database.host', null);
+  $val = $obj->get('database.host');
+  assert(
+    $val == null,
+    "test for set() with null value"
+  );
+
+  $obj->set('database', null);
+  $val = $obj->get('database');
+  assert($val == null, "test for mass set() with null value");
 }
 
 echo "If you didn't see any assertions fail, then all tests passed.\n";

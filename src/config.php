@@ -8,6 +8,7 @@ namespace Noodlehaus {
   class Config {
 
     private $data = null;
+    private $cache = array();
 
     /**
      * Alternative way of loading a config instance.
@@ -75,6 +76,9 @@ namespace Noodlehaus {
      */
     public function get($path, $default = null) {
 
+      if (isset($this->cache[$path]))
+        return $this->cache[$path];
+
       $segs = explode('.', $path);
       $root = $this->data;
 
@@ -90,7 +94,7 @@ namespace Noodlehaus {
       }
 
       // whatever we have is what we needed
-      return $root;
+      return ($this->cache[$path] = $root);
     }
 
     /**
@@ -104,22 +108,24 @@ namespace Noodlehaus {
      */
     public function set($path, $value) {
 
-      if ($value === null)
-        return;
-
       $segs = explode('.', $path);
       $root = &$this->data;
 
-      // we create the necessary nesting for configs
+      // crawl the path, creating nesting if needed
       while ($part = array_shift($segs)) {
-        if (!isset($root[$part])) {
-          if (count($segs))
-            $root[$part] = array();
-          else
-            $root[$part] = $value;
-        }
+        if (!isset($root[$part]) && count($segs))
+          $root[$part] = array();
         $root = &$root[$part];
       }
+
+      // assign value at target node
+      $root = $value;
+
+      // invalidate or create cache entry
+      if ($root === null)
+        unset($this->cache[$path]);
+      else
+        $this->cache[$path] = $root;
     }
   }
 
