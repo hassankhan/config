@@ -33,9 +33,9 @@ return array(
     'base' => '/my/app'
   ),
   'security' => array(
-    'security' => 's3cr3t-c0d3'
+    'secret' => 's3cr3t-c0d3'
   ),
-  'debug' => 'false
+  'debug' => false
 );
 ?>
 ```
@@ -54,9 +54,9 @@ return function () {
       'base' => '/my/app'
     ),
     'security' => array(
-      'security' => 's3cr3t-c0d3'
+      'secret' => 's3cr3t-c0d3'
     ),
-    'debug' => 'false
+    'debug' => false
   );
 };
 ?>
