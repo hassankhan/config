@@ -4,6 +4,10 @@
 JSON and INI files. Files are parsed and loaded depending on
 the file's extension name.
 
+## code
+
+Get the code on GitHub: <http://github.com/noodlehaus/config>
+
 ## example
 
 Here's an example JSON file that we'll use as `config.json`.
