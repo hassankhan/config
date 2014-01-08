@@ -35,11 +35,24 @@ namespace Noodlehaus {
 
       // php file
       if (preg_match('@^php$@i', $info['extension'])) {
-        $temp = require $path;
+
+        // keep it quiet and rethrow errors
+        try {
+          ob_start();
+          $temp = require $path;
+          ob_get_clean();
+        } catch (\Exception $ex) {
+          throw new Exception("PHP file threw an exception", 0, $ex);
+        }
+
+        // if we got a callable, run it and expect conf back
         if (is_callable($temp))
           $temp = call_user_func($temp);
+
+        // we need an array, anything else, throw
         if (!$temp || !is_array($temp))
           throw new \Exception('PHP file does not return an array');
+
         $this->data = $temp;
         return;
       }
