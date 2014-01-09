@@ -25,7 +25,7 @@ try {
 }
 
 // tests with no exceptions
-foreach (array('config.json') as $path) {
+foreach (array('config.ini', 'config.json', 'config-exec.php', 'config.php') as $path) {
 
   $obj = Config::load(__DIR__."/{$path}");
   assert($obj instanceof Config);
