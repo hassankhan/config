@@ -32,6 +32,11 @@ class Config {
   public function __construct($path) {
 
     $info = pathinfo($path);
+      
+    //check that config file exists or throw exception
+    if (!file_exists($path)) {
+        throw new \Exception("Configuration file: [$path] cannot be found");
+    }
 
     // php file
     if (preg_match('@^php$@i', $info['extension'])) {
