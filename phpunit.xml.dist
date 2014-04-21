@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    bootstrap="tests/bootstrap.php"
+    colors="true"
+    forceCoversAnnotation="true">
+
+    <testsuite name="all-tests">
+        <directory>tests</directory>
+    </testsuite>
+
+    <testsuite name="travis-ci">
+        <directory>tests</directory>
+    </testsuite>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./src</directory>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-text"
+            target="php://stdout"
+            showUncoveredFiles="false"/>
+        <log type="coverage-html"
+            target="tests/coverage"
+            charset="UTF-8"
+            yui="true"
+            highlight="true"
+            lowUpperBound="40"
+            highLowerBound="70" />
+    </logging>
+
+</phpunit>
