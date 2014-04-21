@@ -12,4 +12,3 @@ return array(
     'secret' => 's3cr3t'
   )
 );
-?>
