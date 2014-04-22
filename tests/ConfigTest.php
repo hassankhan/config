@@ -63,21 +63,21 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers                   Noodlehaus\Config::__construct
      * @expectedException        Exception
-     * @expectedExceptionMessage Configuration file: [ladadeedee] cannot be found
+     * @expectedExceptionMessage Unsupported configuration format
      */
-    public function testConstructWithInvalidPath()
+    public function testLoadWithUnsupportedFormat()
     {
-        $config = new Config('ladadeedee');
+        $config = Config::load(__DIR__ . '/mocks/error.yaml');
     }
 
     /**
      * @covers                   Noodlehaus\Config::__construct
      * @expectedException        Exception
-     * @expectedExceptionMessage Unsupported configuration format
+     * @expectedExceptionMessage Configuration file: [ladadeedee] cannot be found
      */
-    public function testConstructWithUnsupportedFormat()
+    public function testConstructWithInvalidPath()
     {
-        $config = Config::load(__DIR__ . '/mocks/error.yaml');
+        $config = new Config('ladadeedee');
     }
 
     /**
