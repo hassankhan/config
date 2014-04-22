@@ -17,13 +17,13 @@ class Config {
      * Stores the configuration data
      * @var array|null
      */
-    private $data = null;
+    protected $data = null;
 
     /**
      * Caches the configuration data
      * @var array
      */
-    private $cache = array();
+    protected $cache = array();
 
     /**
     * Static method for loading a config instance.
