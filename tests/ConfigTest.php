@@ -61,6 +61,17 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers                   Noodlehaus\Config::load
+     * @covers                   Noodlehaus\Config::loadPhp
+     * @expectedException        Exception
+     * @expectedExceptionMessage PHP file threw an exception
+     */
+    public function testLoadWithExceptionalPhp()
+    {
+        $config = Config::load(__DIR__ . '/mocks/error-exception.php');
+    }
+
+    /**
      * @covers                   Noodlehaus\Config::__construct
      * @expectedException        Exception
      * @expectedExceptionMessage Unsupported configuration format
@@ -82,10 +93,44 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers       Noodlehaus\Config::__construct
-     * @dataProvider providerConfig
+     * @covers       Noodlehaus\Config::loadPhp
      */
-    public function testConstruct($config)
+    public function testConstructWithPhpArray()
     {
+        $config = new Config(__DIR__ . '/mocks/config.php');
+        $this->assertEquals('localhost', $config->get('host'));
+        $this->assertEquals('80', $config->get('port'));
+    }
+
+    /**
+     * @covers       Noodlehaus\Config::__construct
+     * @covers       Noodlehaus\Config::loadPhp
+     */
+    public function testConstructWithPhpCallable()
+    {
+        $config = new Config(__DIR__ . '/mocks/config-exec.php');
+        $this->assertEquals('localhost', $config->get('host'));
+        $this->assertEquals('80', $config->get('port'));
+    }
+
+    /**
+     * @covers       Noodlehaus\Config::__construct
+     * @covers       Noodlehaus\Config::loadIni
+     */
+    public function testConstructWithIni()
+    {
+        $config = new Config(__DIR__ . '/mocks/config.ini');
+        $this->assertEquals('localhost', $config->get('host'));
+        $this->assertEquals('80', $config->get('port'));
+    }
+
+    /**
+     * @covers       Noodlehaus\Config::__construct
+     * @covers       Noodlehaus\Config::loadJson
+     */
+    public function testConstructWithJson()
+    {
+        $config = new Config(__DIR__ . '/mocks/config.json');
         $this->assertEquals('localhost', $config->get('host'));
         $this->assertEquals('80', $config->get('port'));
     }

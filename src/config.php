@@ -83,7 +83,7 @@ class Config implements \ArrayAccess
             ob_get_clean();
         }
         catch (\Exception $ex) {
-            throw new Exception('PHP file threw an exception', 0, $ex);
+            throw new \Exception('PHP file threw an exception', 0, $ex);
         }
 
         // If we have a callable, run it and expect an array back
