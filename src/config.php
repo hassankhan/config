@@ -11,16 +11,18 @@ namespace Noodlehaus;
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-class Config {
-
+class Config implements \ArrayAccess
+{
     /**
      * Stores the configuration data
+     *
      * @var array|null
      */
     protected $data = null;
 
     /**
      * Caches the configuration data
+     *
      * @var array
      */
     protected $cache = array();
@@ -28,7 +30,7 @@ class Config {
     /**
     * Static method for loading a config instance.
     *
-    * @param string $path
+    * @param  string $path
     *
     * @return Config
     */
@@ -40,9 +42,9 @@ class Config {
     /**
     * Loads a supported configuration file format.
     *
-    * @param string $path
+    * @param  string $path
     *
-    * @return Config
+    * @return void
     */
     public function __construct($path)
     {
@@ -138,8 +140,8 @@ class Config {
     * Nested keys are similar to JSON paths that use the dot
     * dot notation.
     *
-    * @param string $key
-    * @param mixed  $default
+    * @param  string $key
+    * @param  mixed  $default
     *
     * @return mixed
     */
@@ -173,8 +175,8 @@ class Config {
     * Function for setting configuration values, using
     * either simple or nested keys.
     *
-    * @param string $key
-    * @param mixed  $value
+    * @param  string $key
+    * @param  mixed  $value
     *
     * @return void
     */
@@ -202,5 +204,59 @@ class Config {
             $this->cache[$key] = $root;
         }
     }
+
+    /**
+     * ArrayAccess Methods
+     */
+
+    /**
+     * Gets a value using the offset as a key
+     *
+     * @param  string $offset
+     *
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        return $this->offSetExists($offset) ? $this->get($offset) : NULL;
+    }
+
+    /**
+     * Checks if a key exists
+     *
+     * @param  string $offset
+     *
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        return !is_null($this->get($offset));
+    }
+
+    /**
+     * Sets a value using the offset as a key
+     *
+     * @param  string $offset
+     * @param  mixed  $value
+     *
+     * @return void
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->set($offset, $value);
+    }
+
+    /**
+     * Deletes a key and its value
+     *
+     * @param  string $offset
+     *
+     * @return void
+     */
+    public function offsetUnset($offset)
+    {
+        $this->set($offset, NULL);
+    }
+
 
 }

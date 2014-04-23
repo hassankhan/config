@@ -245,6 +245,42 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Noodlehaus\Config::offsetGet
+     * @dataProvider providerConfigFiles
+     */
+    public function testOffsetGet($config_path)
+    {
+        $this->markTestIncomplete('Not yet implemented');
+    }
+
+    /**
+     * @covers Noodlehaus\Config::offsetExists
+     * @dataProvider providerConfigFiles
+     */
+    public function testOffsetExists($config_path)
+    {
+        $this->markTestIncomplete('Not yet implemented');
+    }
+
+    /**
+     * @covers Noodlehaus\Config::offsetSet
+     * @dataProvider providerConfigFiles
+     */
+    public function testOffsetSet($config_path)
+    {
+        $this->markTestIncomplete('Not yet implemented');
+    }
+
+    /**
+     * @covers Noodlehaus\Config::offsetUnset
+     * @dataProvider providerConfigFiles
+     */
+    public function testOffsetUnset($config_path)
+    {
+        $this->markTestIncomplete('Not yet implemented');
+    }
+
+    /**
      * Provides names of example configuration files
      */
     public function providerConfigFiles()
