@@ -253,7 +253,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::offsetGet
+     * @covers       Noodlehaus\Config::offsetGet
      * @dataProvider providerConfig
      */
     public function testOffsetGet($config)
@@ -262,7 +262,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::offsetGet
+     * @covers       Noodlehaus\Config::offsetGet
      * @dataProvider providerConfig
      */
     public function testOffsetGetNestedKey($config)
@@ -271,39 +271,41 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::offsetExists
+     * @covers       Noodlehaus\Config::offsetExists
      * @dataProvider providerConfig
      */
     public function testOffsetExists($config)
     {
-        $this->assertTrue($config->offsetExists('host'));
+        $this->assertTrue(isset($config['host']));
     }
 
     /**
-     * @covers Noodlehaus\Config::offsetExists
+     * @covers       Noodlehaus\Config::offsetExists
      * @dataProvider providerConfig
      */
     public function testOffsetExistsReturnsFalseOnNonexistentKey($config)
     {
-        $this->assertFalse($config->offsetExists('database'));
+        $this->assertFalse(isset($config['database']));
     }
 
     /**
-     * @covers Noodlehaus\Config::offsetSet
+     * @covers       Noodlehaus\Config::offsetSet
      * @dataProvider providerConfig
      */
     public function testOffsetSet($config)
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $config['newkey'] = 'newvalue';
+        $this->assertEquals('newvalue', $config['newkey']);
     }
 
     /**
-     * @covers Noodlehaus\Config::offsetUnset
+     * @covers       Noodlehaus\Config::offsetUnset
      * @dataProvider providerConfig
      */
     public function testOffsetUnset($config)
     {
-        $this->markTestIncomplete('Not yet implemented');
+        unset($config['application']);
+        $this->assertNull($config['application']);
     }
 
     /**
