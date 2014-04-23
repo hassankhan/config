@@ -82,9 +82,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers       Noodlehaus\Config::__construct
-     * @covers       Noodlehaus\Config::loadPhp
-     * @covers       Noodlehaus\Config::loadIni
-     * @covers       Noodlehaus\Config::loadJson
      * @dataProvider providerConfig
      */
     public function testConstruct($config)
@@ -95,9 +92,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers       Noodlehaus\Config::get
-     * @covers       Noodlehaus\Config::loadPhp
-     * @covers       Noodlehaus\Config::loadIni
-     * @covers       Noodlehaus\Config::loadJson
      * @dataProvider providerConfig
      */
     public function testGet($config)
@@ -107,9 +101,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers       Noodlehaus\Config::get
-     * @covers       Noodlehaus\Config::loadPhp
-     * @covers       Noodlehaus\Config::loadIni
-     * @covers       Noodlehaus\Config::loadJson
      * @dataProvider providerConfig
      */
     public function testGetWithDefaultValue($config)
@@ -119,9 +110,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers       Noodlehaus\Config::get
-     * @covers       Noodlehaus\Config::loadPhp
-     * @covers       Noodlehaus\Config::loadIni
-     * @covers       Noodlehaus\Config::loadJson
      * @dataProvider providerConfig
      */
     public function testGetNestedKey($config)
@@ -131,9 +119,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers       Noodlehaus\Config::get
-     * @covers       Noodlehaus\Config::loadPhp
-     * @covers       Noodlehaus\Config::loadIni
-     * @covers       Noodlehaus\Config::loadJson
      * @dataProvider providerConfig
      */
     public function testGetNestedKeyWithDefaultValue($config)
@@ -143,9 +128,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers       Noodlehaus\Config::get
-     * @covers       Noodlehaus\Config::loadPhp
-     * @covers       Noodlehaus\Config::loadIni
-     * @covers       Noodlehaus\Config::loadJson
      * @dataProvider providerConfig
      */
     public function testGetNonexistentKey($config)
@@ -155,9 +137,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers       Noodlehaus\Config::get
-     * @covers       Noodlehaus\Config::loadPhp
-     * @covers       Noodlehaus\Config::loadIni
-     * @covers       Noodlehaus\Config::loadJson
      * @dataProvider providerConfig
      */
     public function testGetNonexistentNestedKey($config)
@@ -167,9 +146,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers       Noodlehaus\Config::get
-     * @covers       Noodlehaus\Config::loadPhp
-     * @covers       Noodlehaus\Config::loadIni
-     * @covers       Noodlehaus\Config::loadJson
      * @dataProvider providerConfig
      */
     public function testGetReturnsArray($config)
@@ -237,7 +213,16 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffsetGet($config)
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->assertEquals('localhost', $config['host']);
+    }
+
+    /**
+     * @covers Noodlehaus\Config::offsetGet
+     * @dataProvider providerConfig
+     */
+    public function testOffsetGetNestedKey($config)
+    {
+        $this->assertEquals('configuration', $config['application.name']);
     }
 
     /**
@@ -246,7 +231,16 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffsetExists($config)
     {
-        $this->markTestIncomplete('Not yet implemented');
+        $this->assertTrue($config->offsetExists('host'));
+    }
+
+    /**
+     * @covers Noodlehaus\Config::offsetExists
+     * @dataProvider providerConfig
+     */
+    public function testOffsetExistsReturnsFalseOnNonexistentKey($config)
+    {
+        $this->assertFalse($config->offsetExists('database'));
     }
 
     /**
