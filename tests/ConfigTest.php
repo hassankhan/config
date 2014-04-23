@@ -61,6 +61,17 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers                   Noodlehaus\Config::load
+     * @covers                   Noodlehaus\Config::loadPhp
+     * @expectedException        Exception
+     * @expectedExceptionMessage PHP file threw an exception
+     */
+    public function testLoadWithExceptionalPhp()
+    {
+        $config = Config::load(__DIR__ . '/mocks/error-exception.php');
+    }
+
+    /**
      * @covers                   Noodlehaus\Config::__construct
      * @expectedException        Exception
      * @expectedExceptionMessage Unsupported configuration format
@@ -83,106 +94,107 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers       Noodlehaus\Config::__construct
      * @covers       Noodlehaus\Config::loadPhp
-     * @covers       Noodlehaus\Config::loadIni
-     * @covers       Noodlehaus\Config::loadJson
-     * @dataProvider providerConfigFiles
      */
-    public function testConstruct($config_path)
+    public function testConstructWithPhpArray()
     {
-        $config = new Config(__DIR__ . $config_path);
+        $config = new Config(__DIR__ . '/mocks/config.php');
+        $this->assertEquals('localhost', $config->get('host'));
+        $this->assertEquals('80', $config->get('port'));
+    }
 
+    /**
+     * @covers       Noodlehaus\Config::__construct
+     * @covers       Noodlehaus\Config::loadPhp
+     */
+    public function testConstructWithPhpCallable()
+    {
+        $config = new Config(__DIR__ . '/mocks/config-exec.php');
+        $this->assertEquals('localhost', $config->get('host'));
+        $this->assertEquals('80', $config->get('port'));
+    }
+
+    /**
+     * @covers       Noodlehaus\Config::__construct
+     * @covers       Noodlehaus\Config::loadIni
+     */
+    public function testConstructWithIni()
+    {
+        $config = new Config(__DIR__ . '/mocks/config.ini');
+        $this->assertEquals('localhost', $config->get('host'));
+        $this->assertEquals('80', $config->get('port'));
+    }
+
+    /**
+     * @covers       Noodlehaus\Config::__construct
+     * @covers       Noodlehaus\Config::loadJson
+     */
+    public function testConstructWithJson()
+    {
+        $config = new Config(__DIR__ . '/mocks/config.json');
         $this->assertEquals('localhost', $config->get('host'));
         $this->assertEquals('80', $config->get('port'));
     }
 
     /**
      * @covers       Noodlehaus\Config::get
-     * @covers       Noodlehaus\Config::loadPhp
-     * @covers       Noodlehaus\Config::loadIni
-     * @covers       Noodlehaus\Config::loadJson
-     * @dataProvider providerConfigFiles
+     * @dataProvider providerConfig
      */
-    public function testGet($config_path)
+    public function testGet($config)
     {
-        $config = new Config(__DIR__ . $config_path);
         $this->assertEquals('localhost', $config->get('host'));
     }
 
     /**
      * @covers       Noodlehaus\Config::get
-     * @covers       Noodlehaus\Config::loadPhp
-     * @covers       Noodlehaus\Config::loadIni
-     * @covers       Noodlehaus\Config::loadJson
-     * @dataProvider providerConfigFiles
+     * @dataProvider providerConfig
      */
-    public function testGetWithDefaultValue($config_path)
+    public function testGetWithDefaultValue($config)
     {
-        $config = new Config(__DIR__ . $config_path);
         $this->assertEquals(128, $config->get('ttl', 128));
     }
 
     /**
      * @covers       Noodlehaus\Config::get
-     * @covers       Noodlehaus\Config::loadPhp
-     * @covers       Noodlehaus\Config::loadIni
-     * @covers       Noodlehaus\Config::loadJson
-     * @dataProvider providerConfigFiles
+     * @dataProvider providerConfig
      */
-    public function testGetNestedKey($config_path)
+    public function testGetNestedKey($config)
     {
-        $config = new Config(__DIR__ . $config_path);
         $this->assertEquals('configuration', $config->get('application.name'));
     }
 
     /**
      * @covers       Noodlehaus\Config::get
-     * @covers       Noodlehaus\Config::loadPhp
-     * @covers       Noodlehaus\Config::loadIni
-     * @covers       Noodlehaus\Config::loadJson
-     * @dataProvider providerConfigFiles
+     * @dataProvider providerConfig
      */
-    public function testGetNestedKeyWithDefaultValue($config_path)
+    public function testGetNestedKeyWithDefaultValue($config)
     {
-        $config = new Config(__DIR__ . $config_path);
         $this->assertEquals(128, $config->get('application.ttl', 128));
     }
 
     /**
      * @covers       Noodlehaus\Config::get
-     * @covers       Noodlehaus\Config::loadPhp
-     * @covers       Noodlehaus\Config::loadIni
-     * @covers       Noodlehaus\Config::loadJson
-     * @dataProvider providerConfigFiles
+     * @dataProvider providerConfig
      */
-    public function testGetNonexistentKey($config_path)
+    public function testGetNonexistentKey($config)
     {
-        $config = new Config(__DIR__ . $config_path);
         $this->assertNull($config->get('proxy'));
     }
 
     /**
      * @covers       Noodlehaus\Config::get
-     * @covers       Noodlehaus\Config::loadPhp
-     * @covers       Noodlehaus\Config::loadIni
-     * @covers       Noodlehaus\Config::loadJson
-     * @dataProvider providerConfigFiles
+     * @dataProvider providerConfig
      */
-    public function testGetNonexistentNestedKey($config_path)
+    public function testGetNonexistentNestedKey($config)
     {
-        $config = new Config(__DIR__ . $config_path);
         $this->assertNull($config->get('proxy.name'));
     }
 
     /**
      * @covers       Noodlehaus\Config::get
-     * @covers       Noodlehaus\Config::loadPhp
-     * @covers       Noodlehaus\Config::loadIni
-     * @covers       Noodlehaus\Config::loadJson
-     * @dataProvider providerConfigFiles
+     * @dataProvider providerConfig
      */
-    public function testGetReturnsArray($config_path)
+    public function testGetReturnsArray($config)
     {
-        $config = new Config(__DIR__ . $config_path);
         $this->assertArrayHasKey('name', $config->get('application'));
         $this->assertEquals('configuration', $config->get('application.name'));
         $this->assertCount(2, $config->get('application'));
@@ -190,33 +202,30 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers       Noodlehaus\Config::set
-     * @dataProvider providerConfigFiles
+     * @dataProvider providerConfig
      */
-    public function testSet($config_path)
+    public function testSet($config)
     {
-        $config = new Config(__DIR__ . $config_path);
         $config->set('region', 'apac');
         $this->assertEquals('apac', $config->get('region'));
     }
 
     /**
      * @covers       Noodlehaus\Config::set
-     * @dataProvider providerConfigFiles
+     * @dataProvider providerConfig
      */
-    public function testSetNestedKey($config_path)
+    public function testSetNestedKey($config)
     {
-        $config = new Config(__DIR__ . $config_path);
         $config->set('location.country', 'Singapore');
         $this->assertEquals('Singapore', $config->get('location.country'));
     }
 
     /**
      * @covers       Noodlehaus\Config::set
-     * @dataProvider providerConfigFiles
+     * @dataProvider providerConfig
      */
-    public function testSetArray($config_path)
+    public function testSetArray($config)
     {
-        $config = new Config(__DIR__ . $config_path);
         $config->set('database', array(
             'host' => 'localhost',
             'name' => 'mydatabase'
@@ -227,11 +236,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers       Noodlehaus\Config::set
-     * @dataProvider providerConfigFiles
+     * @dataProvider providerConfig
      */
-    public function testSetAndUnsetArray($config_path)
+    public function testSetAndUnsetArray($config)
     {
-        $config = new Config(__DIR__ . $config_path);
         $config->set('database', array(
             'host' => 'localhost',
             'name' => 'mydatabase'
@@ -245,15 +253,71 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers       Noodlehaus\Config::offsetGet
+     * @dataProvider providerConfig
+     */
+    public function testOffsetGet($config)
+    {
+        $this->assertEquals('localhost', $config['host']);
+    }
+
+    /**
+     * @covers       Noodlehaus\Config::offsetGet
+     * @dataProvider providerConfig
+     */
+    public function testOffsetGetNestedKey($config)
+    {
+        $this->assertEquals('configuration', $config['application.name']);
+    }
+
+    /**
+     * @covers       Noodlehaus\Config::offsetExists
+     * @dataProvider providerConfig
+     */
+    public function testOffsetExists($config)
+    {
+        $this->assertTrue(isset($config['host']));
+    }
+
+    /**
+     * @covers       Noodlehaus\Config::offsetExists
+     * @dataProvider providerConfig
+     */
+    public function testOffsetExistsReturnsFalseOnNonexistentKey($config)
+    {
+        $this->assertFalse(isset($config['database']));
+    }
+
+    /**
+     * @covers       Noodlehaus\Config::offsetSet
+     * @dataProvider providerConfig
+     */
+    public function testOffsetSet($config)
+    {
+        $config['newkey'] = 'newvalue';
+        $this->assertEquals('newvalue', $config['newkey']);
+    }
+
+    /**
+     * @covers       Noodlehaus\Config::offsetUnset
+     * @dataProvider providerConfig
+     */
+    public function testOffsetUnset($config)
+    {
+        unset($config['application']);
+        $this->assertNull($config['application']);
+    }
+
+    /**
      * Provides names of example configuration files
      */
-    public function providerConfigFiles()
+    public function providerConfig()
     {
         return array(
-            array('/mocks/config.ini'),
-            array('/mocks/config.json'),
-            array('/mocks/config-exec.php'),
-            array('/mocks/config.php')
+            array(new Config(__DIR__ . '/mocks/config.ini')),
+            array(new Config(__DIR__ . '/mocks/config.json')),
+            array(new Config(__DIR__ . '/mocks/config-exec.php')),
+            array(new Config(__DIR__ . '/mocks/config.php'))
         );
     }
 
