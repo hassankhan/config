@@ -4,9 +4,11 @@
 JSON and INI files. Files are parsed and loaded depending on
 the file's extension name.
 
+Some examples of valid configuration files are [below](#examples)
+
 ## api
 
-The ``Config`` object can be statically created or instantianted:
+The ``Config`` object can be statically created or instantiated:
 
 ```php
 $conf = Config::load('config.json');
@@ -30,44 +32,6 @@ Use ``set()`` to set values (doh!):
 $conf = Config::load('config.json');
 $conf = new Config('config.json');
 ```
-
-```php
-
-// import class
-use Noodlehaus\Config;
-
-// load the config
-$conf = Config::load('config.json');
-
-// this also works
-$conf = new Config('config.json');
-
-// get the "debug" flag
-$debug = $conf->get('debug');
-
-// get the "secret" value under "security"
-$secret = $conf->get('security.secret');
-
-// try to get a value with a default as fallback
-$ttl = $conf->get('app.timeout', 3000);
-
-// get an entire config subarray
-$app = $conf->get('app');
-
-// set some values, creating nesting if necessary
-$conf->set('database.host', 'localhost');
-$conf->set('database.name', 'mydatabase');
-
-// you can also do subarray assignment
-$conf->set('database', array(
-  'host' => 'localhost',
-  'name' => 'mydatabase'
-));
-
-// remove a value from the config (does not save to file)
-$conf->set('app.timeout', null);
-```
-
 
 ## examples
 
