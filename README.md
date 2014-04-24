@@ -56,12 +56,12 @@ Here's the same config file in PHP format:
 ```php
 return array(
     'app' => array(
-    'host' => 'localhost',
-    'port' => 80,
-    'base' => '/my/app'
+        'host' => 'localhost',
+        'port' => 80,
+        'base' => '/my/app'
     ),
     'security' => array(
-    'secret' => 's3cr3t-c0d3'
+        'secret' => 's3cr3t-c0d3'
     ),
     'debug' => false
 );
