@@ -4,87 +4,35 @@
 JSON and INI files. Files are parsed and loaded depending on
 the file's extension name.
 
-## code
+## api
 
-Get the code on GitHub: <http://github.com/noodlehaus/config>
-
-## example
-
-Here's an example JSON file that we'll use as `config.json`.
-
-```json
-{
-  "app": {
-    "host": "localhost",
-    "port": 80,
-    "base": "/my/app"
-  },
-  "security": {
-    "secret": "s3cr3t-c0d3"
-  },
-  "debug": false
-}
-```
-
-Here's the same config file in PHP format.
+The ``Config`` object can be statically created or instantianted:
 
 ```php
-<?php
-return array(
-  'app' => array(
-    'host' => 'localhost',
-    'port' => 80,
-    'base' => '/my/app'
-  ),
-  'security' => array(
-    'secret' => 's3cr3t-c0d3'
-  ),
-  'debug' => false
-);
-?>
+$conf = Config::load('config.json');
+$conf = new Config('config.json');
 ```
 
-Or in a PHP file that returns a function that creates your config
+Use ``get()`` to retrieve values:
+```php
+// Get value using key
+$debug  = $config->get('debug');
+
+// Get value using nested key
+$secret = $config->get('security.secret');
+
+// Get a value with a fallback
+$ttl    = $config->get('app.timeout', 3000);
+```
+
+Use ``set()`` to set values (doh!):
+```php
+$conf = Config::load('config.json');
+$conf = new Config('config.json');
+```
 
 ```php
-<?php
-return function () {
-  // you can be creative with this, return settings
-  // depending on some logic
-  return array(
-    'app' => array(
-      'host' => 'localhost',
-      'port' => 80,
-      'base' => '/my/app'
-    ),
-    'security' => array(
-      'secret' => 's3cr3t-c0d3'
-    ),
-    'debug' => false
-  );
-};
-?>
-```
 
-Or in INI format.
-
-```ini
-debug = false
-
-[app]
-host = localhost
-port = 80
-base = /my/app
-
-[security]
-secret = s3cr3t-c0d3
-```
-
-Below's the code we'll use to work with any of these files. Just
-change the filename to the one you want to use.
-
-```php
-<?php
 // import class
 use Noodlehaus\Config;
 
@@ -118,7 +66,74 @@ $conf->set('database', array(
 
 // remove a value from the config (does not save to file)
 $conf->set('app.timeout', null);
-?>
+```
+
+
+## examples
+
+Here's an example JSON file that we'll call `config.json`.
+
+```json
+{
+    "app": {
+        "host": "localhost",
+        "port": 80,
+        "base": "/my/app"
+    },
+    "security": {
+        "secret": "s3cr3t-c0d3"
+    },
+    "debug": false
+}
+```
+
+Here's the same config file in PHP format:
+
+```php
+return array(
+    'app' => array(
+    'host' => 'localhost',
+    'port' => 80,
+    'base' => '/my/app'
+    ),
+    'security' => array(
+    'secret' => 's3cr3t-c0d3'
+    ),
+    'debug' => false
+);
+```
+
+Or in a PHP file that returns a function that creates your config:
+
+```php
+return function () {
+    // Normal callable function, returns array
+    return array(
+    'app' => array(
+        'host' => 'localhost',
+        'port' => 80,
+        'base' => '/my/app'
+    ),
+    'security' => array(
+        'secret' => 's3cr3t-c0d3'
+    ),
+    'debug' => false
+    );
+};
+```
+
+Or in an INI format:
+
+```ini
+debug = false
+
+[app]
+host = localhost
+port = 80
+base = /my/app
+
+[security]
+secret = s3cr3t-c0d3
 ```
 
 ## license

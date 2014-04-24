@@ -185,7 +185,7 @@ class Config implements \ArrayAccess
         $segs = explode('.', $key);
         $root = &$this->data;
 
-        // Look for the key, creating nesting if needed
+        // Look for the key, creating nested keys if needed
         while ($part = array_shift($segs)) {
             if (!isset($root[$part]) && count($segs)) {
                 $root[$part] = array();
