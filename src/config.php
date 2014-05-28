@@ -36,7 +36,7 @@ class Config implements \ArrayAccess
     */
     public static function load($path)
     {
-        return new Config($path);
+        return new static($path);
     }
 
     /**
