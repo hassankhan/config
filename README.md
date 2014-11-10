@@ -54,6 +54,7 @@ Here's an example JSON file that we'll call `config.json`.
 Here's the same config file in PHP format:
 
 ```php
+<?php
 return array(
     'app' => array(
         'host' => 'localhost',
