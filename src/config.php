@@ -134,6 +134,27 @@ class Config implements \ArrayAccess
 
         return $data;
     }
+    
+    
+    /**
+     * Loads a XML file as an array
+     *
+     * @param  string $path
+     *
+     * @return array
+     */
+    protected function loadXml($path)
+    {
+        $data = simplexml_load_file($path, null, LIBXML_NOERROR);
+
+        if ($data === false) {
+            throw new \Exception('XML parse error');
+        }
+        
+        $data = json_decode(json_encode($data), true);
+
+        return $data;
+    }
 
     /**
     * Gets a configuration setting using a simple or nested key.

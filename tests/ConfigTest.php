@@ -37,6 +37,17 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     {
         $config = Config::load(__DIR__ . '/mocks/error.json');
     }
+    
+    /**
+     * @covers                   Noodlehaus\Config::load
+     * @covers                   Noodlehaus\Config::loadXml
+     * @expectedException        Exception
+     * @expectedExceptionMessage XML parse error
+     */
+    public function testLoadWithInvalidXml()
+    {
+        $config = Config::load(__DIR__ . '/mocks/error.xml');
+    }
 
     /**
      * @covers                   Noodlehaus\Config::load
@@ -131,6 +142,17 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function testConstructWithJson()
     {
         $config = new Config(__DIR__ . '/mocks/config.json');
+        $this->assertEquals('localhost', $config->get('host'));
+        $this->assertEquals('80', $config->get('port'));
+    }
+    
+    /**
+     * @covers       Noodlehaus\Config::__construct
+     * @covers       Noodlehaus\Config::loadXml
+     */
+    public function testConstructWithXml()
+    {
+        $config = new Config(__DIR__ . '/mocks/config.xml');
         $this->assertEquals('localhost', $config->get('host'));
         $this->assertEquals('80', $config->get('port'));
     }
@@ -316,6 +338,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         return array(
             array(new Config(__DIR__ . '/mocks/config.ini')),
             array(new Config(__DIR__ . '/mocks/config.json')),
+            array(new Config(__DIR__ . '/mocks/config.xml')),
             array(new Config(__DIR__ . '/mocks/config-exec.php')),
             array(new Config(__DIR__ . '/mocks/config.php'))
         );

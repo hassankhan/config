@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <application>
+        <name>configuration</name>
+        <secret>s3cr3t</secret>
+    </application>
+    <host>localhost</host>
+    <port>80</port>
+    <servers>
+        <server1>host1</server1>
+        <server2>host2</server2>
+        <server3>host3</server3>
+    </servers>
+</config>
