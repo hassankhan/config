@@ -1,7 +1,7 @@
 # config
 
 `config()` is a file configuration loader that supports PHP,
-JSON and INI files. Files are parsed and loaded depending on
+JSON, INI and XML files. Files are parsed and loaded depending on
 the file's extension name.
 
 Some examples of valid configuration files are [below](#examples)
@@ -99,6 +99,23 @@ base = /my/app
 
 [security]
 secret = s3cr3t-c0d3
+```
+
+Or in an XML format:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <app>
+        <host>localhost</host>
+        <port>80</port>
+        <base>/my/app</base>
+    </app>
+    <security>
+        <secret>s3cr3t-c0d3</secret>
+    </security>
+    <debug>false</debug>
+</config>
 ```
 
 ## license
