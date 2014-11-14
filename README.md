@@ -1,6 +1,6 @@
 # config
 
-`config()` is a file configuration loader that supports PHP,
+`config` is a file configuration loader that supports PHP,
 JSON, INI and XML files. Files are parsed and loaded depending on
 the file's extension name.
 
