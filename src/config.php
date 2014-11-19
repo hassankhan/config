@@ -111,7 +111,7 @@ class Config implements \ArrayAccess
         $data = @parse_ini_file($path, true);
 
         if (!$data) {
-        throw new \Exception('INI parse error');
+            throw new \Exception('INI parse error');
         }
 
         return $data;
@@ -215,15 +215,7 @@ class Config implements \ArrayAccess
         }
 
         // Assign value at target node
-        $root = $value;
-
-        // Invalidate or create cache entry
-        if ($root === null) {
-            unset($this->cache[$key]);
-        }
-        else {
-            $this->cache[$key] = $root;
-        }
+        $this->cache[$key] = $root = $value;
     }
 
     /**
