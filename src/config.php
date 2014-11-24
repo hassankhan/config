@@ -76,11 +76,9 @@ class Config implements \ArrayAccess
      */
     protected function loadPhp($path)
     {
-        // Keep it quiet and rethrow errors
+        // Require the file, if it throws an exception, rethrow it
         try {
-            ob_start();
             $temp = require $path;
-            ob_get_clean();
         }
         catch (\Exception $ex) {
             throw new \Exception('PHP file threw an exception', 0, $ex);
