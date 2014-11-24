@@ -23,8 +23,8 @@
         "phpunit/phpunit": "~4.0"
     },
     "autoload": {
-        "files": [
-            "src/config.php"
-        ]
+        "psr-4": {
+            "Noodlehaus\\": "src"
+        }
     }
 }
