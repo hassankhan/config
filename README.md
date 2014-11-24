@@ -118,5 +118,19 @@ Or in an XML format:
 </config>
 ```
 
+Or in a YAML format:
+
+```yaml
+application:
+    name: configuration
+    secret: s3cr3t
+host: localhost
+port: 80
+servers:
+- host1
+- host2
+- host3
+```
+
 ## license
 MIT: <http://noodlehaus.mit-license.org>
