@@ -45,6 +45,9 @@ class Config implements \ArrayAccess
     * @param  string $path
     *
     * @return void
+    *
+    * @throws Exception If a file is not found at `$path`
+    * @throws Exception If `$path` is an unsupported file format
     */
     public function __construct($path)
     {
@@ -73,6 +76,9 @@ class Config implements \ArrayAccess
      * @param  string $path
      *
      * @return array
+     *
+     * @throws Exception If the PHP file throws an exception
+     * @throws Exception If the PHP file does not return an array
      */
     protected function loadPhp($path)
     {
@@ -103,6 +109,8 @@ class Config implements \ArrayAccess
      * @param  string $path
      *
      * @return array
+     *
+     * @throws Exception If there is an error parsing the INI file
      */
     protected function loadIni($path)
     {
@@ -121,6 +129,8 @@ class Config implements \ArrayAccess
      * @param  string $path
      *
      * @return array
+     *
+     * @throws Exception If there is an error parsing the JSON file
      */
     protected function loadJson($path)
     {
@@ -140,6 +150,8 @@ class Config implements \ArrayAccess
      * @param  string $path
      *
      * @return array
+     *
+     * @throws Exception If there is an error parsing the XML file
      */
     protected function loadXml($path)
     {
