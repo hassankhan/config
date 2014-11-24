@@ -35,9 +35,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadWithInvalidJson()
     {
-        $config = Config::load(__DIR__ . '/mocks/error.json');
+        $config = Config::load(__DIR__ . '/mocks/fail/error.json');
     }
-    
+
     /**
      * @covers                   Noodlehaus\Config::load
      * @covers                   Noodlehaus\Config::loadXml
@@ -46,7 +46,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadWithInvalidXml()
     {
-        $config = Config::load(__DIR__ . '/mocks/error.xml');
+        $config = Config::load(__DIR__ . '/mocks/fail/error.xml');
     }
 
     /**
@@ -57,7 +57,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadWithInvalidIni()
     {
-        $config = Config::load(__DIR__ . '/mocks/error.ini');
+        $config = Config::load(__DIR__ . '/mocks/fail/error.ini');
     }
 
     /**
@@ -68,7 +68,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadWithInvalidPhp()
     {
-        $config = Config::load(__DIR__ . '/mocks/error.php');
+        $config = Config::load(__DIR__ . '/mocks/fail/error.php');
     }
 
     /**
@@ -79,7 +79,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadWithExceptionalPhp()
     {
-        $config = Config::load(__DIR__ . '/mocks/error-exception.php');
+        $config = Config::load(__DIR__ . '/mocks/fail/error-exception.php');
     }
 
     /**
@@ -89,7 +89,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadWithUnsupportedFormat()
     {
-        $config = Config::load(__DIR__ . '/mocks/error.yaml');
+        $config = Config::load(__DIR__ . '/mocks/fail/error.lib');
     }
 
     /**
@@ -108,7 +108,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructWithPhpArray()
     {
-        $config = new Config(__DIR__ . '/mocks/config.php');
+        $config = new Config(__DIR__ . '/mocks/pass/config.php');
         $this->assertEquals('localhost', $config->get('host'));
         $this->assertEquals('80', $config->get('port'));
     }
@@ -119,7 +119,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructWithPhpCallable()
     {
-        $config = new Config(__DIR__ . '/mocks/config-exec.php');
+        $config = new Config(__DIR__ . '/mocks/pass/config-exec.php');
         $this->assertEquals('localhost', $config->get('host'));
         $this->assertEquals('80', $config->get('port'));
     }
@@ -130,7 +130,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructWithIni()
     {
-        $config = new Config(__DIR__ . '/mocks/config.ini');
+        $config = new Config(__DIR__ . '/mocks/pass/config.ini');
         $this->assertEquals('localhost', $config->get('host'));
         $this->assertEquals('80', $config->get('port'));
     }
@@ -141,18 +141,18 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructWithJson()
     {
-        $config = new Config(__DIR__ . '/mocks/config.json');
+        $config = new Config(__DIR__ . '/mocks/pass/config.json');
         $this->assertEquals('localhost', $config->get('host'));
         $this->assertEquals('80', $config->get('port'));
     }
-    
+
     /**
      * @covers       Noodlehaus\Config::__construct
      * @covers       Noodlehaus\Config::loadXml
      */
     public function testConstructWithXml()
     {
-        $config = new Config(__DIR__ . '/mocks/config.xml');
+        $config = new Config(__DIR__ . '/mocks/pass/config.xml');
         $this->assertEquals('localhost', $config->get('host'));
         $this->assertEquals('80', $config->get('port'));
     }
@@ -336,11 +336,11 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function providerConfig()
     {
         return array(
-            array(new Config(__DIR__ . '/mocks/config.ini')),
-            array(new Config(__DIR__ . '/mocks/config.json')),
-            array(new Config(__DIR__ . '/mocks/config.xml')),
-            array(new Config(__DIR__ . '/mocks/config-exec.php')),
-            array(new Config(__DIR__ . '/mocks/config.php'))
+            array(new Config(__DIR__ . '/mocks/pass/config.ini')),
+            array(new Config(__DIR__ . '/mocks/pass/config.json')),
+            array(new Config(__DIR__ . '/mocks/pass/config.xml')),
+            array(new Config(__DIR__ . '/mocks/pass/config-exec.php')),
+            array(new Config(__DIR__ . '/mocks/pass/config.php'))
         );
     }
 
