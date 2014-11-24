@@ -132,8 +132,8 @@ class Config implements \ArrayAccess
 
         return $data;
     }
-    
-    
+
+
     /**
      * Loads a XML file as an array
      *
@@ -148,10 +148,19 @@ class Config implements \ArrayAccess
         if ($data === false) {
             throw new \Exception('XML parse error');
         }
-        
+
         $data = json_decode(json_encode($data), true);
 
         return $data;
+    }
+
+    protected function loadYaml($path)
+    {
+        // Check if Symfony Yaml package is installed
+        if (class_exists('\Symfony\Component\Yaml\Yaml')) {
+            return \Symfony\Component\Yaml\Yaml::parse($path);
+        }
+        // Check for Yaml extension as fallback
     }
 
     /**

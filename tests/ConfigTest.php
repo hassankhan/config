@@ -157,6 +157,11 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('80', $config->get('port'));
     }
 
+    public function testConstructWithYaml()
+    {
+        $config = new Config(__DIR__ . '/mocks/pass/config.yaml');
+    }
+
     /**
      * @covers       Noodlehaus\Config::get
      * @dataProvider providerConfig
