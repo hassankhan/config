@@ -51,6 +51,17 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers                   Noodlehaus\Config::load
+     * @covers                   Noodlehaus\Config::loadYaml
+     * @expectedException        Exception
+     * @expectedExceptionMessage YAML parse error
+     */
+    public function testLoadWithInvalidYaml()
+    {
+        $config = Config::load(__DIR__ . '/mocks/fail/error.yaml');
+    }
+
+    /**
+     * @covers                   Noodlehaus\Config::load
      * @covers                   Noodlehaus\Config::loadIni
      * @expectedException        Exception
      * @expectedExceptionMessage INI parse error
@@ -157,6 +168,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('80', $config->get('port'));
     }
 
+    /**
+     * @covers       Noodlehaus\Config::__construct
+     * @covers       Noodlehaus\Config::loadYaml
+     */
     public function testConstructWithYaml()
     {
         $config = new Config(__DIR__ . '/mocks/pass/config.yaml');
@@ -341,11 +356,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function providerConfig()
     {
         return array(
+            array(new Config(__DIR__ . '/mocks/pass/config-exec.php')),
             array(new Config(__DIR__ . '/mocks/pass/config.ini')),
             array(new Config(__DIR__ . '/mocks/pass/config.json')),
+            array(new Config(__DIR__ . '/mocks/pass/config.php')),
             array(new Config(__DIR__ . '/mocks/pass/config.xml')),
-            array(new Config(__DIR__ . '/mocks/pass/config-exec.php')),
-            array(new Config(__DIR__ . '/mocks/pass/config.php'))
+            array(new Config(__DIR__ . '/mocks/pass/config.yaml'))
         );
     }
 

@@ -2,6 +2,8 @@
 
 namespace Noodlehaus;
 
+use \Symfony\Component\Yaml\Yaml;
+
 /**
  * Config
  *
@@ -166,13 +168,25 @@ class Config implements \ArrayAccess
         return $data;
     }
 
+    /**
+     * Loads a YAML file as an array
+     *
+     * @param  string $path
+     *
+     * @return array
+     *
+     * @throws Exception If If there is an error parsing the YAML file
+     */
     protected function loadYaml($path)
     {
-        // Check if Symfony Yaml package is installed
-        if (class_exists('\Symfony\Component\Yaml\Yaml')) {
-            return \Symfony\Component\Yaml\Yaml::parse($path);
+        try {
+            $data = Yaml::parse($path);
         }
-        // Check for Yaml extension as fallback
+        catch(\Exception $ex) {
+            throw new \Exception('YAML parse error', 0, $ex);
+        }
+
+        return $data;
     }
 
     /**
