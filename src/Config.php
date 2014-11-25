@@ -2,6 +2,7 @@
 
 namespace Noodlehaus;
 
+use Noodlehaus\Exception\ParseException;
 use \Symfony\Component\Yaml\Yaml;
 
 /**
@@ -119,7 +120,8 @@ class Config implements \ArrayAccess
         $data = @parse_ini_file($path, true);
 
         if (!$data) {
-            throw new \Exception('INI parse error');
+            $error = error_get_last();
+            throw new ParseException($error);
         }
 
         return $data;
@@ -139,7 +141,13 @@ class Config implements \ArrayAccess
         $data = json_decode(file_get_contents($path), true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new \Exception('JSON parse error');
+            $error = array(
+                'message' => json_last_error_msg(),
+                'type'    => json_last_error(),
+                'file'    => $path,
+                'line'    => 0
+            );
+            throw new ParseException($error);
         }
 
         return $data;
@@ -157,10 +165,20 @@ class Config implements \ArrayAccess
      */
     protected function loadXml($path)
     {
+        libxml_use_internal_errors(true);
+
         $data = simplexml_load_file($path, null, LIBXML_NOERROR);
 
         if ($data === false) {
-            throw new \Exception('XML parse error');
+            $latestError = array_pop(libxml_get_errors());
+            $error = array(
+                'message' => $latestError->message,
+                'type'    => $latestError->level,
+                'code'    => $latestError->code,
+                'file'    => $latestError->file,
+                'line'    => $latestError->line
+            );
+            throw new ParseException($error);
         }
 
         $data = json_decode(json_encode($data), true);
@@ -183,7 +201,15 @@ class Config implements \ArrayAccess
             $data = Yaml::parse($path);
         }
         catch(\Exception $ex) {
-            throw new \Exception('YAML parse error', 0, $ex);
+            throw new ParseException(
+                array(
+                    'message'   => 'Error parsing YAML file',
+                    'type'      => 1,
+                    'file'      => __FILE__,
+                    'line'      => __LINE__,
+                    'exception' => $ex
+                )
+            );
         }
 
         return $data;
