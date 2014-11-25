@@ -1,0 +1,12 @@
+language: php
+
+before_script:
+  - composer self-update
+  - composer update --prefer-source
+
+script: phpunit --testsuite travis-ci
+
+php:
+  - 5.3
+  - 5.4
+  - 5.5
