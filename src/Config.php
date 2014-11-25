@@ -51,8 +51,8 @@ class Config implements \ArrayAccess
     *
     * @return void
     *
-    * @throws Exception If a file is not found at `$path`
-    * @throws Exception If `$path` is an unsupported file format
+    * @throws FileNotFoundException      If a file is not found at `$path`
+    * @throws UnsupportedFormatException If `$path` is an unsupported file format
     */
     public function __construct($path)
     {
@@ -82,8 +82,8 @@ class Config implements \ArrayAccess
      *
      * @return array
      *
-     * @throws Exception If the PHP file throws an exception
-     * @throws Exception If the PHP file does not return an array
+     * @throws ParseException             If the PHP file throws an exception
+     * @throws UnsupportedFormatException If the PHP file does not return an array
      */
     protected function loadPhp($path)
     {
