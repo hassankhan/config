@@ -3,6 +3,8 @@
 namespace Noodlehaus;
 
 use Noodlehaus\Exception\ParseException;
+use Noodlehaus\Exception\FileNotFoundException;
+use Noodlehaus\Exception\UnsupportedFormatException;
 use \Symfony\Component\Yaml\Yaml;
 
 /**
@@ -59,13 +61,13 @@ class Config implements \ArrayAccess
 
         // Check if config file exists or throw an exception
         if (!file_exists($path)) {
-            throw new \Exception("Configuration file: [$path] cannot be found");
+            throw new FileNotFoundException("Configuration file: [$path] cannot be found");
         }
 
         // Check if a load-* method exists for the file extension, if not throw exception
         $load_method = 'load' . ucfirst($info['extension']);
         if (!method_exists(__CLASS__, $load_method)) {
-            throw new \Exception('Unsupported configuration format');
+            throw new UnsupportedFormatException('Unsupported configuration format');
         }
 
         // Try and load file
@@ -90,7 +92,12 @@ class Config implements \ArrayAccess
             $temp = require $path;
         }
         catch (\Exception $ex) {
-            throw new \Exception('PHP file threw an exception', 0, $ex);
+            throw new ParseException(
+                array(
+                    'message'   => 'PHP file threw an exception',
+                    'exception' => $ex
+                )
+            );
         }
 
         // If we have a callable, run it and expect an array back
@@ -100,7 +107,7 @@ class Config implements \ArrayAccess
 
         // Check for array, if its anything else, throw an exception
         if (!$temp || !is_array($temp)) {
-            throw new \Exception('PHP file does not return an array');
+            throw new UnsupportedFormatException('PHP file does not return an array');
         }
 
         return $temp;
@@ -113,7 +120,7 @@ class Config implements \ArrayAccess
      *
      * @return array
      *
-     * @throws Exception If there is an error parsing the INI file
+     * @throws ParseException If there is an error parsing the INI file
      */
     protected function loadIni($path)
     {
@@ -134,7 +141,7 @@ class Config implements \ArrayAccess
      *
      * @return array
      *
-     * @throws Exception If there is an error parsing the JSON file
+     * @throws ParseException If there is an error parsing the JSON file
      */
     protected function loadJson($path)
     {
@@ -144,8 +151,7 @@ class Config implements \ArrayAccess
             $error = array(
                 'message' => json_last_error_msg(),
                 'type'    => json_last_error(),
-                'file'    => $path,
-                'line'    => 0
+                'file'    => $path
             );
             throw new ParseException($error);
         }
@@ -161,7 +167,7 @@ class Config implements \ArrayAccess
      *
      * @return array
      *
-     * @throws Exception If there is an error parsing the XML file
+     * @throws ParseException If there is an error parsing the XML file
      */
     protected function loadXml($path)
     {
@@ -170,7 +176,8 @@ class Config implements \ArrayAccess
         $data = simplexml_load_file($path, null, LIBXML_NOERROR);
 
         if ($data === false) {
-            $latestError = array_pop(libxml_get_errors());
+            $errors = libxml_get_errors();
+            $latestError = array_pop($errors);
             $error = array(
                 'message' => $latestError->message,
                 'type'    => $latestError->level,
@@ -193,7 +200,7 @@ class Config implements \ArrayAccess
      *
      * @return array
      *
-     * @throws Exception If If there is an error parsing the YAML file
+     * @throws ParseException If If there is an error parsing the YAML file
      */
     protected function loadYaml($path)
     {
@@ -204,9 +211,6 @@ class Config implements \ArrayAccess
             throw new ParseException(
                 array(
                     'message'   => 'Error parsing YAML file',
-                    'type'      => 1,
-                    'file'      => __FILE__,
-                    'line'      => __LINE__,
                     'exception' => $ex
                 )
             );

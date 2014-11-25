@@ -30,8 +30,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers                   Noodlehaus\Config::load
      * @covers                   Noodlehaus\Config::loadJson
-     * @expectedException        Exception
-     * @expectedExceptionMessage JSON parse error
+     * @expectedException        Noodlehaus\Exception\ParseException
+     * @expectedExceptionMessage Syntax error
      */
     public function testLoadWithInvalidJson()
     {
@@ -41,8 +41,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers                   Noodlehaus\Config::load
      * @covers                   Noodlehaus\Config::loadXml
-     * @expectedException        Exception
-     * @expectedExceptionMessage XML parse error
+     * @expectedException        Noodlehaus\Exception\ParseException
+     * @expectedExceptionMessage Opening and ending tag mismatch: name line 4
      */
     public function testLoadWithInvalidXml()
     {
@@ -52,8 +52,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers                   Noodlehaus\Config::load
      * @covers                   Noodlehaus\Config::loadYaml
-     * @expectedException        Exception
-     * @expectedExceptionMessage YAML parse error
+     * @expectedException        Noodlehaus\Exception\ParseException
+     * @expectedExceptionMessage Error parsing YAML file
      */
     public function testLoadWithInvalidYaml()
     {
@@ -63,8 +63,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers                   Noodlehaus\Config::load
      * @covers                   Noodlehaus\Config::loadIni
-     * @expectedException        Exception
-     * @expectedExceptionMessage INI parse error
+     * @expectedException        Noodlehaus\Exception\ParseException
+     * @expectedExceptionMessage syntax error, unexpected $end, expecting ']'
      */
     public function testLoadWithInvalidIni()
     {
@@ -74,7 +74,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers                   Noodlehaus\Config::load
      * @covers                   Noodlehaus\Config::loadPhp
-     * @expectedException        Exception
+     * @expectedException        Noodlehaus\Exception\UnsupportedFormatException
      * @expectedExceptionMessage PHP file does not return an array
      */
     public function testLoadWithInvalidPhp()
@@ -85,7 +85,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers                   Noodlehaus\Config::load
      * @covers                   Noodlehaus\Config::loadPhp
-     * @expectedException        Exception
+     * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage PHP file threw an exception
      */
     public function testLoadWithExceptionalPhp()
@@ -95,7 +95,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers                   Noodlehaus\Config::__construct
-     * @expectedException        Exception
+     * @expectedException        Noodlehaus\Exception\UnsupportedFormatException
      * @expectedExceptionMessage Unsupported configuration format
      */
     public function testLoadWithUnsupportedFormat()
@@ -105,7 +105,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers                   Noodlehaus\Config::__construct
-     * @expectedException        Exception
+     * @expectedException        Noodlehaus\Exception\FileNotFoundException
      * @expectedExceptionMessage Configuration file: [ladadeedee] cannot be found
      */
     public function testConstructWithInvalidPath()
