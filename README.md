@@ -8,14 +8,14 @@ Some examples of valid configuration files are [below](#examples)
 
 ## api
 
-The ``Config`` object can be statically created or instantiated:
+The `Config` object can be statically created or instantiated:
 
 ```php
 $conf = Config::load('config.json');
 $conf = new Config('config.json');
 ```
 
-Use ``get()`` to retrieve values:
+Use `get()` to retrieve values:
 ```php
 // Get value using key
 $debug  = $config->get('debug');
@@ -27,7 +27,7 @@ $secret = $config->get('security.secret');
 $ttl    = $config->get('app.timeout', 3000);
 ```
 
-Use ``set()`` to set values (doh!):
+Use `set()` to set values (doh!):
 ```php
 $conf = Config::load('config.json');
 $conf = new Config('config.json');
@@ -121,15 +121,13 @@ Or in an XML format:
 Or in a YAML format:
 
 ```yaml
-application:
-    name: configuration
-    secret: s3cr3t
-host: localhost
-port: 80
-servers:
-- host1
-- host2
-- host3
+app:
+    host: localhost
+    port: 80
+    base: /my/app
+security:
+    secret: s3cr3t-c0d3
+debug: false
 ```
 
 ## license
