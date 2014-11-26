@@ -1,8 +1,8 @@
 # config
 
 `config` is a file configuration loader that supports PHP,
-JSON, INI and XML files. Files are parsed and loaded depending on
-the file's extension name.
+INI, XML, JSON, and YAML files. Files are parsed and loaded
+depending on the file extension.
 
 Some examples of valid configuration files are [below](#examples)
 
