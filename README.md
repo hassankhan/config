@@ -1,5 +1,7 @@
 # config
 
+[![Build Status](https://travis-ci.org/noodlehaus/config.svg?branch=develop)](https://travis-ci.org/noodlehaus/config)
+
 `config` is a file configuration loader that supports PHP,
 INI, XML, JSON, and YAML files. Files are parsed and loaded
 depending on the file extension.
