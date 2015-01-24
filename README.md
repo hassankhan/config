@@ -32,6 +32,8 @@ When you call the constructor with a directory, a list of ordered
 by name files will be generated. Then it will use the same principle
 of the constructor with an array of files to generate the keys.
 
+**Please, note that each config file overwrites any values from the last.**
+
 Use `get()` to retrieve values:
 ```php
 // Get value using key
