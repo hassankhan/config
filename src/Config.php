@@ -65,12 +65,6 @@ class Config implements \ArrayAccess
                     throw new EmptyDirectoryException("Configuration directory: [$path] is empty");
                 }
             }
-            else {
-                $paths = array($path);
-            }
-        }
-        else {
-            $paths = $path;
         }
         
         $this->data = array();
