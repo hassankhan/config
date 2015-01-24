@@ -112,6 +112,15 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     {
         $config = new Config('ladadeedee');
     }
+    
+    /**
+     * @covers                   Noodlehaus\Config::__construct
+     * @expectedException        Noodlehaus\Exception\EmptyDirectoryException
+     */
+    public function testConstructWithEmptyDirectory()
+    {
+        $config = new Config(__DIR__ . '/mocks/empty');
+    }
 
     /**
      * @covers       Noodlehaus\Config::__construct
@@ -176,6 +185,24 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     {
         $config = new Config(__DIR__ . '/mocks/pass/config.yaml');
     }
+    
+    /**
+     * @covers       Noodlehaus\Config::__construct
+     */
+    public function testConstructWithArray()
+    {
+        $paths = array(__DIR__ . '/mocks/pass/config.xml', __DIR__ . '/mocks/pass/config2.json');
+        $config = new Config($paths);
+    }
+    
+    /**
+     * @covers                   Noodlehaus\Config::__construct
+     */
+    public function testConstructWithDirectory()
+    {
+        $config = new Config(__DIR__ . '/mocks/dir');
+    }
+
 
     /**
      * @covers       Noodlehaus\Config::get
@@ -349,20 +376,49 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         unset($config['application']);
         $this->assertNull($config['application']);
     }
+    
+    /**
+     * @covers       Noodlehaus\Config::get
+     * @dataProvider providerComposedConfig
+     */
+    public function testGetReturnsArrayMergedArray($config)
+    {
+        $this->assertCount(4, $config->get('servers'));
+    }
 
     /**
      * Provides names of example configuration files
      */
     public function providerConfig()
     {
-        return array(
-            array(new Config(__DIR__ . '/mocks/pass/config-exec.php')),
-            array(new Config(__DIR__ . '/mocks/pass/config.ini')),
-            array(new Config(__DIR__ . '/mocks/pass/config.json')),
-            array(new Config(__DIR__ . '/mocks/pass/config.php')),
-            array(new Config(__DIR__ . '/mocks/pass/config.xml')),
-            array(new Config(__DIR__ . '/mocks/pass/config.yaml'))
+        return array_merge(
+            array(
+                array(new Config(__DIR__ . '/mocks/pass/config-exec.php')),
+                array(new Config(__DIR__ . '/mocks/pass/config.ini')),
+                array(new Config(__DIR__ . '/mocks/pass/config.json')),
+                array(new Config(__DIR__ . '/mocks/pass/config.php')),
+                array(new Config(__DIR__ . '/mocks/pass/config.xml')),
+                array(new Config(__DIR__ . '/mocks/pass/config.yaml'))
+            ),
+            $this->providerComposedConfig()
         );
     }
-
+    
+    /**
+     * Provides names of example configuration files (for array and directory)
+     */
+    public function providerComposedConfig()
+    {
+        return array(
+            array(
+                new Config(
+                    array(
+                        __DIR__ . '/mocks/pass/config2.json',
+                        __DIR__ . '/mocks/pass/config.yaml'
+                    )
+                ),
+                new Config(__DIR__ . '/mocks/dir/')
+            )
+        );
+    }
 }

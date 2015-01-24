@@ -13,9 +13,24 @@ Some examples of valid configuration files are [below](#examples)
 The `Config` object can be statically created or instantiated:
 
 ```php
+//Using a file
 $conf = Config::load('config.json');
 $conf = new Config('config.json');
+
+//Using an array of files
+$conf = new Config(['config.json', 'config.xml']);
+
+//Using a directory
+$conf = new Config(__DIR__ . '/config');
 ```
+
+When you call the constructor with an array of files keys will be
+overwritten following the order of the files. It internally uses
+[array_replace_recursive](http://php.net/manual/en/function.array-replace-recursive.php).
+
+When you call the constructor with a directory, a list of ordered
+by name files will be generated. Then it will use the same principle
+of the constructor with an array of files to generate the keys.
 
 Use `get()` to retrieve values:
 ```php

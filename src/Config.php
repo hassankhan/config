@@ -5,6 +5,7 @@ namespace Noodlehaus;
 use Noodlehaus\Exception\ParseException;
 use Noodlehaus\Exception\FileNotFoundException;
 use Noodlehaus\Exception\UnsupportedFormatException;
+use Noodlehaus\Exception\EmptyDirectoryException;
 use \Symfony\Component\Yaml\Yaml;
 
 /**
@@ -35,7 +36,7 @@ class Config implements \ArrayAccess
     /**
     * Static method for loading a config instance.
     *
-    * @param  string $path
+    * @param  string|array $path
     *
     * @return Config
     */
@@ -47,32 +48,51 @@ class Config implements \ArrayAccess
     /**
     * Loads a supported configuration file format.
     *
-    * @param  string $path
+    * @param  string|array $path
     *
     * @return void
     *
     * @throws FileNotFoundException      If a file is not found at `$path`
     * @throws UnsupportedFormatException If `$path` is an unsupported file format
+    * @throws EmptyDirectoryException If `$path` is an empty directory
     */
     public function __construct($path)
     {
-        // Get file information
-        $info = pathinfo($path);
-
-        // Check if config file exists or throw an exception
-        if (!file_exists($path)) {
-            throw new FileNotFoundException("Configuration file: [$path] cannot be found");
+        if(!is_array($path)) {
+            if(is_dir($path)) {
+                $paths = glob($path . '/*.*');
+                if(empty($paths)) {
+                    throw new EmptyDirectoryException("Configuration directory: [$path] is empty");
+                }
+            }
+            else {
+                $paths = array($path);
+            }
         }
-
-        // Check if a load-* method exists for the file extension, if not throw exception
-        $load_method = 'load' . ucfirst($info['extension']);
-        if (!method_exists(__CLASS__, $load_method)) {
-            throw new UnsupportedFormatException('Unsupported configuration format');
+        else {
+            $paths = $path;
         }
+        
+        $this->data = array();
+        
+        foreach($paths as $path){
+            // Get file information
+            $info = pathinfo($path);
 
-        // Try and load file
-        $this->data = $this->$load_method($path);
+            // Check if config file exists or throw an exception
+            if (!file_exists($path)) {
+                throw new FileNotFoundException("Configuration file: [$path] cannot be found");
+            }
 
+            // Check if a load-* method exists for the file extension, if not throw exception
+            $load_method = 'load' . ucfirst($info['extension']);
+            if (!method_exists(__CLASS__, $load_method)) {
+                throw new UnsupportedFormatException('Unsupported configuration format');
+            }
+
+            // Try and load file
+            $this->data = array_replace_recursive($this->data, $this->$load_method($path));
+        }
     }
 
     /**
