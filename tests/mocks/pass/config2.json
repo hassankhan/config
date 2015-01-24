@@ -1,0 +1,13 @@
+{
+  "application": {
+    "name":     "defaultconfiguration",
+    "secret": "defaults3cr3t"
+  },
+  "dns": "localhost",
+  "servers": [
+    "host1",
+    "host2",
+    "host3",
+    "host4"
+  ]
+}
