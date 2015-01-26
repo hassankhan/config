@@ -54,21 +54,13 @@ class Config implements \ArrayAccess
     *
     * @throws FileNotFoundException      If a file is not found at `$path`
     * @throws UnsupportedFormatException If `$path` is an unsupported file format
-    * @throws EmptyDirectoryException If `$path` is an empty directory
+    * @throws EmptyDirectoryException    If `$path` is an empty directory
     */
     public function __construct($path)
     {
-        if(!is_array($path)) {
-            if(is_dir($path)) {
-                $paths = glob($path . '/*.*');
-                if(empty($paths)) {
-                    throw new EmptyDirectoryException("Configuration directory: [$path] is empty");
-                }
-            }
-        }
-        
+        $paths      = $this->_getValidPath($path);
         $this->data = array();
-        
+
         foreach($paths as $path){
             // Get file information
             $info = pathinfo($path);
@@ -160,7 +152,7 @@ class Config implements \ArrayAccess
     protected function loadJson($path)
     {
         $data = json_decode(file_get_contents($path), true);
-        
+
         if (function_exists('json_last_error_msg')) {
             $error_message = json_last_error_msg();
         } else {
@@ -354,5 +346,37 @@ class Config implements \ArrayAccess
         $this->set($offset, NULL);
     }
 
+    /**
+     * Checks `$path` to see if it is either an array, a directory, or a file
+     *
+     * @param  string $path
+     *
+     * @return array
+     *
+     * @throws EmptyDirectoryException    If `$path` is an empty directory
+     */
+    private function _getValidPath($path)
+    {
+        // If `$path` is array
+        if (is_array($path)) {
+            $paths = array();
+            foreach ($path as $unverifiedPath) {
+                $paths = array_merge($paths, $this->_getValidPath($unverifiedPath));
+            }
+            return $paths;
+        }
+
+        // If `$path` is a directory
+        if (is_dir($path)) {
+            $paths = glob($path . '/*.*');
+            if (empty($paths)) {
+                throw new EmptyDirectoryException("Configuration directory: [$path] is empty");
+            }
+            return $paths;
+        }
+
+        // If `$path` is a file
+        return array($path);
+    }
 
 }

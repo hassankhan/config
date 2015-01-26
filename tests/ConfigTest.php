@@ -105,6 +105,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers                   Noodlehaus\Config::__construct
+     * @covers                   Noodlehaus\Config::_getValidPath
      * @expectedException        Noodlehaus\Exception\FileNotFoundException
      * @expectedExceptionMessage Configuration file: [ladadeedee] cannot be found
      */
@@ -112,10 +113,11 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     {
         $config = new Config('ladadeedee');
     }
-    
+
     /**
-     * @covers                   Noodlehaus\Config::__construct
-     * @expectedException        Noodlehaus\Exception\EmptyDirectoryException
+     * @covers            Noodlehaus\Config::__construct
+     * @covers            Noodlehaus\Config::_getValidPath
+     * @expectedException Noodlehaus\Exception\EmptyDirectoryException
      */
     public function testConstructWithEmptyDirectory()
     {
@@ -123,8 +125,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers       Noodlehaus\Config::__construct
-     * @covers       Noodlehaus\Config::loadPhp
+     * @covers Noodlehaus\Config::__construct
+     * @covers Noodlehaus\Config::loadPhp
      */
     public function testConstructWithPhpArray()
     {
@@ -134,8 +136,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers       Noodlehaus\Config::__construct
-     * @covers       Noodlehaus\Config::loadPhp
+     * @covers Noodlehaus\Config::__construct
+     * @covers Noodlehaus\Config::loadPhp
      */
     public function testConstructWithPhpCallable()
     {
@@ -145,8 +147,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers       Noodlehaus\Config::__construct
-     * @covers       Noodlehaus\Config::loadIni
+     * @covers Noodlehaus\Config::__construct
+     * @covers Noodlehaus\Config::loadIni
      */
     public function testConstructWithIni()
     {
@@ -156,8 +158,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers       Noodlehaus\Config::__construct
-     * @covers       Noodlehaus\Config::loadJson
+     * @covers Noodlehaus\Config::__construct
+     * @covers Noodlehaus\Config::loadJson
      */
     public function testConstructWithJson()
     {
@@ -167,8 +169,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers       Noodlehaus\Config::__construct
-     * @covers       Noodlehaus\Config::loadXml
+     * @covers Noodlehaus\Config::__construct
+     * @covers Noodlehaus\Config::loadXml
      */
     public function testConstructWithXml()
     {
@@ -178,25 +180,27 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers       Noodlehaus\Config::__construct
-     * @covers       Noodlehaus\Config::loadYaml
+     * @covers Noodlehaus\Config::__construct
+     * @covers Noodlehaus\Config::loadYaml
      */
     public function testConstructWithYaml()
     {
         $config = new Config(__DIR__ . '/mocks/pass/config.yaml');
     }
-    
+
     /**
-     * @covers       Noodlehaus\Config::__construct
+     * @covers Noodlehaus\Config::__construct
+     * @covers Noodlehaus\Config::_getValidPath
      */
     public function testConstructWithArray()
     {
         $paths = array(__DIR__ . '/mocks/pass/config.xml', __DIR__ . '/mocks/pass/config2.json');
         $config = new Config($paths);
     }
-    
+
     /**
-     * @covers                   Noodlehaus\Config::__construct
+     * @covers Noodlehaus\Config::__construct
+     * @covers Noodlehaus\Config::_getValidPath
      */
     public function testConstructWithDirectory()
     {
@@ -376,7 +380,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         unset($config['application']);
         $this->assertNull($config['application']);
     }
-    
+
     /**
      * @covers       Noodlehaus\Config::get
      * @dataProvider providerComposedConfig
@@ -403,7 +407,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             $this->providerComposedConfig()
         );
     }
-    
+
     /**
      * Provides names of example configuration files (for array and directory)
      */
