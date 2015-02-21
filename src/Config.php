@@ -188,9 +188,9 @@ class Config implements \ArrayAccess
         $data = simplexml_load_file($path, null, LIBXML_NOERROR);
 
         if ($data === false) {
-            $errors = libxml_get_errors();
+            $errors      = libxml_get_errors();
             $latestError = array_pop($errors);
-            $error = array(
+            $error       = array(
                 'message' => $latestError->message,
                 'type'    => $latestError->level,
                 'code'    => $latestError->code,
@@ -229,6 +229,20 @@ class Config implements \ArrayAccess
         }
 
         return $data;
+    }
+
+    /**
+     * Alias method for `loadYaml()`
+     *
+     * @param  string $path
+     *
+     * @return array
+     *
+     * @throws ParseException If If there is an error parsing the YML file
+     */
+    protected function loadYml($path)
+    {
+        return $this->loadYaml($path);
     }
 
     /**

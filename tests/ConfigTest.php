@@ -190,6 +190,15 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Noodlehaus\Config::__construct
+     * @covers Noodlehaus\Config::loadYml
+     */
+    public function testConstructWithYml()
+    {
+        $config = new Config(__DIR__ . '/mocks/pass/config.yml');
+    }
+
+    /**
+     * @covers Noodlehaus\Config::__construct
      * @covers Noodlehaus\Config::_getValidPath
      */
     public function testConstructWithArray()
