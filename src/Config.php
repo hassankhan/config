@@ -5,6 +5,7 @@ namespace Noodlehaus;
 use Noodlehaus\Exception\ParseException;
 use Noodlehaus\Exception\FileNotFoundException;
 use Noodlehaus\Exception\UnsupportedFormatException;
+use Noodlehaus\Exception\EmptyDirectoryException;
 use \Symfony\Component\Yaml\Yaml;
 
 /**
@@ -35,7 +36,7 @@ class Config implements \ArrayAccess
     /**
     * Static method for loading a config instance.
     *
-    * @param  string $path
+    * @param  string|array $path
     *
     * @return Config
     */
@@ -47,32 +48,37 @@ class Config implements \ArrayAccess
     /**
     * Loads a supported configuration file format.
     *
-    * @param  string $path
+    * @param  string|array $path
     *
     * @return void
     *
     * @throws FileNotFoundException      If a file is not found at `$path`
     * @throws UnsupportedFormatException If `$path` is an unsupported file format
+    * @throws EmptyDirectoryException    If `$path` is an empty directory
     */
     public function __construct($path)
     {
-        // Get file information
-        $info = pathinfo($path);
+        $paths      = $this->_getValidPath($path);
+        $this->data = array();
 
-        // Check if config file exists or throw an exception
-        if (!file_exists($path)) {
-            throw new FileNotFoundException("Configuration file: [$path] cannot be found");
+        foreach($paths as $path){
+            // Get file information
+            $info = pathinfo($path);
+
+            // Check if config file exists or throw an exception
+            if (!file_exists($path)) {
+                throw new FileNotFoundException("Configuration file: [$path] cannot be found");
+            }
+
+            // Check if a load-* method exists for the file extension, if not throw exception
+            $load_method = 'load' . ucfirst($info['extension']);
+            if (!method_exists(__CLASS__, $load_method)) {
+                throw new UnsupportedFormatException('Unsupported configuration format');
+            }
+
+            // Try and load file
+            $this->data = array_replace_recursive($this->data, $this->$load_method($path));
         }
-
-        // Check if a load-* method exists for the file extension, if not throw exception
-        $load_method = 'load' . ucfirst($info['extension']);
-        if (!method_exists(__CLASS__, $load_method)) {
-            throw new UnsupportedFormatException('Unsupported configuration format');
-        }
-
-        // Try and load file
-        $this->data = $this->$load_method($path);
-
     }
 
     /**
@@ -146,7 +152,7 @@ class Config implements \ArrayAccess
     protected function loadJson($path)
     {
         $data = json_decode(file_get_contents($path), true);
-        
+
         if (function_exists('json_last_error_msg')) {
             $error_message = json_last_error_msg();
         } else {
@@ -182,9 +188,9 @@ class Config implements \ArrayAccess
         $data = simplexml_load_file($path, null, LIBXML_NOERROR);
 
         if ($data === false) {
-            $errors = libxml_get_errors();
+            $errors      = libxml_get_errors();
             $latestError = array_pop($errors);
-            $error = array(
+            $error       = array(
                 'message' => $latestError->message,
                 'type'    => $latestError->level,
                 'code'    => $latestError->code,
@@ -223,6 +229,20 @@ class Config implements \ArrayAccess
         }
 
         return $data;
+    }
+
+    /**
+     * Alias method for `loadYaml()`
+     *
+     * @param  string $path
+     *
+     * @return array
+     *
+     * @throws ParseException If If there is an error parsing the YML file
+     */
+    protected function loadYml($path)
+    {
+        return $this->loadYaml($path);
     }
 
     /**
@@ -340,5 +360,37 @@ class Config implements \ArrayAccess
         $this->set($offset, NULL);
     }
 
+    /**
+     * Checks `$path` to see if it is either an array, a directory, or a file
+     *
+     * @param  string $path
+     *
+     * @return array
+     *
+     * @throws EmptyDirectoryException    If `$path` is an empty directory
+     */
+    private function _getValidPath($path)
+    {
+        // If `$path` is array
+        if (is_array($path)) {
+            $paths = array();
+            foreach ($path as $unverifiedPath) {
+                $paths = array_merge($paths, $this->_getValidPath($unverifiedPath));
+            }
+            return $paths;
+        }
+
+        // If `$path` is a directory
+        if (is_dir($path)) {
+            $paths = glob($path . '/*.*');
+            if (empty($paths)) {
+                throw new EmptyDirectoryException("Configuration directory: [$path] is empty");
+            }
+            return $paths;
+        }
+
+        // If `$path` is a file
+        return array($path);
+    }
 
 }
