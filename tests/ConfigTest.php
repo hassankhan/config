@@ -28,13 +28,24 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\Config::__construct
+     * @covers                   Noodlehaus\Config::load
      * @expectedException        Noodlehaus\Exception\UnsupportedFormatException
      * @expectedExceptionMessage Unsupported configuration format
      */
     public function testLoadWithUnsupportedFormat()
     {
         $config = Config::load(__DIR__ . '/mocks/fail/error.lib');
+        // $this->markTestIncomplete('Not yet implemented');
+    }
+
+    /**
+     * @covers                   Noodlehaus\Config::__construct
+     * @expectedException        Noodlehaus\Exception\UnsupportedFormatException
+     * @expectedExceptionMessage Unsupported configuration format
+     */
+    public function testConstructWithUnsupportedFormat()
+    {
+        $config = new Config(__DIR__ . '/mocks/fail/error.lib');
     }
 
     /**
@@ -75,180 +86,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function testConstructWithDirectory()
     {
         $config = new Config(__DIR__ . '/mocks/dir');
-    }
-
-
-    /**
-     * @covers       Noodlehaus\Config::get
-     * @dataProvider providerConfig
-     */
-    public function testGet($config)
-    {
-        $this->assertEquals('localhost', $config->get('host'));
-    }
-
-    /**
-     * @covers       Noodlehaus\Config::get
-     * @dataProvider providerConfig
-     */
-    public function testGetWithDefaultValue($config)
-    {
-        $this->assertEquals(128, $config->get('ttl', 128));
-    }
-
-    /**
-     * @covers       Noodlehaus\Config::get
-     * @dataProvider providerConfig
-     */
-    public function testGetNestedKey($config)
-    {
-        $this->assertEquals('configuration', $config->get('application.name'));
-    }
-
-    /**
-     * @covers       Noodlehaus\Config::get
-     * @dataProvider providerConfig
-     */
-    public function testGetNestedKeyWithDefaultValue($config)
-    {
-        $this->assertEquals(128, $config->get('application.ttl', 128));
-    }
-
-    /**
-     * @covers       Noodlehaus\Config::get
-     * @dataProvider providerConfig
-     */
-    public function testGetNonexistentKey($config)
-    {
-        $this->assertNull($config->get('proxy'));
-    }
-
-    /**
-     * @covers       Noodlehaus\Config::get
-     * @dataProvider providerConfig
-     */
-    public function testGetNonexistentNestedKey($config)
-    {
-        $this->assertNull($config->get('proxy.name'));
-    }
-
-    /**
-     * @covers       Noodlehaus\Config::get
-     * @dataProvider providerConfig
-     */
-    public function testGetReturnsArray($config)
-    {
-        $this->assertArrayHasKey('name', $config->get('application'));
-        $this->assertEquals('configuration', $config->get('application.name'));
-        $this->assertCount(2, $config->get('application'));
-    }
-
-    /**
-     * @covers       Noodlehaus\Config::set
-     * @dataProvider providerConfig
-     */
-    public function testSet($config)
-    {
-        $config->set('region', 'apac');
-        $this->assertEquals('apac', $config->get('region'));
-    }
-
-    /**
-     * @covers       Noodlehaus\Config::set
-     * @dataProvider providerConfig
-     */
-    public function testSetNestedKey($config)
-    {
-        $config->set('location.country', 'Singapore');
-        $this->assertEquals('Singapore', $config->get('location.country'));
-    }
-
-    /**
-     * @covers       Noodlehaus\Config::set
-     * @dataProvider providerConfig
-     */
-    public function testSetArray($config)
-    {
-        $config->set('database', array(
-            'host' => 'localhost',
-            'name' => 'mydatabase'
-        ));
-        $this->assertTrue(is_array($config->get('database')));
-        $this->assertEquals('localhost', $config->get('database.host'));
-    }
-
-    /**
-     * @covers       Noodlehaus\Config::set
-     * @dataProvider providerConfig
-     */
-    public function testSetAndUnsetArray($config)
-    {
-        $config->set('database', array(
-            'host' => 'localhost',
-            'name' => 'mydatabase'
-        ));
-        $this->assertTrue(is_array($config->get('database')));
-        $this->assertEquals('localhost', $config->get('database.host'));
-        $config->set('database.host', null);
-        $this->assertNull($config->get('database.host'));
-        $config->set('database', null);
-        $this->assertNull($config->get('database'));
-    }
-
-    /**
-     * @covers       Noodlehaus\Config::offsetGet
-     * @dataProvider providerConfig
-     */
-    public function testOffsetGet($config)
-    {
-        $this->assertEquals('localhost', $config['host']);
-    }
-
-    /**
-     * @covers       Noodlehaus\Config::offsetGet
-     * @dataProvider providerConfig
-     */
-    public function testOffsetGetNestedKey($config)
-    {
-        $this->assertEquals('configuration', $config['application.name']);
-    }
-
-    /**
-     * @covers       Noodlehaus\Config::offsetExists
-     * @dataProvider providerConfig
-     */
-    public function testOffsetExists($config)
-    {
-        $this->assertTrue(isset($config['host']));
-    }
-
-    /**
-     * @covers       Noodlehaus\Config::offsetExists
-     * @dataProvider providerConfig
-     */
-    public function testOffsetExistsReturnsFalseOnNonexistentKey($config)
-    {
-        $this->assertFalse(isset($config['database']));
-    }
-
-    /**
-     * @covers       Noodlehaus\Config::offsetSet
-     * @dataProvider providerConfig
-     */
-    public function testOffsetSet($config)
-    {
-        $config['newkey'] = 'newvalue';
-        $this->assertEquals('newvalue', $config['newkey']);
-    }
-
-    /**
-     * @covers       Noodlehaus\Config::offsetUnset
-     * @dataProvider providerConfig
-     */
-    public function testOffsetUnset($config)
-    {
-        unset($config['application']);
-        $this->assertNull($config['application']);
     }
 
     /**

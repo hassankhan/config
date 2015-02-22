@@ -2,13 +2,6 @@
 
 namespace Noodlehaus;
 
-// use Noodlehaus\ConfigInterface;
-use Noodlehaus\Exception\ParseException;
-use Noodlehaus\Exception\FileNotFoundException;
-use Noodlehaus\Exception\UnsupportedFormatException;
-use Noodlehaus\Exception\EmptyDirectoryException;
-use \Symfony\Component\Yaml\Yaml;
-
 /**
  * Abstract Config class
  *
