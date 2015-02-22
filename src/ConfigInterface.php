@@ -13,6 +13,7 @@ namespace Noodlehaus;
  */
 interface ConfigInterface
 {
+
     /**
      * Gets a configuration setting using a simple or nested key.
      * Nested keys are similar to JSON paths that use the dot

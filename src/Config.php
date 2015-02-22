@@ -19,19 +19,6 @@ use \Symfony\Component\Yaml\Yaml;
  */
 class Config extends AbstractConfig
 {
-    /**
-     * Stores the configuration data
-     *
-     * @var array|null
-     */
-    protected $data = null;
-
-    /**
-     * Caches the configuration data
-     *
-     * @var array
-     */
-    protected $cache = array();
 
     /**
     * Static method for loading a config instance.

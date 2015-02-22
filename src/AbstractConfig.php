@@ -22,6 +22,20 @@ abstract class AbstractConfig implements \ArrayAccess, ConfigInterface
 {
 
     /**
+     * Stores the configuration data
+     *
+     * @var array|null
+     */
+    protected $data = null;
+
+    /**
+     * Caches the configuration data
+     *
+     * @var array
+     */
+    protected $cache = array();
+
+    /**
      * {@inheritDoc}
      */
     public function get($key, $default = null) {
