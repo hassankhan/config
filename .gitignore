@@ -1,3 +1,5 @@
 tests/coverage
 vendor
 composer.lock
+build
+node_modules
