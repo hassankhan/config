@@ -1,58 +1,106 @@
-# config
+# Config
 
 [![Build Status](https://travis-ci.org/noodlehaus/config.svg?branch=develop)](https://travis-ci.org/noodlehaus/config)
 
-`config` is a file configuration loader that supports PHP,
-INI, XML, JSON, and YAML files. Files are parsed and loaded
-depending on the file extension.
+`Config` is a file configuration loader that supports PHP, INI, XML, JSON, 
+and YML files.
 
-Some examples of valid configuration files are [below](#examples)
+## Requirements
 
-## api
+`Config` requires PHP 5.3+, and `symfony/yaml` for its YML support.
 
-The `Config` object can be statically created or instantiated:
+## Installation
+
+The supported way of installing this is via `composer`.
+
+```sh
+$ composer require --prefer-dist noodlehaus/config
+```
+
+## How It Works
+
+`Config` is designed to be very simple and straightforward to use. All you can do with
+it is load, get, and set.
+
+### Loading Files
+
+The `Noodlehaus\Config` object can be created via the factory method `load`, or
+by direct instantiation:
 
 ```php
-//Using a file
+// Load a single file
 $conf = Config::load('config.json');
 $conf = new Config('config.json');
 
-//Using an array of files
+// Load values from multiple files
 $conf = new Config(['config.json', 'config.xml']);
 
-//Using a directory
+// Load all supported files in a directory
 $conf = new Config(__DIR__ . '/config');
 ```
 
-When you call the constructor with an array of files keys will be
-overwritten following the order of the files. It internally uses
-[array_replace_recursive](http://php.net/manual/en/function.array-replace-recursive.php).
+Files are parsed and loaded depending on the file extension. Note that when 
+loading multiple files, entries with **duplicate keys will take on the value
+from the last loaded file**.
 
-When you call the constructor with a directory, a list of ordered
-by name files will be generated. Then it will use the same principle
-of the constructor with an array of files to generate the keys.
+When loading a directory, the path is `glob`ed and files are loaded in by 
+name alphabetically.
 
-**Please, note that each config file overwrites any values from the last.**
+### Getting Values
 
-Use `get()` to retrieve values:
+Getting values can be done in two ways. One, by using the `get()` method:
+
 ```php
 // Get value using key
-$debug  = $config->get('debug');
+$debug = $conf->get('debug');
 
 // Get value using nested key
-$secret = $config->get('security.secret');
+$secret = $conf->get('security.secret');
 
 // Get a value with a fallback
-$ttl    = $config->get('app.timeout', 3000);
+$ttl = $conf->get('app.timeout', 3000);
 ```
 
-Use `set()` to set values (doh!):
+The other method, is by using it like an array:
+
+```php
+// Get value using a simple key
+$debug = $conf['debug'];
+
+// Get value using a nested key
+$secret = $conf['security.secret'];
+
+// Get nested value like you would from a nested array
+$secret = $conf['security']['secret'];
+```
+
+### Setting Values
+
+Although `Config` supports setting values via `set()` or, via the
+array syntax, **any changes made this way are NOT reflected back to the
+source files**. It is by design that if you need to make changes to your
+configuration files, you have to do it outside.
+
 ```php
 $conf = Config::load('config.json');
-$conf = new Config('config.json');
+
+// Sample value from our config file
+assert($conf['secret'] == '123');
+
+// Update config value to something else
+$conf['secret'] = '456';
+
+// Reload the file
+$conf = Config::load('config.json');
+
+// Same value as before
+assert($conf['secret'] == '123');
+
+// This will fail
+assert($conf['secret'] == '456');
 ```
 
-## examples
+### Examples of Supported Configuration Files
 
 Here's an example JSON file that we'll call `config.json`.
 
@@ -149,5 +197,5 @@ security:
 debug: false
 ```
 
-## license
+## License
 MIT: <http://noodlehaus.mit-license.org>

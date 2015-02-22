@@ -2,7 +2,7 @@
     "name": "noodlehaus/config",
     "type": "library",
     "description": "lightweight configuration file loader that supports PHP, INI, XML, JSON, and YAML files",
-    "keywords": ["configuration", "config", "json", "yaml", "ini", "xml", "unframework", "microphp"],
+    "keywords": ["configuration", "config", "json", "yaml", "yml", "ini", "xml", "unframework", "microphp"],
     "homepage": "http://noodlehaus.github.io/config/",
     "license": "MIT",
     "authors": [{
