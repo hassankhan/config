@@ -242,7 +242,7 @@ class Config implements \ArrayAccess
      */
     protected function loadYml($path)
     {
-        return $this->loadYaml($path);
+        return $this->loadYaml(file_get_contents($path));
     }
 
     /**
