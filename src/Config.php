@@ -74,6 +74,7 @@ class Config extends AbstractConfig
             }
 
             $extension = $info['extension'];
+            // Check if extension is YML, replace with YAML
             if (strtolower($extension) === 'yml') {
                 $extension = 'yaml';
             }
