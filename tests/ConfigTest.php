@@ -29,7 +29,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers                   Noodlehaus\Config::load
-     * @covers                   Noodlehaus\Config::loadJson
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage Syntax error
      */
@@ -40,7 +39,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers                   Noodlehaus\Config::load
-     * @covers                   Noodlehaus\Config::loadXml
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage Opening and ending tag mismatch: name line 4
      */
@@ -51,7 +49,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers                   Noodlehaus\Config::load
-     * @covers                   Noodlehaus\Config::loadYaml
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage Error parsing YAML file
      */
@@ -62,7 +59,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers                   Noodlehaus\Config::load
-     * @covers                   Noodlehaus\Config::loadIni
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage syntax error, unexpected $end, expecting ']'
      */
@@ -73,7 +69,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers                   Noodlehaus\Config::load
-     * @covers                   Noodlehaus\Config::loadPhp
      * @expectedException        Noodlehaus\Exception\UnsupportedFormatException
      * @expectedExceptionMessage PHP file does not return an array
      */
@@ -84,7 +79,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers                   Noodlehaus\Config::load
-     * @covers                   Noodlehaus\Config::loadPhp
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage PHP file threw an exception
      */
@@ -126,7 +120,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Noodlehaus\Config::__construct
-     * @covers Noodlehaus\Config::loadPhp
      */
     public function testConstructWithPhpArray()
     {
@@ -137,7 +130,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Noodlehaus\Config::__construct
-     * @covers Noodlehaus\Config::loadPhp
      */
     public function testConstructWithPhpCallable()
     {
@@ -148,7 +140,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Noodlehaus\Config::__construct
-     * @covers Noodlehaus\Config::loadIni
      */
     public function testConstructWithIni()
     {
@@ -159,7 +150,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Noodlehaus\Config::__construct
-     * @covers Noodlehaus\Config::loadJson
      */
     public function testConstructWithJson()
     {
@@ -170,7 +160,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Noodlehaus\Config::__construct
-     * @covers Noodlehaus\Config::loadXml
      */
     public function testConstructWithXml()
     {
@@ -181,7 +170,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Noodlehaus\Config::__construct
-     * @covers Noodlehaus\Config::loadYaml
      */
     public function testConstructWithYaml()
     {
@@ -190,7 +178,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Noodlehaus\Config::__construct
-     * @covers Noodlehaus\Config::loadYml
      */
     public function testConstructWithYml()
     {

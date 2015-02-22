@@ -24,6 +24,15 @@ use Noodlehaus\Exception\EmptyDirectoryException;
 class Config extends AbstractConfig
 {
 
+    private $supportedFileFormats = array(
+        'PHP',
+        'INI',
+        'JSON',
+        'XML',
+        'YAML',
+        'YML'
+    );
+
     /**
     * Static method for loading a config instance.
     *
@@ -40,8 +49,6 @@ class Config extends AbstractConfig
     * Loads a supported configuration file format.
     *
     * @param  string|array $path
-    *
-    * @return void
     *
     * @throws FileNotFoundException      If a file is not found at `$path`
     * @throws UnsupportedFormatException If `$path` is an unsupported file format
@@ -62,105 +69,21 @@ class Config extends AbstractConfig
             }
 
             // Check if a load-* method exists for the file extension, if not throw exception
-            $load_method = 'load' . ucfirst($info['extension']);
-            if (!method_exists(__CLASS__, $load_method)) {
+            if (!in_array(strtoupper($info['extension']), $this->supportedFileFormats)) {
                 throw new UnsupportedFormatException('Unsupported configuration format');
             }
 
+            $extension = $info['extension'];
+            if (strtolower($extension) === 'yml') {
+                $extension = 'yaml';
+            }
+
+            $loaderName = 'Noodlehaus\\File\\' . ucfirst($extension);
+            $loader = new $loaderName;
+
             // Try and load file
-            $this->data = array_replace_recursive($this->data, $this->$load_method($path));
+            $this->data = array_replace_recursive($this->data, $loader->load($path));
         }
-    }
-
-    /**
-     * Loads a PHP file and gets its' contents as an array
-     *
-     * @param  string $path
-     *
-     * @return array
-     *
-     * @throws ParseException             If the PHP file throws an exception
-     * @throws UnsupportedFormatException If the PHP file does not return an array
-     */
-    protected function loadPhp($path)
-    {
-        $php = new Php();
-        return $php->load($path);
-    }
-
-    /**
-     * Loads an INI file as an array
-     *
-     * @param  string $path
-     *
-     * @return array
-     *
-     * @throws ParseException If there is an error parsing the INI file
-     */
-    protected function loadIni($path)
-    {
-        $ini = new Ini();
-        return $ini->load($path);
-    }
-
-    /**
-     * Loads a JSON file as an array
-     *
-     * @param  string $path
-     *
-     * @return array
-     *
-     * @throws ParseException If there is an error parsing the JSON file
-     */
-    protected function loadJson($path)
-    {
-        $json = new Json();
-        return $json->load($path);
-    }
-
-
-    /**
-     * Loads a XML file as an array
-     *
-     * @param  string $path
-     *
-     * @return array
-     *
-     * @throws ParseException If there is an error parsing the XML file
-     */
-    protected function loadXml($path)
-    {
-        $xml = new Xml();
-        return $xml->load($path);
-    }
-
-    /**
-     * Loads a YAML file as an array
-     *
-     * @param  string $path
-     *
-     * @return array
-     *
-     * @throws ParseException If If there is an error parsing the YAML file
-     */
-    protected function loadYaml($path)
-    {
-        $yaml = new Yaml();
-        return $yaml->load($path);
-    }
-
-    /**
-     * Alias method for `loadYaml()`
-     *
-     * @param  string $path
-     *
-     * @return array
-     *
-     * @throws ParseException If If there is an error parsing the YML file
-     */
-    protected function loadYml($path)
-    {
-        return $this->loadYaml(file_get_contents($path));
     }
 
     /**
