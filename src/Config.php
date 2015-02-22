@@ -24,6 +24,11 @@ use Noodlehaus\Exception\EmptyDirectoryException;
 class Config extends AbstractConfig
 {
 
+    /**
+     * All file formats supported by Config
+     *
+     * @var array
+     */
     private $supportedFileFormats = array(
         'PHP',
         'INI',
@@ -34,26 +39,26 @@ class Config extends AbstractConfig
     );
 
     /**
-    * Static method for loading a config instance.
-    *
-    * @param  string|array $path
-    *
-    * @return Config
-    */
+     * Static method for loading a config instance.
+     *
+     * @param  string|array $path
+     *
+     * @return Config
+     */
     public static function load($path)
     {
         return new static($path);
     }
 
     /**
-    * Loads a supported configuration file format.
-    *
-    * @param  string|array $path
-    *
-    * @throws FileNotFoundException      If a file is not found at `$path`
-    * @throws UnsupportedFormatException If `$path` is an unsupported file format
-    * @throws EmptyDirectoryException    If `$path` is an empty directory
-    */
+     * Loads a supported configuration file format.
+     *
+     * @param  string|array $path
+     *
+     * @throws FileNotFoundException      If a file is not found at `$path`
+     * @throws UnsupportedFormatException If `$path` is an unsupported file format
+     * @throws EmptyDirectoryException    If `$path` is an empty directory
+     */
     public function __construct($path)
     {
         $paths      = $this->_getValidPath($path);
@@ -80,7 +85,7 @@ class Config extends AbstractConfig
             }
 
             $loaderName = 'Noodlehaus\\File\\' . ucfirst($extension);
-            $loader = new $loaderName;
+            $loader     = new $loaderName;
 
             // Try and load file
             $this->data = array_replace_recursive($this->data, $loader->load($path));

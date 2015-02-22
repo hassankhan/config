@@ -1,16 +1,5 @@
 language: php
 
-branches:
-  only:
-    - master
-    - develop
-
-before_script:
-  - composer self-update
-  - composer update --prefer-source
-
-script: phpunit --testsuite travis-ci
-
 php:
   - 5.3
   - 5.4
@@ -21,3 +10,13 @@ php:
 matrix:
   allow_failures:
   - php: hhvm
+
+before_script:
+  - travis_retry composer self-update
+  - travis_retry composer install --no-interaction --prefer-source --dev
+
+script:
+  - phpunit --coverage-text --coverage-clover=coverage.clover
+
+after_script:
+  - php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover

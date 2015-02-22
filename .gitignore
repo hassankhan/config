@@ -1,4 +1,3 @@
-tests/coverage
 vendor
 composer.lock
 build
