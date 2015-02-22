@@ -2,6 +2,7 @@
 
 namespace Noodlehaus\File;
 
+use Exception;
 use Noodlehaus\Exception\ParseException;
 use Noodlehaus\Exception\UnsupportedFormatException;
 
@@ -28,11 +29,11 @@ class Php implements FileInterface
         // Require the file, if it throws an exception, rethrow it
         try {
             $temp = require $path;
-        } catch (\Exception $ex) {
+        } catch (Exception $exception) {
             throw new ParseException(
                 array(
                     'message'   => 'PHP file threw an exception',
-                    'exception' => $ex
+                    'exception' => $exception,
                 )
             );
         }

@@ -13,11 +13,10 @@ namespace Noodlehaus\File;
  */
 interface FileInterface
 {
-
     /**
-     * Loads a file from `$path` and gets its' contents as an array
+     * Loads a file from `$path` and gets its contents as an array
      *
-     * @param  string $key
+     * @param  string $path
      *
      * @return array
      */

@@ -35,7 +35,7 @@ class Json implements FileInterface
             $error = array(
                 'message' => $error_message,
                 'type'    => json_last_error(),
-                'file'    => $path
+                'file'    => $path,
             );
             throw new ParseException($error);
         }

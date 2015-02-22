@@ -5,22 +5,24 @@
     "keywords": ["configuration", "config", "json", "yaml", "yml", "ini", "xml", "unframework", "microphp"],
     "homepage": "http://noodlehaus.github.io/config/",
     "license": "MIT",
-    "authors": [{
-        "name": "Jesus A. Domingo",
-        "role": "Developer",
-        "homepage": "http://noodlehaus.github.io/"
-    },
-    {
-        "name": "Hassan Khan",
-        "role": "Developer",
-        "homepage": "http://hassankhan.me/"
-    }],
+    "authors": [
+        {
+            "name": "Jesus A. Domingo",
+            "role": "Developer",
+            "homepage": "http://noodlehaus.github.io/"
+        },
+        {
+            "name": "Hassan Khan",
+            "role": "Developer",
+            "homepage": "http://hassankhan.me/"
+        }
+    ],
     "require": {
-        "php" : ">=5.3.0",
+        "php": ">=5.3.0",
         "symfony/yaml": "~2.5"
     },
     "require-dev": {
-        "phpunit/phpunit" : "4.*",
+        "phpunit/phpunit": "~4.0",
         "scrutinizer/ocular": "~1.1",
         "squizlabs/php_codesniffer": "~2.2"
     },
