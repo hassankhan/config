@@ -2,11 +2,15 @@
 
 namespace Noodlehaus;
 
+use Noodlehaus\File\Php;
+use Noodlehaus\File\Ini;
+use Noodlehaus\File\Json;
+use Noodlehaus\File\Xml;
+use Noodlehaus\File\Yaml;
 use Noodlehaus\Exception\ParseException;
 use Noodlehaus\Exception\FileNotFoundException;
 use Noodlehaus\Exception\UnsupportedFormatException;
 use Noodlehaus\Exception\EmptyDirectoryException;
-use \Symfony\Component\Yaml\Yaml;
 
 /**
  * Config
@@ -19,6 +23,15 @@ use \Symfony\Component\Yaml\Yaml;
  */
 class Config extends AbstractConfig
 {
+
+    private $supportedFileFormats = array(
+        'PHP',
+        'INI',
+        'JSON',
+        'XML',
+        'YAML',
+        'YML'
+    );
 
     /**
     * Static method for loading a config instance.
@@ -36,8 +49,6 @@ class Config extends AbstractConfig
     * Loads a supported configuration file format.
     *
     * @param  string|array $path
-    *
-    * @return void
     *
     * @throws FileNotFoundException      If a file is not found at `$path`
     * @throws UnsupportedFormatException If `$path` is an unsupported file format
@@ -58,178 +69,22 @@ class Config extends AbstractConfig
             }
 
             // Check if a load-* method exists for the file extension, if not throw exception
-            $load_method = 'load' . ucfirst($info['extension']);
-            if (!method_exists(__CLASS__, $load_method)) {
+            if (!in_array(strtoupper($info['extension']), $this->supportedFileFormats)) {
                 throw new UnsupportedFormatException('Unsupported configuration format');
             }
 
+            $extension = $info['extension'];
+            // Check if extension is YML, replace with YAML
+            if (strtolower($extension) === 'yml') {
+                $extension = 'yaml';
+            }
+
+            $loaderName = 'Noodlehaus\\File\\' . ucfirst($extension);
+            $loader = new $loaderName;
+
             // Try and load file
-            $this->data = array_replace_recursive($this->data, $this->$load_method($path));
+            $this->data = array_replace_recursive($this->data, $loader->load($path));
         }
-    }
-
-    /**
-     * Loads a PHP file and gets its' contents as an array
-     *
-     * @param  string $path
-     *
-     * @return array
-     *
-     * @throws ParseException             If the PHP file throws an exception
-     * @throws UnsupportedFormatException If the PHP file does not return an array
-     */
-    protected function loadPhp($path)
-    {
-        // Require the file, if it throws an exception, rethrow it
-        try {
-            $temp = require $path;
-        }
-        catch (\Exception $ex) {
-            throw new ParseException(
-                array(
-                    'message'   => 'PHP file threw an exception',
-                    'exception' => $ex
-                )
-            );
-        }
-
-        // If we have a callable, run it and expect an array back
-        if (is_callable($temp)) {
-            $temp = call_user_func($temp);
-        }
-
-        // Check for array, if its anything else, throw an exception
-        if (!$temp || !is_array($temp)) {
-            throw new UnsupportedFormatException('PHP file does not return an array');
-        }
-
-        return $temp;
-    }
-
-    /**
-     * Loads an INI file as an array
-     *
-     * @param  string $path
-     *
-     * @return array
-     *
-     * @throws ParseException If there is an error parsing the INI file
-     */
-    protected function loadIni($path)
-    {
-        $data = @parse_ini_file($path, true);
-
-        if (!$data) {
-            $error = error_get_last();
-            throw new ParseException($error);
-        }
-
-        return $data;
-    }
-
-    /**
-     * Loads a JSON file as an array
-     *
-     * @param  string $path
-     *
-     * @return array
-     *
-     * @throws ParseException If there is an error parsing the JSON file
-     */
-    protected function loadJson($path)
-    {
-        $data = json_decode(file_get_contents($path), true);
-
-        if (function_exists('json_last_error_msg')) {
-            $error_message = json_last_error_msg();
-        } else {
-            $error_message  = 'Syntax error';
-        }
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            $error = array(
-                'message' => $error_message,
-                'type'    => json_last_error(),
-                'file'    => $path
-            );
-            throw new ParseException($error);
-        }
-
-        return $data;
-    }
-
-
-    /**
-     * Loads a XML file as an array
-     *
-     * @param  string $path
-     *
-     * @return array
-     *
-     * @throws ParseException If there is an error parsing the XML file
-     */
-    protected function loadXml($path)
-    {
-        libxml_use_internal_errors(true);
-
-        $data = simplexml_load_file($path, null, LIBXML_NOERROR);
-
-        if ($data === false) {
-            $errors      = libxml_get_errors();
-            $latestError = array_pop($errors);
-            $error       = array(
-                'message' => $latestError->message,
-                'type'    => $latestError->level,
-                'code'    => $latestError->code,
-                'file'    => $latestError->file,
-                'line'    => $latestError->line
-            );
-            throw new ParseException($error);
-        }
-
-        $data = json_decode(json_encode($data), true);
-
-        return $data;
-    }
-
-    /**
-     * Loads a YAML file as an array
-     *
-     * @param  string $path
-     *
-     * @return array
-     *
-     * @throws ParseException If If there is an error parsing the YAML file
-     */
-    protected function loadYaml($path)
-    {
-        try {
-            $data = Yaml::parse($path);
-        }
-        catch(\Exception $ex) {
-            throw new ParseException(
-                array(
-                    'message'   => 'Error parsing YAML file',
-                    'exception' => $ex
-                )
-            );
-        }
-
-        return $data;
-    }
-
-    /**
-     * Alias method for `loadYaml()`
-     *
-     * @param  string $path
-     *
-     * @return array
-     *
-     * @throws ParseException If If there is an error parsing the YML file
-     */
-    protected function loadYml($path)
-    {
-        return $this->loadYaml(file_get_contents($path));
     }
 
     /**
