@@ -231,4 +231,37 @@ class Config extends AbstractConfig
     {
         return $this->loadYaml(file_get_contents($path));
     }
+
+    /**
+     * Checks `$path` to see if it is either an array, a directory, or a file
+     *
+     * @param  string $path
+     *
+     * @return array
+     *
+     * @throws EmptyDirectoryException    If `$path` is an empty directory
+     */
+    private function _getValidPath($path)
+    {
+        // If `$path` is array
+        if (is_array($path)) {
+            $paths = array();
+            foreach ($path as $unverifiedPath) {
+                $paths = array_merge($paths, $this->_getValidPath($unverifiedPath));
+            }
+            return $paths;
+        }
+
+        // If `$path` is a directory
+        if (is_dir($path)) {
+            $paths = glob($path . '/*.*');
+            if (empty($paths)) {
+                throw new EmptyDirectoryException("Configuration directory: [$path] is empty");
+            }
+            return $paths;
+        }
+
+        // If `$path` is a file
+        return array($path);
+    }
 }

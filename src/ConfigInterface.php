@@ -3,7 +3,7 @@
 namespace Noodlehaus;
 
 /**
- * Config
+ * Config interface
  *
  * @package    Config
  * @author     Jesus A. Domingo <jesus.domingo@gmail.com>
