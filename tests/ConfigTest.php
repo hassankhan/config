@@ -28,7 +28,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\Config::load
+     * @covers                   Noodlehaus\Config::load()
      * @expectedException        Noodlehaus\Exception\UnsupportedFormatException
      * @expectedExceptionMessage Unsupported configuration format
      */
@@ -39,7 +39,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\Config::__construct
+     * @covers                   Noodlehaus\Config::__construct()
      * @expectedException        Noodlehaus\Exception\UnsupportedFormatException
      * @expectedExceptionMessage Unsupported configuration format
      */
@@ -49,8 +49,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\Config::__construct
-     * @covers                   Noodlehaus\Config::_getValidPath
+     * @covers                   Noodlehaus\Config::__construct()
+     * @covers                   Noodlehaus\Config::_getValidPath()
      * @expectedException        Noodlehaus\Exception\FileNotFoundException
      * @expectedExceptionMessage Configuration file: [ladadeedee] cannot be found
      */
@@ -60,8 +60,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers            Noodlehaus\Config::__construct
-     * @covers            Noodlehaus\Config::_getValidPath
+     * @covers            Noodlehaus\Config::__construct()
+     * @covers            Noodlehaus\Config::_getValidPath()
      * @expectedException Noodlehaus\Exception\EmptyDirectoryException
      */
     public function testConstructWithEmptyDirectory()
@@ -70,27 +70,52 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct
-     * @covers Noodlehaus\Config::_getValidPath
+     * @covers Noodlehaus\Config::__construct()
+     * @covers Noodlehaus\Config::_getValidPath()
      */
     public function testConstructWithArray()
     {
         $paths = array(__DIR__ . '/mocks/pass/config.xml', __DIR__ . '/mocks/pass/config2.json');
         $config = new Config($paths);
+
+        $expected = 'localhost';
+        $actual   = $config->get('host');
+
+        $this->assertEquals($expected, $actual);
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct
-     * @covers Noodlehaus\Config::_getValidPath
+     * @covers Noodlehaus\Config::__construct()
+     * @covers Noodlehaus\Config::_getValidPath()
      */
     public function testConstructWithDirectory()
     {
         $config = new Config(__DIR__ . '/mocks/dir');
+
+        $expected = 'localhost';
+        $actual   = $config->get('host');
+
+        $this->assertEquals($expected, $actual);
     }
 
     /**
-     * @covers       Noodlehaus\Config::get
-     * @dataProvider providerComposedConfig
+     * @covers Noodlehaus\Config::__construct()
+     * @covers Noodlehaus\Config::_getValidPath()
+     */
+    public function testConstructWithYml()
+    {
+        $config = new Config(__DIR__ . '/mocks/pass/config.yml');
+
+        $expected = 'localhost';
+        $actual   = $config->get('host');
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers       Noodlehaus\Config::__construct()
+     * @covers       Noodlehaus\Config::get()
+     * @dataProvider specialConfigProvider()
      */
     public function testGetReturnsArrayMergedArray($config)
     {
@@ -100,7 +125,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * Provides names of example configuration files
      */
-    public function providerConfig()
+    public function configProvider()
     {
         return array_merge(
             array(
@@ -111,14 +136,14 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
                 array(new Config(__DIR__ . '/mocks/pass/config.xml')),
                 array(new Config(__DIR__ . '/mocks/pass/config.yaml'))
             ),
-            $this->providerComposedConfig()
+            $this->specialConfigProvider()
         );
     }
 
     /**
      * Provides names of example configuration files (for array and directory)
      */
-    public function providerComposedConfig()
+    public function specialConfigProvider()
     {
         return array(
             array(

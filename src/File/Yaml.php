@@ -26,8 +26,7 @@ class Yaml implements FileInterface
     {
         try {
             $data = YamlParser::parse($path);
-        }
-        catch(\Exception $ex) {
+        } catch (\Exception $ex) {
             throw new ParseException(
                 array(
                     'message'   => 'Error parsing YAML file',

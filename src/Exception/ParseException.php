@@ -16,5 +16,4 @@ class ParseException extends \ErrorException
 
         parent::__construct($message, $code, $severity, $filename, $lineno, $exception);
     }
-
 }

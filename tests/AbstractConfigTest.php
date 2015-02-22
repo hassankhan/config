@@ -45,7 +45,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::get
+     * @covers Noodlehaus\AbstractConfig::get()
      */
     public function testGet()
     {
@@ -53,7 +53,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::get
+     * @covers Noodlehaus\AbstractConfig::get()
      */
     public function testGetWithDefaultValue()
     {
@@ -61,7 +61,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::get
+     * @covers Noodlehaus\AbstractConfig::get()
      */
     public function testGetNestedKey()
     {
@@ -69,7 +69,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::get
+     * @covers Noodlehaus\AbstractConfig::get()
      */
     public function testGetNestedKeyWithDefaultValue()
     {
@@ -77,7 +77,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::get
+     * @covers Noodlehaus\AbstractConfig::get()
      */
     public function testGetNonexistentKey()
     {
@@ -85,7 +85,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::get
+     * @covers Noodlehaus\AbstractConfig::get()
      */
     public function testGetNonexistentNestedKey()
     {
@@ -93,7 +93,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::get
+     * @covers Noodlehaus\AbstractConfig::get()
      */
     public function testGetReturnsArray()
     {
@@ -103,7 +103,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::set
+     * @covers Noodlehaus\AbstractConfig::set()
      */
     public function testSet()
     {
@@ -112,7 +112,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::set
+     * @covers Noodlehaus\AbstractConfig::set()
      */
     public function testSetNestedKey()
     {
@@ -121,7 +121,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::set
+     * @covers Noodlehaus\AbstractConfig::set()
      */
     public function testSetArray()
     {
@@ -134,7 +134,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::set
+     * @covers Noodlehaus\AbstractConfig::set()
      */
     public function testSetAndUnsetArray()
     {
@@ -151,7 +151,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::offsetGet
+     * @covers Noodlehaus\AbstractConfig::offsetGet()
      */
     public function testOffsetGet()
     {
@@ -159,7 +159,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::offsetGet
+     * @covers Noodlehaus\AbstractConfig::offsetGet()
      */
     public function testOffsetGetNestedKey()
     {
@@ -167,7 +167,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::offsetExists
+     * @covers Noodlehaus\AbstractConfig::offsetExists()
      */
     public function testOffsetExists()
     {
@@ -175,7 +175,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::offsetExists
+     * @covers Noodlehaus\AbstractConfig::offsetExists()
      */
     public function testOffsetExistsReturnsFalseOnNonexistentKey()
     {
@@ -183,7 +183,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::offsetSet
+     * @covers Noodlehaus\AbstractConfig::offsetSet()
      */
     public function testOffsetSet()
     {
@@ -192,7 +192,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::offsetUnset
+     * @covers Noodlehaus\AbstractConfig::offsetUnset()
      */
     public function testOffsetUnset()
     {

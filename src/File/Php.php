@@ -28,8 +28,7 @@ class Php implements FileInterface
         // Require the file, if it throws an exception, rethrow it
         try {
             $temp = require $path;
-        }
-        catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             throw new ParseException(
                 array(
                     'message'   => 'PHP file threw an exception',

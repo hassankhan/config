@@ -1,6 +1,6 @@
 <?php
 return function () {
-  return array(
+    return array(
     'host' => 'localhost',
     'port' => 80,
     'servers' => array(
@@ -12,5 +12,5 @@ return function () {
       'name' => 'configuration',
       'secret' => 's3cr3t'
     )
-  );
+    );
 };

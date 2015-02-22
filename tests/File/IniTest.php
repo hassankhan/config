@@ -31,7 +31,7 @@ class IniTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\File\Ini::load
+     * @covers                   Noodlehaus\File\Ini::load()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage syntax error, unexpected $end, expecting ']'
      */
@@ -41,7 +41,7 @@ class IniTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\File\Ini::load
+     * @covers Noodlehaus\File\Ini::load()
      */
     public function testLoadIni()
     {

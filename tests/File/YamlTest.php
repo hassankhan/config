@@ -31,7 +31,7 @@ class YamlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\File\Yaml::load
+     * @covers                   Noodlehaus\File\Yaml::load()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage Error parsing YAML file
      */
@@ -41,7 +41,7 @@ class YamlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\File\Yaml::load
+     * @covers Noodlehaus\File\Yaml::load()
      */
     public function testLoadYaml()
     {

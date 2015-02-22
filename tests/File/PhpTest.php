@@ -31,7 +31,7 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\File\Php::load
+     * @covers                   Noodlehaus\File\Php::load()
      * @expectedException        Noodlehaus\Exception\UnsupportedFormatException
      * @expectedExceptionMessage PHP file does not return an array
      */
@@ -41,7 +41,7 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\File\Php::load
+     * @covers                   Noodlehaus\File\Php::load()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage PHP file threw an exception
      */

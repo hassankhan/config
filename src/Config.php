@@ -7,7 +7,6 @@ use Noodlehaus\File\Ini;
 use Noodlehaus\File\Json;
 use Noodlehaus\File\Xml;
 use Noodlehaus\File\Yaml;
-use Noodlehaus\Exception\ParseException;
 use Noodlehaus\Exception\FileNotFoundException;
 use Noodlehaus\Exception\UnsupportedFormatException;
 use Noodlehaus\Exception\EmptyDirectoryException;
@@ -64,7 +63,7 @@ class Config extends AbstractConfig
         $paths      = $this->_getValidPath($path);
         $this->data = array();
 
-        foreach($paths as $path){
+        foreach ($paths as $path) {
             // Get file information
             $info = pathinfo($path);
 

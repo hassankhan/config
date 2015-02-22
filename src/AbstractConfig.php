@@ -31,7 +31,8 @@ abstract class AbstractConfig implements \ArrayAccess, ConfigInterface
     /**
      * {@inheritDoc}
      */
-    public function get($key, $default = null) {
+    public function get($key, $default = null)
+    {
 
         // Check if already cached
         if (isset($this->cache[$key])) {
@@ -43,11 +44,10 @@ abstract class AbstractConfig implements \ArrayAccess, ConfigInterface
 
         // nested case
         foreach ($segs as $part) {
-            if (isset($root[$part])){
+            if (isset($root[$part])) {
                 $root = $root[$part];
                 continue;
-            }
-            else {
+            } else {
                 $root = $default;
                 break;
             }
@@ -60,7 +60,8 @@ abstract class AbstractConfig implements \ArrayAccess, ConfigInterface
     /**
      * {@inheritDoc}
      */
-    public function set($key, $value) {
+    public function set($key, $value)
+    {
 
         $segs = explode('.', $key);
         $root = &$this->data;
@@ -127,7 +128,6 @@ abstract class AbstractConfig implements \ArrayAccess, ConfigInterface
      */
     public function offsetUnset($offset)
     {
-        $this->set($offset, NULL);
+        $this->set($offset, null);
     }
-
 }

@@ -31,7 +31,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\File\Json::load
+     * @covers                   Noodlehaus\File\Json::load()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage Syntax error
      */
@@ -41,7 +41,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\File\Json::load
+     * @covers Noodlehaus\File\Json::load()
      */
     public function testLoadJson()
     {

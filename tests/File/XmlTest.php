@@ -31,7 +31,7 @@ class XmlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\File\Xml::load
+     * @covers                   Noodlehaus\File\Xml::load()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage Opening and ending tag mismatch: name line 4
      */
@@ -41,7 +41,7 @@ class XmlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\File\Xml::load
+     * @covers Noodlehaus\File\Xml::load()
      */
     public function testLoadXml()
     {
