@@ -2,9 +2,10 @@
 
 namespace Noodlehaus\Exception;
 
-class ParseException extends \ErrorException
-{
+use ErrorException;
 
+class ParseException extends ErrorException
+{
     public function __construct(array $error)
     {
         $message   = $error['message'];
@@ -16,5 +17,4 @@ class ParseException extends \ErrorException
 
         parent::__construct($message, $code, $severity, $filename, $lineno, $exception);
     }
-
 }
