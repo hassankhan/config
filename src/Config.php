@@ -2,12 +2,15 @@
 
 namespace Noodlehaus;
 
+use Noodlehaus\File\Php;
+use Noodlehaus\File\Ini;
 use Noodlehaus\File\Json;
+use Noodlehaus\File\Xml;
+use Noodlehaus\File\Yaml;
 use Noodlehaus\Exception\ParseException;
 use Noodlehaus\Exception\FileNotFoundException;
 use Noodlehaus\Exception\UnsupportedFormatException;
 use Noodlehaus\Exception\EmptyDirectoryException;
-use \Symfony\Component\Yaml\Yaml;
 
 /**
  * Config
@@ -64,7 +67,6 @@ class Config extends AbstractConfig
                 throw new UnsupportedFormatException('Unsupported configuration format');
             }
 
-            var_dump($this->$load_method($path));
             // Try and load file
             $this->data = array_replace_recursive($this->data, $this->$load_method($path));
         }
@@ -82,30 +84,8 @@ class Config extends AbstractConfig
      */
     protected function loadPhp($path)
     {
-        // Require the file, if it throws an exception, rethrow it
-        try {
-            $temp = require $path;
-        }
-        catch (\Exception $ex) {
-            throw new ParseException(
-                array(
-                    'message'   => 'PHP file threw an exception',
-                    'exception' => $ex
-                )
-            );
-        }
-
-        // If we have a callable, run it and expect an array back
-        if (is_callable($temp)) {
-            $temp = call_user_func($temp);
-        }
-
-        // Check for array, if its anything else, throw an exception
-        if (!$temp || !is_array($temp)) {
-            throw new UnsupportedFormatException('PHP file does not return an array');
-        }
-
-        return $temp;
+        $php = new Php();
+        return $php->load($path);
     }
 
     /**
@@ -119,14 +99,8 @@ class Config extends AbstractConfig
      */
     protected function loadIni($path)
     {
-        $data = @parse_ini_file($path, true);
-
-        if (!$data) {
-            $error = error_get_last();
-            throw new ParseException($error);
-        }
-
-        return $data;
+        $ini = new Ini();
+        return $ini->load($path);
     }
 
     /**
@@ -156,26 +130,8 @@ class Config extends AbstractConfig
      */
     protected function loadXml($path)
     {
-        libxml_use_internal_errors(true);
-
-        $data = simplexml_load_file($path, null, LIBXML_NOERROR);
-
-        if ($data === false) {
-            $errors      = libxml_get_errors();
-            $latestError = array_pop($errors);
-            $error       = array(
-                'message' => $latestError->message,
-                'type'    => $latestError->level,
-                'code'    => $latestError->code,
-                'file'    => $latestError->file,
-                'line'    => $latestError->line
-            );
-            throw new ParseException($error);
-        }
-
-        $data = json_decode(json_encode($data), true);
-
-        return $data;
+        $xml = new Xml();
+        return $xml->load($path);
     }
 
     /**
@@ -189,19 +145,8 @@ class Config extends AbstractConfig
      */
     protected function loadYaml($path)
     {
-        try {
-            $data = Yaml::parse($path);
-        }
-        catch(\Exception $ex) {
-            throw new ParseException(
-                array(
-                    'message'   => 'Error parsing YAML file',
-                    'exception' => $ex
-                )
-            );
-        }
-
-        return $data;
+        $yaml = new Yaml();
+        return $yaml->load($path);
     }
 
     /**
