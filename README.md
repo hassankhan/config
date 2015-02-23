@@ -110,7 +110,7 @@ assert($conf['secret'] == '456');
 
 Sometimes in your own projects you may want to use `Config` for storing
 application settings, without needing file I/O. You can do this by extending
-`Noodlehaus\ConfigAbstract` and filling in the `getDefaults()` method:
+`Noodlehaus\ConfigAbstract` and populating the `getDefaults()` method:
 
 ```php
 class MyConfig extends AbstractConfig
