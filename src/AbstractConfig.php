@@ -44,6 +44,8 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface
      * options and values
      *
      * @return array
+     *
+     * @codeCoverageIgnore
      */
     protected function getDefaults()
     {

@@ -45,6 +45,22 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Noodlehaus\AbstractConfig::__construct()
+     * @covers Noodlehaus\AbstractConfig::getDefaults()
+     */
+    public function testDefaultOptionsSetOnInstantiation()
+    {
+        $config = new SimpleConfig(
+            array(
+                'host' => 'localhost',
+                'port'    => 80,
+            )
+        );
+        $this->assertEquals('localhost', $config->get('host'));
+        $this->assertEquals(80, $config->get('port'));
+    }
+
+    /**
      * @covers Noodlehaus\AbstractConfig::get()
      */
     public function testGet()
