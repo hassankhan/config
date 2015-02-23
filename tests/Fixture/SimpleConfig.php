@@ -6,7 +6,6 @@ use Noodlehaus\AbstractConfig;
 
 class SimpleConfig extends AbstractConfig
 {
-
     protected function getDefaults()
     {
         return array(
