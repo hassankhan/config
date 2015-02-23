@@ -1,5 +1,7 @@
 # Config
 
+[![Join the chat at https://gitter.im/noodlehaus/config](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/noodlehaus/config?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/noodlehaus/config.svg?branch=develop)](https://travis-ci.org/noodlehaus/config)
 
 `Config` is a file configuration loader that supports PHP, INI, XML, JSON, 
