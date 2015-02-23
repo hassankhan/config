@@ -48,7 +48,7 @@ class Config extends AbstractConfig
      * @param  string|array $path
      *
      * @throws FileNotFoundException      If a file is not found at `$path`
-     * @throws UnsupportedFormatException If `$path` is an unsupported file format
+
      * @throws EmptyDirectoryException    If `$path` is an empty directory
      */
     public function __construct($path)
@@ -61,31 +61,47 @@ class Config extends AbstractConfig
             // Get file information
             $info      = pathinfo($path);
             $extension = isset($info['extension']) ? $info['extension'] : '';
-            // Holds the file loader for this config file
-            $loader    = null;
+
 
             // Check if config file exists or throw an exception
             if (!file_exists($path)) {
                 throw new FileNotFoundException("Configuration file: [$path] cannot be found");
             }
 
-            // Create a loader object for the file extension
-            $supportedFileFormats = array_values($this->supportedFileLoaders);
-            foreach ($supportedFileFormats as $supportedFileExtension) {
-                if (in_array(strtolower($extension), $supportedFileExtension)) {
-                    $loaderName = array_search($supportedFileExtension, $this->supportedFileLoaders);
-                    $loader     = new $loaderName();
-                }
-            }
-
-            // If none exist, then throw an exception
-            if ($loader === null) {
-                throw new UnsupportedFormatException('Unsupported configuration format');
-            }
+            $loader = $this->getLoader($extension);
 
             // Try and load file
             $this->data = array_replace_recursive($this->data, $loader->load($path));
         }
+    }
+
+    /**
+     * Gets a loader for a given file extension
+     *
+     * @param  string $extension
+     *
+     * @return Noodlehaus\File\FileInterface
+     *
+     * @throws UnsupportedFormatException If `$path` is an unsupported file format
+     */
+    private function getLoader($extension)
+    {
+        $loader               = null;
+        $supportedFileFormats = array_values($this->supportedFileLoaders);
+
+        foreach ($supportedFileFormats as $supportedFileExtension) {
+            if (in_array(strtolower($extension), $supportedFileExtension)) {
+                $loaderName = array_search($supportedFileExtension, $this->supportedFileLoaders);
+                $loader     = new $loaderName();
+            }
+        }
+
+        // If none exist, then throw an exception
+        if ($loader === null) {
+            throw new UnsupportedFormatException('Unsupported configuration format');
+        }
+
+        return $loader;
     }
 
     /**

@@ -29,6 +29,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers                   Noodlehaus\Config::load()
+     * @covers                   Noodlehaus\Config::getLoader()
      * @expectedException        Noodlehaus\Exception\UnsupportedFormatException
      * @expectedExceptionMessage Unsupported configuration format
      */
@@ -40,6 +41,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers                   Noodlehaus\Config::__construct()
+     * @covers                   Noodlehaus\Config::getLoader()
      * @expectedException        Noodlehaus\Exception\UnsupportedFormatException
      * @expectedExceptionMessage Unsupported configuration format
      */
@@ -50,6 +52,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers                   Noodlehaus\Config::__construct()
+     * @covers                   Noodlehaus\Config::getLoader()
      * @covers                   Noodlehaus\Config::getValidPath()
      * @expectedException        Noodlehaus\Exception\FileNotFoundException
      * @expectedExceptionMessage Configuration file: [ladadeedee] cannot be found
@@ -61,6 +64,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers            Noodlehaus\Config::__construct()
+     * @covers            Noodlehaus\Config::getLoader()
      * @covers            Noodlehaus\Config::getValidPath()
      * @expectedException Noodlehaus\Exception\EmptyDirectoryException
      */
@@ -71,6 +75,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Noodlehaus\Config::__construct()
+     * @covers Noodlehaus\Config::getLoader()
      * @covers Noodlehaus\Config::getValidPath()
      */
     public function testConstructWithArray()
@@ -86,6 +91,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Noodlehaus\Config::__construct()
+     * @covers Noodlehaus\Config::getLoader()
      * @covers Noodlehaus\Config::getValidPath()
      */
     public function testConstructWithDirectory()
@@ -100,6 +106,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Noodlehaus\Config::__construct()
+     * @covers Noodlehaus\Config::getLoader()
      * @covers Noodlehaus\Config::getValidPath()
      */
     public function testConstructWithYml()
