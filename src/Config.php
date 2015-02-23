@@ -60,7 +60,7 @@ class Config extends AbstractConfig
         foreach ($paths as $path) {
             // Get file information
             $info      = pathinfo($path);
-            $extension = $info['extension'];
+            $extension = isset($info['extension']) ? $info['extension'] : '';
 
             // Check if config file exists or throw an exception
             if (!file_exists($path)) {
