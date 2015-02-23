@@ -23,12 +23,12 @@ The supported way of installing this is via `composer`.
 $ composer require --prefer-dist noodlehaus/config
 ```
 
-## How It Works
+## How it works
 
 `Config` is designed to be very simple and straightforward to use. All you can do with
 it is load, get, and set.
 
-### Loading Files
+### Loading files
 
 The `Noodlehaus\Config` object can be created via the factory method `load`, or
 by direct instantiation:
@@ -52,7 +52,7 @@ from the last loaded file**.
 When loading a directory, the path is `glob`ed and files are loaded in by
 name alphabetically.
 
-### Getting Values
+### Getting values
 
 Getting values can be done in two ways. One, by using the `get()` method:
 
@@ -80,12 +80,12 @@ $secret = $conf['security.secret'];
 $secret = $conf['security']['secret'];
 ```
 
-### Setting Values
+### Setting values
 
 Although `Config` supports setting values via `set()` or, via the
 array syntax, **any changes made this way are NOT reflected back to the
-source files**. It is by design that if you need to make changes to your
-configuration files, you have to do it outside.
+source files**. By design, if you need to make changes to your
+configuration files, you have to do it manually.
 
 ```php
 $conf = Config::load('config.json');
@@ -106,7 +106,35 @@ assert($conf['secret'] == '123');
 assert($conf['secret'] == '456');
 ```
 
-### Examples of Supported Configuration Files
+### Using with default values
+
+Sometimes in your own projects you may want to use `Config` for storing
+application settings, without needing file I/O. You can do this by extending
+`Noodlehaus\ConfigAbstract` and filling in the `getDefaults()` method:
+
+```php
+class MyConfig extends AbstractConfig
+{
+    protected function getDefaults()
+    {
+        return array(
+            'host' => 'localhost',
+            'port'    => 80,
+            'servers' => array(
+                'host1',
+                'host2',
+                'host3'
+            ),
+            'application' => array(
+                'name'   => 'configuration',
+                'secret' => 's3cr3t'
+            )
+        );
+    }
+}
+```
+
+### Examples of supported configuration files
 
 Here's an example JSON file that we'll call `config.json`.
 

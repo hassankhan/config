@@ -30,6 +30,29 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface
     protected $cache = array();
 
     /**
+     * Constructor method and sets default options, if any
+     *
+     * @param array $data
+     */
+    public function __construct($data)
+    {
+        $this->data = array_merge($this->getDefaults(), $data);
+    }
+
+    /**
+     * Override this method in your own subclass to provide an array of default
+     * options and values
+     *
+     * @return array
+     *
+     * @codeCoverageIgnore
+     */
+    protected function getDefaults()
+    {
+        return array();
+    }
+
+    /**
      * ConfigInterface Methods
      */
 

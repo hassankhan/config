@@ -6,8 +6,20 @@ use Noodlehaus\AbstractConfig;
 
 class SimpleConfig extends AbstractConfig
 {
-    public function __construct($options)
+    protected function getDefaults()
     {
-        $this->data = $options;
+        return array(
+            'host' => 'localhost',
+            'port'    => 80,
+            'servers' => array(
+                'host1',
+                'host2',
+                'host3'
+            ),
+            'application' => array(
+                'name'   => 'configuration',
+                'secret' => 's3cr3t'
+            )
+        );
     }
 }
