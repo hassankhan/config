@@ -30,6 +30,10 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface
     protected $cache = array();
 
     /**
+     * ConfigInterface Methods
+     */
+
+    /**
      * {@inheritDoc}
      */
     public function get($key, $default = null)

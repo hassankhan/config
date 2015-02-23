@@ -1,8 +1,14 @@
 # Config
 
-[![Build Status](https://travis-ci.org/noodlehaus/config.svg?branch=develop)](https://travis-ci.org/noodlehaus/config)
+[![Latest version][ico-version]][link-packagist]
+[![Software License][ico-license]][link-license]
+[![Build Status][ico-travis]][link-travis]
+[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
+[![Quality Score][ico-code-quality]][link-code-quality]
+[![Total Downloads][ico-downloads]][link-downloads]
+[![Gitter][ico-gitter]][link-gitter]
 
-`Config` is a file configuration loader that supports PHP, INI, XML, JSON, 
+`Config` is a file configuration loader that supports PHP, INI, XML, JSON,
 and YML files.
 
 ## Requirements
@@ -39,11 +45,11 @@ $conf = new Config(['config.json', 'config.xml']);
 $conf = new Config(__DIR__ . '/config');
 ```
 
-Files are parsed and loaded depending on the file extension. Note that when 
+Files are parsed and loaded depending on the file extension. Note that when
 loading multiple files, entries with **duplicate keys will take on the value
 from the last loaded file**.
 
-When loading a directory, the path is `glob`ed and files are loaded in by 
+When loading a directory, the path is `glob`ed and files are loaded in by
 name alphabetically.
 
 ### Getting Values
@@ -199,3 +205,19 @@ debug: false
 
 ## License
 MIT: <http://noodlehaus.mit-license.org>
+
+[ico-version]: https://img.shields.io/packagist/v/noodlehaus/config.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/noodlehaus/config/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/noodlehaus/config.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/noodlehaus/config.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/noodlehaus/config.svg?style=flat-square
+[ico-gitter]: https://img.shields.io/badge/GITTER-JOIN%20CHAT%20%E2%86%92-brightgreen.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/noodlehaus/config
+[link-license]: http://noodlehaus.mit-license.org
+[link-travis]: https://travis-ci.org/noodlehaus/config
+[link-scrutinizer]: https://scrutinizer-ci.com/g/noodlehaus/config/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/noodlehaus/config
+[link-downloads]: https://packagist.org/packages/noodlehaus/config
+[link-gitter]: https://gitter.im/noodlehaus/config?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
