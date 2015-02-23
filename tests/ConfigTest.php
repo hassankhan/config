@@ -135,8 +135,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
                 array(new Config(__DIR__ . '/mocks/pass/config.php')),
                 array(new Config(__DIR__ . '/mocks/pass/config.xml')),
                 array(new Config(__DIR__ . '/mocks/pass/config.yaml'))
-            ),
-            $this->specialConfigProvider()
+            )
         );
     }
 

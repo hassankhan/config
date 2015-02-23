@@ -32,7 +32,7 @@ class Config extends AbstractConfig
     );
 
     /**
-     * Static method for loading a config instance.
+     * Static method for loading a Config instance.
      *
      * @param  string|array $path
      *
@@ -59,7 +59,8 @@ class Config extends AbstractConfig
 
         foreach ($paths as $path) {
             // Get file information
-            $info = pathinfo($path);
+            $info      = pathinfo($path);
+            $extension = $info['extension'];
 
             // Check if config file exists or throw an exception
             if (!file_exists($path)) {
@@ -67,11 +68,11 @@ class Config extends AbstractConfig
             }
 
             // Check if a load-* method exists for the file extension, if not throw exception
-            if (!in_array(strtoupper($info['extension']), $this->supportedFileFormats)) {
+            if (!in_array(strtoupper($extension), $this->supportedFileFormats)) {
                 throw new UnsupportedFormatException('Unsupported configuration format');
             }
 
-            $extension = $info['extension'];
+
             // Check if extension is YML, replace with YAML
             if (strtolower($extension) === 'yml') {
                 $extension = 'yaml';
