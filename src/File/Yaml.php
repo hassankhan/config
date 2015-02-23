@@ -2,6 +2,7 @@
 
 namespace Noodlehaus\File;
 
+use Exception;
 use Symfony\Component\Yaml\Yaml as YamlParser;
 use Noodlehaus\Exception\ParseException;
 
@@ -26,11 +27,11 @@ class Yaml implements FileInterface
     {
         try {
             $data = YamlParser::parse($path);
-        } catch (\Exception $ex) {
+        } catch (Exception $exception) {
             throw new ParseException(
                 array(
                     'message'   => 'Error parsing YAML file',
-                    'exception' => $ex
+                    'exception' => $exception,
                 )
             );
         }

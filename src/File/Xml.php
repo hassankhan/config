@@ -35,7 +35,7 @@ class Xml implements FileInterface
                 'type'    => $latestError->level,
                 'code'    => $latestError->code,
                 'file'    => $latestError->file,
-                'line'    => $latestError->line
+                'line'    => $latestError->line,
             );
             throw new ParseException($error);
         }

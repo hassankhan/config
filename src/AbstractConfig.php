@@ -2,6 +2,8 @@
 
 namespace Noodlehaus;
 
+use ArrayAccess;
+
 /**
  * Abstract Config class
  *
@@ -11,9 +13,8 @@ namespace Noodlehaus;
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-abstract class AbstractConfig implements \ArrayAccess, ConfigInterface
+abstract class AbstractConfig implements ArrayAccess, ConfigInterface
 {
-
     /**
      * Stores the configuration data
      *
@@ -33,7 +34,6 @@ abstract class AbstractConfig implements \ArrayAccess, ConfigInterface
      */
     public function get($key, $default = null)
     {
-
         // Check if already cached
         if (isset($this->cache[$key])) {
             return $this->cache[$key];
@@ -62,7 +62,6 @@ abstract class AbstractConfig implements \ArrayAccess, ConfigInterface
      */
     public function set($key, $value)
     {
-
         $segs = explode('.', $key);
         $root = &$this->data;
 

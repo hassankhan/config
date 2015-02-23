@@ -2,11 +2,6 @@
 
 namespace Noodlehaus;
 
-use Noodlehaus\File\Php;
-use Noodlehaus\File\Ini;
-use Noodlehaus\File\Json;
-use Noodlehaus\File\Xml;
-use Noodlehaus\File\Yaml;
 use Noodlehaus\Exception\FileNotFoundException;
 use Noodlehaus\Exception\UnsupportedFormatException;
 use Noodlehaus\Exception\EmptyDirectoryException;
@@ -22,7 +17,6 @@ use Noodlehaus\Exception\EmptyDirectoryException;
  */
 class Config extends AbstractConfig
 {
-
     /**
      * All file formats supported by Config
      *
@@ -34,7 +28,7 @@ class Config extends AbstractConfig
         'JSON',
         'XML',
         'YAML',
-        'YML'
+        'YML',
     );
 
     /**
@@ -60,7 +54,7 @@ class Config extends AbstractConfig
      */
     public function __construct($path)
     {
-        $paths      = $this->_getValidPath($path);
+        $paths      = $this->getValidPath($path);
         $this->data = array();
 
         foreach ($paths as $path) {
@@ -84,7 +78,7 @@ class Config extends AbstractConfig
             }
 
             $loaderName = 'Noodlehaus\\File\\' . ucfirst($extension);
-            $loader     = new $loaderName;
+            $loader     = new $loaderName();
 
             // Try and load file
             $this->data = array_replace_recursive($this->data, $loader->load($path));
@@ -98,15 +92,15 @@ class Config extends AbstractConfig
      *
      * @return array
      *
-     * @throws EmptyDirectoryException    If `$path` is an empty directory
+     * @throws EmptyDirectoryException If `$path` is an empty directory
      */
-    private function _getValidPath($path)
+    private function getValidPath($path)
     {
         // If `$path` is array
         if (is_array($path)) {
             $paths = array();
             foreach ($path as $unverifiedPath) {
-                $paths = array_merge($paths, $this->_getValidPath($unverifiedPath));
+                $paths = array_merge($paths, $this->getValidPath($unverifiedPath));
             }
             return $paths;
         }
