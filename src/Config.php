@@ -22,13 +22,12 @@ class Config extends AbstractConfig
      *
      * @var array
      */
-    private $supportedFileFormats = array(
-        'PHP',
-        'INI',
-        'JSON',
-        'XML',
-        'YAML',
-        'YML',
+    private $supportedFileLoaders = array(
+        'Noodlehaus\File\Php'  => array('php'),
+        'Noodlehaus\File\Ini'  => array('ini'),
+        'Noodlehaus\File\Json' => array('json'),
+        'Noodlehaus\File\Xml'  => array('xml'),
+        'Noodlehaus\File\Yaml' => array('yaml', 'yml'),
     );
 
     /**
@@ -58,28 +57,31 @@ class Config extends AbstractConfig
         $this->data = array();
 
         foreach ($paths as $path) {
+
             // Get file information
             $info      = pathinfo($path);
             $extension = isset($info['extension']) ? $info['extension'] : '';
+            // Holds the file loader for this config file
+            $loader    = null;
 
             // Check if config file exists or throw an exception
             if (!file_exists($path)) {
                 throw new FileNotFoundException("Configuration file: [$path] cannot be found");
             }
 
-            // Check if a load-* method exists for the file extension, if not throw exception
-            if (!in_array(strtoupper($extension), $this->supportedFileFormats)) {
+            // Create a loader object for the file extension
+            $supportedFileFormats = array_values($this->supportedFileLoaders);
+            foreach ($supportedFileFormats as $supportedFileExtension) {
+                if (in_array(strtolower($extension), $supportedFileExtension)) {
+                    $loaderName = array_search($supportedFileExtension, $this->supportedFileLoaders);
+                    $loader     = new $loaderName();
+                }
+            }
+
+            // If none exist, then throw an exception
+            if ($loader === null) {
                 throw new UnsupportedFormatException('Unsupported configuration format');
             }
-
-
-            // Check if extension is YML, replace with YAML
-            if (strtolower($extension) === 'yml') {
-                $extension = 'yaml';
-            }
-
-            $loaderName = 'Noodlehaus\\File\\' . ucfirst($extension);
-            $loader     = new $loaderName();
 
             // Try and load file
             $this->data = array_replace_recursive($this->data, $loader->load($path));
