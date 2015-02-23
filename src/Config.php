@@ -48,7 +48,7 @@ class Config extends AbstractConfig
      * @param  string|array $path
      *
      * @throws FileNotFoundException      If a file is not found at `$path`
-
+     *
      * @throws EmptyDirectoryException    If `$path` is an empty directory
      */
     public function __construct($path)
