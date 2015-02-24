@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\File;
+namespace Noodlehaus\FileParser;
 
 use Exception;
 use Symfony\Component\Yaml\Yaml as YamlParser;
@@ -15,7 +15,7 @@ use Noodlehaus\Exception\ParseException;
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-class Yaml implements FileInterface
+class Yaml implements FileParserInterface
 {
     /**
      * {@inheritDoc}

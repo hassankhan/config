@@ -23,11 +23,11 @@ class Config extends AbstractConfig
      * @var array
      */
     private $supportedFileLoaders = array(
-        'Noodlehaus\File\Php'  => array('php'),
-        'Noodlehaus\File\Ini'  => array('ini'),
-        'Noodlehaus\File\Json' => array('json'),
-        'Noodlehaus\File\Xml'  => array('xml'),
-        'Noodlehaus\File\Yaml' => array('yaml', 'yml'),
+        'Noodlehaus\FileParser\Php'  => array('php'),
+        'Noodlehaus\FileParser\Ini'  => array('ini'),
+        'Noodlehaus\FileParser\Json' => array('json'),
+        'Noodlehaus\FileParser\Xml'  => array('xml'),
+        'Noodlehaus\FileParser\Yaml' => array('yaml', 'yml'),
     );
 
     /**

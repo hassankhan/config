@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\File;
+namespace Noodlehaus\FileParser;
 
 /**
  * Config File interface
@@ -11,7 +11,7 @@ namespace Noodlehaus\File;
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-interface FileInterface
+interface FileParserInterface
 {
     /**
      * Loads a file from `$path` and gets its contents as an array

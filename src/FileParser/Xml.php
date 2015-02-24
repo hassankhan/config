@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\File;
+namespace Noodlehaus\FileParser;
 
 use Noodlehaus\Exception\ParseException;
 
@@ -13,7 +13,7 @@ use Noodlehaus\Exception\ParseException;
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-class Xml implements FileInterface
+class Xml implements FileParserInterface
 {
     /**
      * {@inheritDoc}
