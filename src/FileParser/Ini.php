@@ -5,7 +5,7 @@ namespace Noodlehaus\FileParser;
 use Noodlehaus\Exception\ParseException;
 
 /**
- * INI file loader
+ * INI file parser
  *
  * @package    Config
  * @author     Jesus A. Domingo <jesus.domingo@gmail.com>
@@ -17,7 +17,7 @@ class Ini implements FileParserInterface
 {
     /**
      * {@inheritDoc}
-     * Loads an INI file as an array
+     * Parses an INI file as an array
      *
      * @throws ParseException If there is an error parsing the INI file
      */

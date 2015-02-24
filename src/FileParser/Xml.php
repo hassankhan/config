@@ -5,7 +5,7 @@ namespace Noodlehaus\FileParser;
 use Noodlehaus\Exception\ParseException;
 
 /**
- * XML file loader
+ * XML file parser
  *
  * @package    Config
  * @author     Jesus A. Domingo <jesus.domingo@gmail.com>
@@ -17,7 +17,7 @@ class Xml implements FileParserInterface
 {
     /**
      * {@inheritDoc}
-     * Loads an XML file as an array
+     * Parses an XML file as an array
      *
      * @throws ParseException If there is an error parsing the XML file
      */

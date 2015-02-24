@@ -7,7 +7,7 @@ use Symfony\Component\Yaml\Yaml as YamlParser;
 use Noodlehaus\Exception\ParseException;
 
 /**
- * YAML file loader
+ * YAML file parser
  *
  * @package    Config
  * @author     Jesus A. Domingo <jesus.domingo@gmail.com>

@@ -7,7 +7,7 @@ use Noodlehaus\Exception\ParseException;
 use Noodlehaus\Exception\UnsupportedFormatException;
 
 /**
- * PHP file loader
+ * PHP file parser
  *
  * @package    Config
  * @author     Jesus A. Domingo <jesus.domingo@gmail.com>

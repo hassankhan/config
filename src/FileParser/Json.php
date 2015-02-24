@@ -5,7 +5,7 @@ namespace Noodlehaus\FileParser;
 use Noodlehaus\Exception\ParseException;
 
 /**
- * JSON file loader
+ * JSON file parser
  *
  * @package    Config
  * @author     Jesus A. Domingo <jesus.domingo@gmail.com>

@@ -3,7 +3,7 @@
 namespace Noodlehaus\FileParser;
 
 /**
- * Config File interface
+ * Config file parser interface
  *
  * @package    Config
  * @author     Jesus A. Domingo <jesus.domingo@gmail.com>
@@ -14,7 +14,7 @@ namespace Noodlehaus\FileParser;
 interface FileParserInterface
 {
     /**
-     * Loads a file from `$path` and gets its contents as an array
+     * Parses a file from `$path` and gets its contents as an array
      *
      * @param  string $path
      *
