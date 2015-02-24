@@ -13,7 +13,7 @@ and YML files.
 
 ## Requirements
 
-`Config` requires PHP 5.3+, and `symfony/yaml` for its YML support.
+`Config` requires PHP 5.3+, and the [Symfony Yaml component](https://github.com/symfony/Yaml).
 
 ## Installation
 
@@ -23,7 +23,7 @@ The supported way of installing this is via `composer`.
 $ composer require --prefer-dist noodlehaus/config
 ```
 
-## How it works
+## Usage
 
 `Config` is designed to be very simple and straightforward to use. All you can do with
 it is load, get, and set.
@@ -231,8 +231,33 @@ security:
 debug: false
 ```
 
+
+## Testing
+
+``` bash
+$ phpunit
+```
+
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+
+## Security
+
+If you discover any security related issues, please email jesus.domingo@gmail.com instead of using the issue tracker.
+
+
+## Credits
+
+- [Jesus A. Domingo](https://github.com/noodlehaus)
+- [All Contributors](../../contributors)
+
+
 ## License
-MIT: <http://noodlehaus.mit-license.org>
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/noodlehaus/config.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
