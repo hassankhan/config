@@ -32,4 +32,12 @@ class Ini implements FileParserInterface
 
         return $data;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSupportedExtensions()
+    {
+        return array('ini');
+    }
 }

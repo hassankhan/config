@@ -50,4 +50,12 @@ class Php implements FileParserInterface
 
         return $temp;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSupportedExtensions()
+    {
+        return array('php');
+    }
 }

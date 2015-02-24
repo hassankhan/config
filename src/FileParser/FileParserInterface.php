@@ -21,4 +21,11 @@ interface FileParserInterface
      * @return array
      */
     public function parse($path);
+
+    /**
+     * Returns an array of allowed file extensions for this parser
+     *
+     * @return array
+     */
+    public function getSupportedExtensions();
 }
