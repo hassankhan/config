@@ -31,21 +31,21 @@ class XmlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\FileParser\Xml::load()
+     * @covers                   Noodlehaus\FileParser\Xml::parse()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage Opening and ending tag mismatch: name line 4
      */
     public function testLoadInvalidXml()
     {
-        $this->xml->load(__DIR__ . '/../mocks/fail/error.xml');
+        $this->xml->parse(__DIR__ . '/../mocks/fail/error.xml');
     }
 
     /**
-     * @covers Noodlehaus\FileParser\Xml::load()
+     * @covers Noodlehaus\FileParser\Xml::parse()
      */
     public function testLoadXml()
     {
-        $actual = $this->xml->load(__DIR__ . '/../mocks/pass/config.xml');
+        $actual = $this->xml->parse(__DIR__ . '/../mocks/pass/config.xml');
         $this->assertEquals('localhost', $actual['host']);
         $this->assertEquals('80', $actual['port']);
     }

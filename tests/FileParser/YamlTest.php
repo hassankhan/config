@@ -31,31 +31,31 @@ class YamlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\FileParser\Yaml::load()
+     * @covers                   Noodlehaus\FileParser\Yaml::parse()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage Error parsing YAML file
      */
     public function testLoadInvalidYaml()
     {
-        $this->yaml->load(__DIR__ . '/../mocks/fail/error.yaml');
+        $this->yaml->parse(__DIR__ . '/../mocks/fail/error.yaml');
     }
 
     /**
-     * @covers Noodlehaus\FileParser\Yaml::load()
+     * @covers Noodlehaus\FileParser\Yaml::parse()
      */
     public function testLoadYaml()
     {
-        $actual = $this->yaml->load(__DIR__ . '/../mocks/pass/config.yaml');
+        $actual = $this->yaml->parse(__DIR__ . '/../mocks/pass/config.yaml');
         $this->assertEquals('localhost', $actual['host']);
         $this->assertEquals('80', $actual['port']);
     }
 
     /**
-     * @covers Noodlehaus\FileParser\Yaml::load
+     * @covers Noodlehaus\FileParser\Yaml::parse()
      */
     public function testLoadYml()
     {
-        $actual = $this->yaml->load(__DIR__ . '/../mocks/pass/config.yml');
+        $actual = $this->yaml->parse(__DIR__ . '/../mocks/pass/config.yml');
         $this->assertEquals('localhost', $actual['host']);
         $this->assertEquals('80', $actual['port']);
     }

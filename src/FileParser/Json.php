@@ -21,7 +21,7 @@ class Json implements FileParserInterface
      *
      * @throws ParseException If there is an error parsing the JSON file
      */
-    public function load($path)
+    public function parse($path)
     {
         $data = json_decode(file_get_contents($path), true);
 

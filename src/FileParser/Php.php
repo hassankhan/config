@@ -24,7 +24,7 @@ class Php implements FileParserInterface
      * @throws ParseException             If the PHP file throws an exception
      * @throws UnsupportedFormatException If the PHP file does not return an array
      */
-    public function load($path)
+    public function parse($path)
     {
         // Require the file, if it throws an exception, rethrow it
         try {

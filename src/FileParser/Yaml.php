@@ -23,7 +23,7 @@ class Yaml implements FileParserInterface
      *
      * @throws ParseException If If there is an error parsing the YAML file
      */
-    public function load($path)
+    public function parse($path)
     {
         try {
             $data = YamlParser::parse($path);

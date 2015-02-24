@@ -20,5 +20,5 @@ interface FileParserInterface
      *
      * @return array
      */
-    public function load($path);
+    public function parse($path);
 }

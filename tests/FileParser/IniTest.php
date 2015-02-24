@@ -31,21 +31,21 @@ class IniTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\FileParser\Ini::load()
+     * @covers                   Noodlehaus\FileParser\Ini::parse()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage syntax error, unexpected $end, expecting ']'
      */
     public function testLoadInvalidIni()
     {
-        $this->ini->load(__DIR__ . '/../mocks/fail/error.ini');
+        $this->ini->parse(__DIR__ . '/../mocks/fail/error.ini');
     }
 
     /**
-     * @covers Noodlehaus\FileParser\Ini::load()
+     * @covers Noodlehaus\FileParser\Ini::parse()
      */
     public function testLoadIni()
     {
-        $actual = $this->ini->load(__DIR__ . '/../mocks/pass/config.ini');
+        $actual = $this->ini->parse(__DIR__ . '/../mocks/pass/config.ini');
         $this->assertEquals('localhost', $actual['host']);
         $this->assertEquals('80', $actual['port']);
     }

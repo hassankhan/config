@@ -21,7 +21,7 @@ class Xml implements FileParserInterface
      *
      * @throws ParseException If there is an error parsing the XML file
      */
-    public function load($path)
+    public function parse($path)
     {
         libxml_use_internal_errors(true);
 

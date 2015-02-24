@@ -31,41 +31,41 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\FileParser\Php::load()
+     * @covers                   Noodlehaus\FileParser\Php::parse()
      * @expectedException        Noodlehaus\Exception\UnsupportedFormatException
      * @expectedExceptionMessage PHP file does not return an array
      */
     public function testLoadInvalidPhp()
     {
-        $this->php->load(__DIR__ . '/../mocks/fail/error.php');
+        $this->php->parse(__DIR__ . '/../mocks/fail/error.php');
     }
 
     /**
-     * @covers                   Noodlehaus\FileParser\Php::load()
+     * @covers                   Noodlehaus\FileParser\Php::parse()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage PHP file threw an exception
      */
     public function testLoadExceptionalPhp()
     {
-        $this->php->load(__DIR__ . '/../mocks/fail/error-exception.php');
+        $this->php->parse(__DIR__ . '/../mocks/fail/error-exception.php');
     }
 
     /**
-     * @covers Noodlehaus\FileParser\Php::load
+     * @covers Noodlehaus\FileParser\Php::parse()
      */
     public function testLoadPhpArray()
     {
-        $actual = $this->php->load(__DIR__ . '/../mocks/pass/config.php');
+        $actual = $this->php->parse(__DIR__ . '/../mocks/pass/config.php');
         $this->assertEquals('localhost', $actual['host']);
         $this->assertEquals('80', $actual['port']);
     }
 
     /**
-     * @covers Noodlehaus\FileParser\Php::load
+     * @covers Noodlehaus\FileParser\Php::parse()
      */
     public function testLoadPhpCallable()
     {
-        $actual = $this->php->load(__DIR__ . '/../mocks/pass/config-exec.php');
+        $actual = $this->php->parse(__DIR__ . '/../mocks/pass/config-exec.php');
         $this->assertEquals('localhost', $actual['host']);
         $this->assertEquals('80', $actual['port']);
     }

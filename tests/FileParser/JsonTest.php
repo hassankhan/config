@@ -31,21 +31,21 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\FileParser\Json::load()
+     * @covers                   Noodlehaus\FileParser\Json::parse()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage Syntax error
      */
     public function testLoadInvalidJson()
     {
-        $this->json->load(__DIR__ . '/../mocks/fail/error.json');
+        $this->json->parse(__DIR__ . '/../mocks/fail/error.json');
     }
 
     /**
-     * @covers Noodlehaus\FileParser\Json::load()
+     * @covers Noodlehaus\FileParser\Json::parse()
      */
     public function testLoadJson()
     {
-        $actual = $this->json->load(__DIR__ . '/../mocks/pass/config.json');
+        $actual = $this->json->parse(__DIR__ . '/../mocks/pass/config.json');
         $this->assertEquals('localhost', $actual['host']);
         $this->assertEquals('80', $actual['port']);
     }

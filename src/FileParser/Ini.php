@@ -21,7 +21,7 @@ class Ini implements FileParserInterface
      *
      * @throws ParseException If there is an error parsing the INI file
      */
-    public function load($path)
+    public function parse($path)
     {
         $data = @parse_ini_file($path, true);
 

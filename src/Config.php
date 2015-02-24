@@ -71,7 +71,7 @@ class Config extends AbstractConfig
             $loader = $this->getLoader($extension);
 
             // Try and load file
-            $this->data = array_replace_recursive($this->data, $loader->load($path));
+            $this->data = array_replace_recursive($this->data, $loader->parse($path));
         }
     }
 
