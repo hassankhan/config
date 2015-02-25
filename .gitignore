@@ -2,3 +2,4 @@ vendor
 composer.lock
 build
 node_modules
+.idea

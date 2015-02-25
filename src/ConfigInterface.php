@@ -35,4 +35,24 @@ interface ConfigInterface
      * @return void
      */
     public function set($key, $value);
+
+    /**
+     * Function for checking if configuration values exist, using
+     * either simple or nested keys.
+     *
+     * @param  string $key
+     *
+     * @return boolean
+     */
+    public function has($key);
+
+    /**
+     * Function for remove configuration values, using
+     * either simple or nested keys.
+     *
+     * @param  string $key
+     *
+     * @return void
+     */
+    public function remove($key);
 }
