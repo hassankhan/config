@@ -186,15 +186,6 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::remove()
-     */
-    public function testRemove()
-    {
-        $this->config->remove('application');
-        $this->assertNull($this->config->get('application'));
-    }
-
-    /**
      * @covers Noodlehaus\AbstractConfig::offsetGet()
      */
     public function testOffsetGet()

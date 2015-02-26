@@ -112,14 +112,6 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface
         return !is_null($this->get($key));
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function remove($key)
-    {
-        $this->set($key, null);
-    }
-
 
 
     /**
@@ -172,6 +164,6 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface
      */
     public function offsetUnset($offset)
     {
-        $this->remove($offset);
+        $this->set($offset, null);
     }
 }

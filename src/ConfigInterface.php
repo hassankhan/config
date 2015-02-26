@@ -46,13 +46,4 @@ interface ConfigInterface
      */
     public function has($key);
 
-    /**
-     * Function for remove configuration values, using
-     * either simple or nested keys.
-     *
-     * @param  string $key
-     *
-     * @return void
-     */
-    public function remove($key);
 }
