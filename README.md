@@ -43,6 +43,9 @@ $conf = new Config(['config.json', 'config.xml']);
 
 // Load all supported files in a directory
 $conf = new Config(__DIR__ . '/config');
+
+// Load values from optional files
+$conf = new Config(['config.dist.json', '?config.json']);
 ```
 
 Files are parsed and loaded depending on the file extension. Note that when
