@@ -1,13 +1,13 @@
 <?php
 
-namespace Noodlehaus\File;
+namespace Noodlehaus\FileParser;
 
 use Exception;
 use Symfony\Component\Yaml\Yaml as YamlParser;
 use Noodlehaus\Exception\ParseException;
 
 /**
- * YAML file loader
+ * YAML file parser
  *
  * @package    Config
  * @author     Jesus A. Domingo <jesus.domingo@gmail.com>
@@ -15,7 +15,7 @@ use Noodlehaus\Exception\ParseException;
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-class Yaml implements FileInterface
+class Yaml implements FileParserInterface
 {
     /**
      * {@inheritDoc}
@@ -23,7 +23,7 @@ class Yaml implements FileInterface
      *
      * @throws ParseException If If there is an error parsing the YAML file
      */
-    public function load($path)
+    public function parse($path)
     {
         try {
             $data = YamlParser::parse($path);
@@ -37,5 +37,13 @@ class Yaml implements FileInterface
         }
 
         return $data;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSupportedExtensions()
+    {
+        return array('yaml', 'yml');
     }
 }

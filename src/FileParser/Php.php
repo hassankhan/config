@@ -1,13 +1,13 @@
 <?php
 
-namespace Noodlehaus\File;
+namespace Noodlehaus\FileParser;
 
 use Exception;
 use Noodlehaus\Exception\ParseException;
 use Noodlehaus\Exception\UnsupportedFormatException;
 
 /**
- * PHP file loader
+ * PHP file parser
  *
  * @package    Config
  * @author     Jesus A. Domingo <jesus.domingo@gmail.com>
@@ -15,7 +15,7 @@ use Noodlehaus\Exception\UnsupportedFormatException;
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-class Php implements FileInterface
+class Php implements FileParserInterface
 {
     /**
      * {@inheritDoc}
@@ -24,7 +24,7 @@ class Php implements FileInterface
      * @throws ParseException             If the PHP file throws an exception
      * @throws UnsupportedFormatException If the PHP file does not return an array
      */
-    public function load($path)
+    public function parse($path)
     {
         // Require the file, if it throws an exception, rethrow it
         try {
@@ -49,5 +49,13 @@ class Php implements FileInterface
         }
 
         return $temp;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSupportedExtensions()
+    {
+        return array('php');
     }
 }
