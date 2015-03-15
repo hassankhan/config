@@ -27,7 +27,7 @@
     },
     "suggest": {
         "symfony/yaml": "~2.5"
-    }
+    },
     "autoload": {
         "psr-4": {
             "Noodlehaus\\": "src"
