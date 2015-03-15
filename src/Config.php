@@ -58,17 +58,15 @@ class Config extends AbstractConfig
 
         foreach ($paths as $path) {
 
-            // Get file information
-            $info      = pathinfo($path);
-            $extension = isset($info['extension']) ? $info['extension'] : '';
-
-
             // Check if config file exists or throw an exception
             if (!file_exists($path)) {
                 throw new FileNotFoundException("Configuration file: [$path] cannot be found");
             }
 
-            $loader = $this->getLoader($extension);
+            // Get file information
+            $info      = pathinfo($path);
+            $extension = isset($info['extension']) ? $info['extension'] : '';
+            $loader    = $this->getLoader($extension);
 
             // Try and load file
             $this->data = array_replace_recursive($this->data, $loader->parse($path));
