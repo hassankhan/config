@@ -47,8 +47,6 @@ class Config extends AbstractConfig
      *
      * @param  string|array $path
      *
-     * @throws FileNotFoundException      If a file is not found at `$path`
-     *
      * @throws EmptyDirectoryException    If `$path` is an empty directory
      */
     public function __construct($path)
@@ -57,11 +55,6 @@ class Config extends AbstractConfig
         $this->data = array();
 
         foreach ($paths as $path) {
-
-            // Check if config file exists or throw an exception
-            if (!file_exists($path)) {
-                throw new FileNotFoundException("Configuration file: [$path] cannot be found");
-            }
 
             // Get file information
             $info      = pathinfo($path);
@@ -110,6 +103,8 @@ class Config extends AbstractConfig
      * @return array
      *
      * @throws EmptyDirectoryException If `$path` is an empty directory
+     *
+     * @throws FileNotFoundException      If a file is not found at `$path`
      */
     private function getValidPath($path)
     {
@@ -117,7 +112,25 @@ class Config extends AbstractConfig
         if (is_array($path)) {
             $paths = array();
             foreach ($path as $unverifiedPath) {
-                $paths = array_merge($paths, $this->getValidPath($unverifiedPath));
+                try {
+                    // Check if `$unverifiedPath` is optional
+                    // If it exists, then it's added to the list
+                    // If it doesn't, it throws an exception which we catch
+                    if ($unverifiedPath[0] !== '?') {
+                        $paths = array_merge($paths, $this->getValidPath($unverifiedPath));
+                        continue;
+                    }
+                    $optionalPath = ltrim($unverifiedPath, '?');
+                    $paths = array_merge($paths, $this->getValidPath($optionalPath));
+
+                } catch (FileNotFoundException $e) {
+                    // If `$unverifiedPath` is optional, then skip it
+                    if ($unverifiedPath[0] === '?') {
+                        continue;
+                    }
+                    // Otherwise rethrow the exception
+                    throw $e;
+                }
             }
             return $paths;
         }
@@ -131,7 +144,10 @@ class Config extends AbstractConfig
             return $paths;
         }
 
-        // If `$path` is a file
+        // If `$path` is not a file, throw an exception
+        if (!file_exists($path)) {
+            throw new FileNotFoundException("Configuration file: [$path] cannot be found");
+        }
         return array($path);
     }
 }

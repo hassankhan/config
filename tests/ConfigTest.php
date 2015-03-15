@@ -90,6 +90,55 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers            Noodlehaus\Config::__construct()
+     * @covers            Noodlehaus\Config::getLoader()
+     * @covers            Noodlehaus\Config::getValidPath()
+     * @expectedException Noodlehaus\Exception\FileNotFoundException
+     */
+    public function testConstructWithArrayWithNonexistentFile()
+    {
+        $paths = array(__DIR__ . '/mocks/pass/config.xml', __DIR__ . '/mocks/pass/config3.json');
+        $config = new Config($paths);
+
+        $expected = 'localhost';
+        $actual   = $config->get('host');
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers Noodlehaus\Config::__construct()
+     * @covers Noodlehaus\Config::getLoader()
+     * @covers Noodlehaus\Config::getValidPath()
+     */
+    public function testConstructWithArrayWithOptionalFile()
+    {
+        $paths = array(__DIR__ . '/mocks/pass/config.xml', '?' . __DIR__ . '/mocks/pass/config2.json');
+        $config = new Config($paths);
+
+        $expected = 'localhost';
+        $actual   = $config->get('host');
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers Noodlehaus\Config::__construct()
+     * @covers Noodlehaus\Config::getLoader()
+     * @covers Noodlehaus\Config::getValidPath()
+     */
+    public function testConstructWithArrayWithOptionalNonexistentFile()
+    {
+        $paths = array(__DIR__ . '/mocks/pass/config.xml', '?' . __DIR__ . '/mocks/pass/config3.json');
+        $config = new Config($paths);
+
+        $expected = 'localhost';
+        $actual   = $config->get('host');
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * @covers Noodlehaus\Config::__construct()
      * @covers Noodlehaus\Config::getLoader()
      * @covers Noodlehaus\Config::getValidPath()
