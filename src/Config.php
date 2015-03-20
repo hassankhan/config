@@ -64,6 +64,8 @@ class Config extends AbstractConfig
             // Try and load file
             $this->data = array_replace_recursive($this->data, $loader->parse($path));
         }
+
+        parent::__construct($this->data);
     }
 
     /**
