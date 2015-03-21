@@ -1,16 +1,11 @@
 {
-    "name": "noodlehaus/config",
+    "name": "hassankhan/config",
     "type": "library",
     "description": "Lightweight configuration file loader that supports PHP, INI, XML, JSON, and YAML files",
     "keywords": ["configuration", "config", "json", "yaml", "yml", "ini", "xml", "unframework", "microphp"],
-    "homepage": "http://noodlehaus.github.io/config/",
+    "homepage": "http://hassankhan.me/config/",
     "license": "MIT",
     "authors": [
-        {
-            "name": "Jesus A. Domingo",
-            "role": "Developer",
-            "homepage": "http://noodlehaus.github.io/"
-        },
         {
             "name": "Hassan Khan",
             "role": "Developer",
