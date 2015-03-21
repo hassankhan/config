@@ -22,12 +22,12 @@ class Config extends AbstractConfig
      *
      * @var array
      */
-    private $supportedFileLoaders = array(
-        'Noodlehaus\FileParser\Php'  => array('php'),
-        'Noodlehaus\FileParser\Ini'  => array('ini'),
-        'Noodlehaus\FileParser\Json' => array('json'),
-        'Noodlehaus\FileParser\Xml'  => array('xml'),
-        'Noodlehaus\FileParser\Yaml' => array('yaml', 'yml'),
+    private $supportedFileParsers = array(
+        'Noodlehaus\FileParser\Php',
+        'Noodlehaus\FileParser\Ini',
+        'Noodlehaus\FileParser\Json',
+        'Noodlehaus\FileParser\Xml',
+        'Noodlehaus\FileParser\Yaml'
     );
 
     /**
@@ -59,17 +59,17 @@ class Config extends AbstractConfig
             // Get file information
             $info      = pathinfo($path);
             $extension = isset($info['extension']) ? $info['extension'] : '';
-            $loader    = $this->getLoader($extension);
+            $parser    = $this->getParser($extension);
 
             // Try and load file
-            $this->data = array_replace_recursive($this->data, $loader->parse($path));
+            $this->data = array_replace_recursive($this->data, $parser->parse($path));
         }
 
         parent::__construct($this->data);
     }
 
     /**
-     * Gets a loader for a given file extension
+     * Gets a parser for a given file extension
      *
      * @param  string $extension
      *
@@ -77,24 +77,27 @@ class Config extends AbstractConfig
      *
      * @throws UnsupportedFormatException If `$path` is an unsupported file format
      */
-    private function getLoader($extension)
+    private function getParser($extension)
     {
-        $loader               = null;
-        $supportedFileFormats = array_values($this->supportedFileLoaders);
+        $parser               = null;
+        $supportedFileFormats = array_values($this->supportedFileParsers);
 
-        foreach ($supportedFileFormats as $supportedFileExtension) {
-            if (in_array(strtolower($extension), $supportedFileExtension)) {
-                $loaderName = array_search($supportedFileExtension, $this->supportedFileLoaders);
-                $loader     = new $loaderName();
+        foreach ($this->supportedFileParsers as $fileParser) {
+            $tempParser = new $fileParser;
+
+            if (in_array($extension, $tempParser->getSupportedExtensions($extension))) {
+                $parser = $tempParser;
+                continue;
             }
+
         }
 
         // If none exist, then throw an exception
-        if ($loader === null) {
+        if ($parser === null) {
             throw new UnsupportedFormatException('Unsupported configuration format');
         }
 
-        return $loader;
+        return $parser;
     }
 
     /**
