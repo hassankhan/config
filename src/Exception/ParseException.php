@@ -8,7 +8,7 @@ class ParseException extends ErrorException
 {
     public function __construct(array $error)
     {
-        $message   = $error['message'];
+        $message   = $error['message'] ?: 'There was an error parsing the file';
         $code      = isset($error['code']) ? $error['code'] : 0;
         $severity  = isset($error['type']) ? $error['type'] : 1;
         $filename  = isset($error['file']) ? $error['file'] : __FILE__;

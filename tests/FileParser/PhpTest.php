@@ -31,6 +31,16 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Noodlehaus\FileParser\Php::getSupportedExtensions()
+     */
+    public function testGetSupportedExtensions()
+    {
+        $expected = array('php');
+        $actual   = $this->php->getSupportedExtensions();
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * @covers                   Noodlehaus\FileParser\Php::parse()
      * @expectedException        Noodlehaus\Exception\UnsupportedFormatException
      * @expectedExceptionMessage PHP file does not return an array
