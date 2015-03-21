@@ -1,11 +1,11 @@
 <?php
 
-namespace Noodlehaus\File;
+namespace Noodlehaus\FileParser;
 
 use Noodlehaus\Exception\ParseException;
 
 /**
- * INI file loader
+ * INI file parser
  *
  * @package    Config
  * @author     Jesus A. Domingo <jesus.domingo@gmail.com>
@@ -13,15 +13,15 @@ use Noodlehaus\Exception\ParseException;
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-class Ini implements FileInterface
+class Ini implements FileParserInterface
 {
     /**
      * {@inheritDoc}
-     * Loads an INI file as an array
+     * Parses an INI file as an array
      *
      * @throws ParseException If there is an error parsing the INI file
      */
-    public function load($path)
+    public function parse($path)
     {
         $data = @parse_ini_file($path, true);
 
@@ -31,5 +31,13 @@ class Ini implements FileInterface
         }
 
         return $data;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSupportedExtensions()
+    {
+        return array('ini');
     }
 }

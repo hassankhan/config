@@ -1,11 +1,11 @@
 <?php
 
-namespace Noodlehaus\File;
+namespace Noodlehaus\FileParser;
 
 use Noodlehaus\Exception\ParseException;
 
 /**
- * JSON file loader
+ * JSON file parser
  *
  * @package    Config
  * @author     Jesus A. Domingo <jesus.domingo@gmail.com>
@@ -13,7 +13,7 @@ use Noodlehaus\Exception\ParseException;
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-class Json implements FileInterface
+class Json implements FileParserInterface
 {
     /**
      * {@inheritDoc}
@@ -21,7 +21,7 @@ class Json implements FileInterface
      *
      * @throws ParseException If there is an error parsing the JSON file
      */
-    public function load($path)
+    public function parse($path)
     {
         $data = json_decode(file_get_contents($path), true);
 
@@ -41,5 +41,13 @@ class Json implements FileInterface
         }
 
         return $data;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSupportedExtensions()
+    {
+        return array('json');
     }
 }

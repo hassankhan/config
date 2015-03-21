@@ -22,12 +22,12 @@ class Config extends AbstractConfig
      *
      * @var array
      */
-    private $supportedFileLoaders = array(
-        'Noodlehaus\File\Php'  => array('php'),
-        'Noodlehaus\File\Ini'  => array('ini'),
-        'Noodlehaus\File\Json' => array('json'),
-        'Noodlehaus\File\Xml'  => array('xml'),
-        'Noodlehaus\File\Yaml' => array('yaml', 'yml'),
+    private $supportedFileParsers = array(
+        'Noodlehaus\FileParser\Php',
+        'Noodlehaus\FileParser\Ini',
+        'Noodlehaus\FileParser\Json',
+        'Noodlehaus\FileParser\Xml',
+        'Noodlehaus\FileParser\Yaml'
     );
 
     /**
@@ -47,8 +47,6 @@ class Config extends AbstractConfig
      *
      * @param  string|array $path
      *
-     * @throws FileNotFoundException      If a file is not found at `$path`
-     *
      * @throws EmptyDirectoryException    If `$path` is an empty directory
      */
     public function __construct($path)
@@ -61,22 +59,17 @@ class Config extends AbstractConfig
             // Get file information
             $info      = pathinfo($path);
             $extension = isset($info['extension']) ? $info['extension'] : '';
-
-
-            // Check if config file exists or throw an exception
-            if (!file_exists($path)) {
-                throw new FileNotFoundException("Configuration file: [$path] cannot be found");
-            }
-
-            $loader = $this->getLoader($extension);
+            $parser    = $this->getParser($extension);
 
             // Try and load file
-            $this->data = array_replace_recursive($this->data, $loader->load($path));
+            $this->data = array_replace_recursive($this->data, $parser->parse($path));
         }
+
+        parent::__construct($this->data);
     }
 
     /**
-     * Gets a loader for a given file extension
+     * Gets a parser for a given file extension
      *
      * @param  string $extension
      *
@@ -84,24 +77,27 @@ class Config extends AbstractConfig
      *
      * @throws UnsupportedFormatException If `$path` is an unsupported file format
      */
-    private function getLoader($extension)
+    private function getParser($extension)
     {
-        $loader               = null;
-        $supportedFileFormats = array_values($this->supportedFileLoaders);
+        $parser               = null;
+        $supportedFileFormats = array_values($this->supportedFileParsers);
 
-        foreach ($supportedFileFormats as $supportedFileExtension) {
-            if (in_array(strtolower($extension), $supportedFileExtension)) {
-                $loaderName = array_search($supportedFileExtension, $this->supportedFileLoaders);
-                $loader     = new $loaderName();
+        foreach ($this->supportedFileParsers as $fileParser) {
+            $tempParser = new $fileParser;
+
+            if (in_array($extension, $tempParser->getSupportedExtensions($extension))) {
+                $parser = $tempParser;
+                continue;
             }
+
         }
 
         // If none exist, then throw an exception
-        if ($loader === null) {
+        if ($parser === null) {
             throw new UnsupportedFormatException('Unsupported configuration format');
         }
 
-        return $loader;
+        return $parser;
     }
 
     /**
@@ -112,6 +108,8 @@ class Config extends AbstractConfig
      * @return array
      *
      * @throws EmptyDirectoryException If `$path` is an empty directory
+     *
+     * @throws FileNotFoundException      If a file is not found at `$path`
      */
     private function getValidPath($path)
     {
@@ -119,7 +117,25 @@ class Config extends AbstractConfig
         if (is_array($path)) {
             $paths = array();
             foreach ($path as $unverifiedPath) {
-                $paths = array_merge($paths, $this->getValidPath($unverifiedPath));
+                try {
+                    // Check if `$unverifiedPath` is optional
+                    // If it exists, then it's added to the list
+                    // If it doesn't, it throws an exception which we catch
+                    if ($unverifiedPath[0] !== '?') {
+                        $paths = array_merge($paths, $this->getValidPath($unverifiedPath));
+                        continue;
+                    }
+                    $optionalPath = ltrim($unverifiedPath, '?');
+                    $paths = array_merge($paths, $this->getValidPath($optionalPath));
+
+                } catch (FileNotFoundException $e) {
+                    // If `$unverifiedPath` is optional, then skip it
+                    if ($unverifiedPath[0] === '?') {
+                        continue;
+                    }
+                    // Otherwise rethrow the exception
+                    throw $e;
+                }
             }
             return $paths;
         }
@@ -133,7 +149,10 @@ class Config extends AbstractConfig
             return $paths;
         }
 
-        // If `$path` is a file
+        // If `$path` is not a file, throw an exception
+        if (!file_exists($path)) {
+            throw new FileNotFoundException("Configuration file: [$path] cannot be found");
+        }
         return array($path);
     }
 }

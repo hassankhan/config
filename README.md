@@ -13,7 +13,7 @@ and YML files.
 
 ## Requirements
 
-`Config` requires PHP 5.3+, and `symfony/yaml` for its YML support.
+`Config` requires PHP 5.3+, and suggest using the [Symfony Yaml component](https://github.com/symfony/Yaml).
 
 ## Installation
 
@@ -23,7 +23,7 @@ The supported way of installing this is via `composer`.
 $ composer require --prefer-dist noodlehaus/config
 ```
 
-## How it works
+## Usage
 
 `Config` is designed to be very simple and straightforward to use. All you can do with
 it is load, get, and set.
@@ -43,6 +43,9 @@ $conf = new Config(['config.json', 'config.xml']);
 
 // Load all supported files in a directory
 $conf = new Config(__DIR__ . '/config');
+
+// Load values from optional files
+$conf = new Config(['config.dist.json', '?config.json']);
 ```
 
 Files are parsed and loaded depending on the file extension. Note that when
@@ -136,103 +139,35 @@ class MyConfig extends AbstractConfig
 
 ### Examples of supported configuration files
 
-Here's an example JSON file that we'll call `config.json`.
+Examples of simple, valid configuration files can be found in [tests/mocks/pass/][tests/mocks/pass/].
 
-```json
-{
-    "app": {
-        "host": "localhost",
-        "port": 80,
-        "base": "/my/app"
-    },
-    "security": {
-        "secret": "s3cr3t-c0d3"
-    },
-    "debug": false
-}
+
+## Testing
+
+``` bash
+$ phpunit
 ```
 
-Here's the same config file in PHP format:
 
-```php
-<?php
-return array(
-    'app' => array(
-        'host' => 'localhost',
-        'port' => 80,
-        'base' => '/my/app'
-    ),
-    'security' => array(
-        'secret' => 's3cr3t-c0d3'
-    ),
-    'debug' => false
-);
-```
+## Contributing
 
-Or in a PHP file that returns a function that creates your config:
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-```php
-return function () {
-    // Normal callable function, returns array
-    return array(
-    'app' => array(
-        'host' => 'localhost',
-        'port' => 80,
-        'base' => '/my/app'
-    ),
-    'security' => array(
-        'secret' => 's3cr3t-c0d3'
-    ),
-    'debug' => false
-    );
-};
-```
 
-Or in an INI format:
+## Security
 
-```ini
-debug = false
+If you discover any security related issues, please email jesus.domingo@gmail.com instead of using the issue tracker.
 
-[app]
-host = localhost
-port = 80
-base = /my/app
 
-[security]
-secret = s3cr3t-c0d3
-```
+## Credits
 
-Or in an XML format:
+- [Jesus A. Domingo](https://github.com/noodlehaus)
+- [All Contributors](../../contributors)
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<config>
-    <app>
-        <host>localhost</host>
-        <port>80</port>
-        <base>/my/app</base>
-    </app>
-    <security>
-        <secret>s3cr3t-c0d3</secret>
-    </security>
-    <debug>false</debug>
-</config>
-```
-
-Or in a YAML format:
-
-```yaml
-app:
-    host: localhost
-    port: 80
-    base: /my/app
-security:
-    secret: s3cr3t-c0d3
-debug: false
-```
 
 ## License
-MIT: <http://noodlehaus.mit-license.org>
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/noodlehaus/config.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square

@@ -1,11 +1,11 @@
 <?php
 
-namespace Noodlehaus\File;
+namespace Noodlehaus\FileParser;
 
 use Noodlehaus\Exception\ParseException;
 
 /**
- * XML file loader
+ * XML file parser
  *
  * @package    Config
  * @author     Jesus A. Domingo <jesus.domingo@gmail.com>
@@ -13,15 +13,15 @@ use Noodlehaus\Exception\ParseException;
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-class Xml implements FileInterface
+class Xml implements FileParserInterface
 {
     /**
      * {@inheritDoc}
-     * Loads an XML file as an array
+     * Parses an XML file as an array
      *
      * @throws ParseException If there is an error parsing the XML file
      */
-    public function load($path)
+    public function parse($path)
     {
         libxml_use_internal_errors(true);
 
@@ -43,5 +43,13 @@ class Xml implements FileInterface
         $data = json_decode(json_encode($data), true);
 
         return $data;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSupportedExtensions()
+    {
+        return array('xml');
     }
 }
