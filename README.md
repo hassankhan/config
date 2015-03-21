@@ -8,29 +8,29 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Gitter][ico-gitter]][link-gitter]
 
-`Config` is a file configuration loader that supports PHP, INI, XML, JSON,
+Config is a file configuration loader that supports PHP, INI, XML, JSON,
 and YML files.
 
 ## Requirements
 
-`Config` requires PHP 5.3+, and suggest using the [Symfony Yaml component](https://github.com/symfony/Yaml).
+Config requires PHP 5.3+, and suggest using the [Symfony Yaml component](https://github.com/symfony/Yaml).
 
 ## Installation
 
-The supported way of installing this is via `composer`.
+The supported way of installing Config is via Composer.
 
 ```sh
-$ composer require --prefer-dist noodlehaus/config
+$ composer require hassankhan/config
 ```
 
 ## Usage
 
-`Config` is designed to be very simple and straightforward to use. All you can do with
+Config is designed to be very simple and straightforward to use. All you can do with
 it is load, get, and set.
 
 ### Loading files
 
-The `Noodlehaus\Config` object can be created via the factory method `load`, or
+The `Config` object can be created via the factory method `load()`, or
 by direct instantiation:
 
 ```php
@@ -85,7 +85,7 @@ $secret = $conf['security']['secret'];
 
 ### Setting values
 
-Although `Config` supports setting values via `set()` or, via the
+Although Config supports setting values via `set()` or, via the
 array syntax, **any changes made this way are NOT reflected back to the
 source files**. By design, if you need to make changes to your
 configuration files, you have to do it manually.
@@ -111,9 +111,9 @@ assert($conf['secret'] == '456');
 
 ### Using with default values
 
-Sometimes in your own projects you may want to use `Config` for storing
+Sometimes in your own projects you may want to use Config for storing
 application settings, without needing file I/O. You can do this by extending
-`Noodlehaus\AbstractConfig` and populating the `getDefaults()` method:
+the `AbstractConfig` class and populating the `getDefaults()` method:
 
 ```php
 class MyConfig extends AbstractConfig
@@ -139,7 +139,7 @@ class MyConfig extends AbstractConfig
 
 ### Examples of supported configuration files
 
-Examples of simple, valid configuration files can be found in [tests/mocks/pass/][tests/mocks/pass/].
+Examples of simple, valid configuration files can be found in [tests/mocks/pass/](tests/mocks/pass).
 
 
 ## Testing
@@ -161,7 +161,7 @@ If you discover any security related issues, please email jesus.domingo@gmail.co
 
 ## Credits
 
-- [Jesus A. Domingo](https://github.com/noodlehaus)
+- [Hassan Khan](https://github.com/hassankhan)
 - [All Contributors](../../contributors)
 
 
@@ -169,18 +169,18 @@ If you discover any security related issues, please email jesus.domingo@gmail.co
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/noodlehaus/config.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/hassankhan/config.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/noodlehaus/config/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/noodlehaus/config.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/noodlehaus/config.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/noodlehaus/config.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/hassankhan/config/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/hassankhan/config.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/hassankhan/config.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/hassankhan/config.svg?style=flat-square
 [ico-gitter]: https://img.shields.io/badge/GITTER-JOIN%20CHAT%20%E2%86%92-brightgreen.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/noodlehaus/config
-[link-license]: http://noodlehaus.mit-license.org
-[link-travis]: https://travis-ci.org/noodlehaus/config
-[link-scrutinizer]: https://scrutinizer-ci.com/g/noodlehaus/config/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/noodlehaus/config
-[link-downloads]: https://packagist.org/packages/noodlehaus/config
-[link-gitter]: https://gitter.im/noodlehaus/config?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
+[link-packagist]: https://packagist.org/packages/hassankhan/config
+[link-license]: http://hassankhan.mit-license.org
+[link-travis]: https://travis-ci.org/hassankhan/config
+[link-scrutinizer]: https://scrutinizer-ci.com/g/hassankhan/config/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/hassankhan/config
+[link-downloads]: https://packagist.org/packages/hassankhan/config
+[link-gitter]: https://gitter.im/hassankhan/config?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
