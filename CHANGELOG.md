@@ -2,24 +2,29 @@
 
 All notable changes to `Config` will be documented in this file
 
+## 0.8.2 - 2015-03-21
+
+### Fixed
+- Some code smells in `Config`
+- Updated README.md
+
+
+## 0.8.1 - 2015-03-21
+
+### Fixed
+- Various things relating to recent repo transfer
+
+
 ## 0.8.0 - 2015-03-21
 
 ### Added
 - Individual `FileParser` classes for each filetype, and a `FileParserInterface` to type-hint methods with
 - Optional paths; you can now prefix a path with '?' and `Config` will skip the file if it doesn't exist
 
-### Deprecated
-- Nothing
-
 ### Fixed
 - Made the Symfony YAML component a suggested dependency
 - Parent constructor was not being called from `Config`
 
-### Removed
-- Nothing
-
-### Security
-- Nothing
 
 ## 0.7.1 - 2015-02-24
 
