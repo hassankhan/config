@@ -13,7 +13,7 @@ and YML files.
 
 ## Requirements
 
-Config requires PHP 5.3+, and suggest using the [Symfony Yaml component](https://github.com/symfony/Yaml).
+Config requires PHP 5.3+, and suggests using the [Symfony Yaml component](https://github.com/symfony/Yaml).
 
 ## Installation
 
@@ -139,7 +139,7 @@ class MyConfig extends AbstractConfig
 
 ### Examples of supported configuration files
 
-Examples of simple, valid configuration files can be found in [tests/mocks/pass/](tests/mocks/pass).
+Examples of simple, valid configuration files can be found [here](tests/mocks/pass).
 
 
 ## Testing

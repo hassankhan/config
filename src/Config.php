@@ -79,8 +79,7 @@ class Config extends AbstractConfig
      */
     private function getParser($extension)
     {
-        $parser               = null;
-        $supportedFileFormats = array_values($this->supportedFileParsers);
+        $parser = null;
 
         foreach ($this->supportedFileParsers as $fileParser) {
             $tempParser = new $fileParser;
@@ -103,13 +102,13 @@ class Config extends AbstractConfig
     /**
      * Checks `$path` to see if it is either an array, a directory, or a file
      *
-     * @param  string $path
+     * @param  string|array $path
      *
      * @return array
      *
      * @throws EmptyDirectoryException If `$path` is an empty directory
      *
-     * @throws FileNotFoundException      If a file is not found at `$path`
+     * @throws FileNotFoundException   If a file is not found at `$path`
      */
     private function getValidPath($path)
     {
