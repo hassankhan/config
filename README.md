@@ -13,7 +13,7 @@ and YML files.
 
 ## Requirements
 
-`Config` requires PHP 5.3+, and the [Symfony Yaml component](https://github.com/symfony/Yaml).
+`Config` requires PHP 5.3+, and suggest using the [Symfony Yaml component](https://github.com/symfony/Yaml).
 
 ## Installation
 
@@ -139,100 +139,7 @@ class MyConfig extends AbstractConfig
 
 ### Examples of supported configuration files
 
-Here's an example JSON file that we'll call `config.json`.
-
-```json
-{
-    "app": {
-        "host": "localhost",
-        "port": 80,
-        "base": "/my/app"
-    },
-    "security": {
-        "secret": "s3cr3t-c0d3"
-    },
-    "debug": false
-}
-```
-
-Here's the same config file in PHP format:
-
-```php
-<?php
-return array(
-    'app' => array(
-        'host' => 'localhost',
-        'port' => 80,
-        'base' => '/my/app'
-    ),
-    'security' => array(
-        'secret' => 's3cr3t-c0d3'
-    ),
-    'debug' => false
-);
-```
-
-Or in a PHP file that returns a function that creates your config:
-
-```php
-return function () {
-    // Normal callable function, returns array
-    return array(
-    'app' => array(
-        'host' => 'localhost',
-        'port' => 80,
-        'base' => '/my/app'
-    ),
-    'security' => array(
-        'secret' => 's3cr3t-c0d3'
-    ),
-    'debug' => false
-    );
-};
-```
-
-Or in an INI format:
-
-```ini
-debug = false
-
-[app]
-host = localhost
-port = 80
-base = /my/app
-
-[security]
-secret = s3cr3t-c0d3
-```
-
-Or in an XML format:
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<config>
-    <app>
-        <host>localhost</host>
-        <port>80</port>
-        <base>/my/app</base>
-    </app>
-    <security>
-        <secret>s3cr3t-c0d3</secret>
-    </security>
-    <debug>false</debug>
-</config>
-```
-
-Or in a YAML format:
-
-```yaml
-app:
-    host: localhost
-    port: 80
-    base: /my/app
-security:
-    secret: s3cr3t-c0d3
-debug: false
-```
+Examples of simple, valid configuration files can be found in [tests/mocks/pass/][tests/mocks/pass/].
 
 
 ## Testing
