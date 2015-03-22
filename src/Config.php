@@ -2,6 +2,7 @@
 
 namespace Noodlehaus;
 
+use Noodlehaus\FileParser\FileParserInterface;
 use Noodlehaus\Exception\FileNotFoundException;
 use Noodlehaus\Exception\UnsupportedFormatException;
 use Noodlehaus\Exception\EmptyDirectoryException;
@@ -17,29 +18,33 @@ use Noodlehaus\Exception\EmptyDirectoryException;
  */
 class Config extends AbstractConfig
 {
-    /**
-     * All file formats supported by Config
-     *
-     * @var array
-     */
-    private $supportedFileParsers = array(
-        'Noodlehaus\FileParser\Php',
-        'Noodlehaus\FileParser\Ini',
-        'Noodlehaus\FileParser\Json',
-        'Noodlehaus\FileParser\Xml',
-        'Noodlehaus\FileParser\Yaml'
-    );
 
     /**
-     * Static method for loading a Config instance.
+     * The file parser for this instance
+     *
+     * @var Noodlehaus\FileParser\FileParserInterface
+     */
+    protected $parser = null;
+
+    /**
+     * Method for loading a config file
      *
      * @param  string|array $path
      *
      * @return Config
      */
-    public static function load($path)
+    public function load($path)
     {
-        return new static($path);
+        if (is_null($this->parser)) {
+            throw RuntimeException('No parser was set');
+        }
+
+        $paths = $this->getValidPath($path);
+
+        // Load each file
+        foreach ($paths as $path) {
+            $this->data = array_replace_recursive($this->data, $this->parser->parse($path));
+        }
     }
 
     /**
@@ -49,22 +54,10 @@ class Config extends AbstractConfig
      *
      * @throws EmptyDirectoryException    If `$path` is an empty directory
      */
-    public function __construct($path)
+    public function __construct(FileParserInterface $parser)
     {
-        $paths      = $this->getValidPath($path);
-        $this->data = array();
-
-        foreach ($paths as $path) {
-
-            // Get file information
-            $info      = pathinfo($path);
-            $extension = isset($info['extension']) ? $info['extension'] : '';
-            $parser    = $this->getParser($extension);
-
-            // Try and load file
-            $this->data = array_replace_recursive($this->data, $parser->parse($path));
-        }
-
+        $this->data   = array();
+        $this->parser = $parser;
         parent::__construct($this->data);
     }
 
