@@ -34,7 +34,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface
      *
      * @param array $data
      */
-    public function __construct($data)
+    public function __construct(Array $data)
     {
         $this->data = array_merge($this->getDefaults(), $data);
     }
