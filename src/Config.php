@@ -73,7 +73,7 @@ class Config extends AbstractConfig
      *
      * @param  string $extension
      *
-     * @return Noodlehaus\File\FileInterface
+     * @return Noodlehaus\FileParser\FileParserInterface
      *
      * @throws UnsupportedFormatException If `$path` is an unsupported file format
      */
