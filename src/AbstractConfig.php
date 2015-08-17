@@ -111,6 +111,13 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface
     {
         return !is_null($this->get($key));
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function all(){
+        return $this->data;
+    }
 
 
 
