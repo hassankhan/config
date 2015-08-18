@@ -57,7 +57,7 @@ name alphabetically.
 
 ### Getting values
 
-Getting values can be done in two ways. One, by using the `get()` method:
+Getting values can be done in three ways. One, by using the `get()` method:
 
 ```php
 // Get value using key
@@ -70,7 +70,7 @@ $secret = $conf->get('security.secret');
 $ttl = $conf->get('app.timeout', 3000);
 ```
 
-The other method, is by using it like an array:
+The second method, is by using it like an array:
 
 ```php
 // Get value using a simple key
@@ -81,6 +81,13 @@ $secret = $conf['security.secret'];
 
 // Get nested value like you would from a nested array
 $secret = $conf['security']['secret'];
+```
+
+The third method, is by using the `all()` method:
+
+```php
+// Get all values
+$data = $conf->all();
 ```
 
 ### Setting values
