@@ -62,7 +62,7 @@ class Config extends AbstractConfig
             $parser    = $this->getParser($extension);
 
             // Try and load file
-            $this->data = array_replace_recursive($this->data, $parser->parse($path));
+            $this->data = array_replace_recursive($this->data, (array) $parser->parse($path));
         }
 
         parent::__construct($this->data);
