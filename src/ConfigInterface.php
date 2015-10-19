@@ -2,6 +2,8 @@
 
 namespace Noodlehaus;
 
+use Interop\Container\ContainerInterface;
+
 /**
  * Config interface
  *
@@ -11,7 +13,7 @@ namespace Noodlehaus;
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-interface ConfigInterface
+interface ConfigInterface extends ContainerInterface
 {
     /**
      * Gets a configuration setting using a simple or nested key.
