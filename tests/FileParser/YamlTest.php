@@ -31,6 +31,16 @@ class YamlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Noodlehaus\FileParser\Yaml::getSupportedExtensions()
+     */
+    public function testGetSupportedExtensions()
+    {
+        $expected = array('yaml', 'yml');
+        $actual   = $this->yaml->getSupportedExtensions();
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * @covers                   Noodlehaus\FileParser\Yaml::parse()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage Error parsing YAML file

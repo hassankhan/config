@@ -105,6 +105,24 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function has($key)
+    {
+        return !is_null($this->get($key));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function all()
+    {
+        return $this->data;
+    }
+
+
+
+    /**
      * ArrayAccess Methods
      */
 
@@ -129,7 +147,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface
      */
     public function offsetExists($offset)
     {
-        return !is_null($this->get($offset));
+        return $this->has($offset);
     }
 
     /**

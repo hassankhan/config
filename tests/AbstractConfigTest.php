@@ -167,6 +167,46 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Noodlehaus\AbstractConfig::has()
+     */
+    public function testHas()
+    {
+        $this->assertTrue($this->config->has('application'));
+        $this->assertFalse($this->config->has('not_exist'));
+    }
+
+    /**
+     * @covers Noodlehaus\AbstractConfig::has()
+     */
+    public function testHasNestedKey()
+    {
+        $this->assertTrue($this->config->has('application.name'));
+        $this->assertFalse($this->config->has('application.not_exist'));
+        $this->assertFalse($this->config->has('not_exist.name'));
+    }
+    
+    /**
+     * @covers Noodlehaus\AbstractConfig::all()
+     */
+    public function testAll()
+    {
+        $all = array(
+            'host' => 'localhost',
+            'port'    => 80,
+            'servers' => array(
+                'host1',
+                'host2',
+                'host3'
+            ),
+            'application' => array(
+                'name'   => 'configuration',
+                'secret' => 's3cr3t'
+            )
+        );
+        $this->assertEquals($all, $this->config->all());
+    }
+
+    /**
      * @covers Noodlehaus\AbstractConfig::offsetGet()
      */
     public function testOffsetGet()

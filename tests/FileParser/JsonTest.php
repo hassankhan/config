@@ -31,6 +31,16 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Noodlehaus\FileParser\Json::getSupportedExtensions()
+     */
+    public function testGetSupportedExtensions()
+    {
+        $expected = array('json');
+        $actual   = $this->json->getSupportedExtensions();
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * @covers                   Noodlehaus\FileParser\Json::parse()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage Syntax error
