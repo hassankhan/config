@@ -121,12 +121,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface
      */
     public function offsetGet($offset)
     {
-        if (array_key_exists($offset, $this->data))
-        {
-            return $this->get($offset);
-        }
-
-        throw new \InvalidArgumentException('Configuration key: ' . $offset . ' not found');
+        return $this->get($offset, 'noNull');
     }
 
     /**
