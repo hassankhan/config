@@ -116,7 +116,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
      */ 
     public function testGetNonexistentKey() 
     { 
-        $this->assertNull($this->config->get('proxy')); 
+        return $this->config->get('proxy', 'noNull'); 
     } 
   
     /** 
@@ -125,7 +125,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
      */ 
     public function testGetNonexistentNestedKey() 
     { 
-        $this->assertNull($this->config->get('proxy.name')); 
+        return $this->config->get('proxy.name', 'noNull'); 
     }
 
     /**
