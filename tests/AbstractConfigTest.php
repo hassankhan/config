@@ -107,7 +107,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetNonexistentNestedKeyAsArray()
     {
-        return $this->config['proxy'][name];
+        return $this->config['proxy']['name'];
     }
 
     /**
