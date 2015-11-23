@@ -94,18 +94,20 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Noodlehaus\AbstractConfig::get()
+     * @expectedException \InvlidArgumentException 
      */
     public function testGetNonexistentKey()
     {
-        $this->assertNull($this->config->get('proxy'));
+        return $this->config->get('proxy');
     }
 
     /**
      * @covers Noodlehaus\AbstractConfig::get()
+     * @expectedException \InvlidArgumentException 
      */
     public function testGetNonexistentNestedKey()
     {
-        $this->assertNull($this->config->get('proxy.name'));
+        return $this->config->get('proxy.name');
     }
 
     /**
