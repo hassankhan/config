@@ -94,7 +94,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Noodlehaus\AbstractConfig::get()
-     * @expectedException \InvalidArgumentException 
+     * @expectedException InvalidArgumentException 
      */
     public function testGetNonexistentKeyAsArray()
     {
@@ -103,7 +103,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Noodlehaus\AbstractConfig::get()
-     * @expectedException \InvalidArgumentException 
+     * @expectedException InvalidArgumentException 
      */
     public function testGetNonexistentNestedKeyAsArray()
     {
