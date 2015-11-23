@@ -77,7 +77,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface
             } else {
                 if ($default == 'noNull')
                 { 
-                    throw new \InvalidArgumentException('Configuration key: ' . $offset . ' not found');
+                    throw new \InvalidArgumentException('Configuration key: ' . $part . ' not found');
                 }    
                 $root = $default;
                 break;
