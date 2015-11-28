@@ -320,12 +320,12 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     public function testIterator()
     {
         /* Create numerically indexed copies of the test config */
-        $expectedKeys = array ('host', 'port', 'servers', 'application');
-        $expectedValues = array (
+        $expectedKeys = array('host', 'port', 'servers', 'application');
+        $expectedValues = array(
             'localhost',
             80,
-            array ('host1', 'host2', 'host3'),
-            array (
+            array('host1', 'host2', 'host3'),
+            array(
                 'name'   => 'configuration',
                 'secret' => 's3cr3t'
             )
