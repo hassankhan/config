@@ -166,8 +166,9 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
      * Returns the data array element referenced by its internal cursor
      *
      * @return mixed The element referenced by the data array's internal cursor.
-     *     If the array is empty, the function returns false. If the array is
-     *     undefined, the function returns null
+     *     If the array is empty or there is no element at the cursor, the
+     *     function returns false. If the array is undefined, the function
+     *     returns null
      */
     public function current()
     {
@@ -178,7 +179,8 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
      * Returns the data array index referenced by its internal cursor
      *
      * @return mixed The index referenced by the data array's internal cursor.
-     *     If the array is empty or undefined, the function returns null
+     *     If the array is empty or undefined or there is no element at the
+     *     cursor, the function returns null
      */
     public function key()
     {
