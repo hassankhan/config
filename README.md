@@ -34,6 +34,8 @@ The `Config` object can be created via the factory method `load()`, or
 by direct instantiation:
 
 ```php
+use Noodlehaus\Config;
+
 // Load a single file
 $conf = Config::load('config.json');
 $conf = new Config('config.json');
