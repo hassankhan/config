@@ -62,7 +62,7 @@ class Config extends AbstractConfig
             $parser    = $this->getParser($extension);
             //use filename as key 
             $data = $parser->parse($path);
-            if($info['filename'] !== 'config'){
+            if(isset($info['filename']) && $info['filename'] !== 'config'){
             	$data = array(
             		$info['filename']=>$data
             	);
