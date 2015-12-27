@@ -60,9 +60,15 @@ class Config extends AbstractConfig
             $info      = pathinfo($path);
             $extension = isset($info['extension']) ? $info['extension'] : '';
             $parser    = $this->getParser($extension);
-
+            //use filename as key 
+            $data = $parser->parse($path);
+            if(isset($info['filename']) && $info['filename'] !== 'config'){
+            	$data = array(
+            		$info['filename']=>$data
+            	);
+            }
             // Try and load file
-            $this->data = array_replace_recursive($this->data, $parser->parse($path));
+            $this->data = array_replace_recursive($this->data, $data);
         }
 
         parent::__construct($this->data);
