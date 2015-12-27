@@ -2,6 +2,12 @@
 
 All notable changes to `Config` will be documented in this file
 
+## 0.8.3 - 2015-10-22
+
+### Fixed
+- PSR-2 compliance
+
+
 ## 0.8.2 - 2015-03-21
 
 ### Fixed
