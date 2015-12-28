@@ -152,6 +152,48 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Noodlehaus\AbstractConfig::set()
      */
+    public function testCacheWithNestedArray()
+    {
+        $this->config->set('database', array(
+            'host' => 'localhost',
+            'name' => 'mydatabase'
+        ));
+        $this->assertTrue(is_array($this->config->get('database')));
+        $this->config->set('database.host', '127.0.0.1');
+        $expected = array(
+            'host' => '127.0.0.1',
+            'name' => 'mydatabase'
+        );
+        $this->assertEquals($expected, $this->config->get('database'));
+
+        $this->config->set('config', array(
+            'database' => array(
+                'host' => 'localhost',
+                'name' => 'mydatabase'
+            )
+        ));
+        $this->config->get('config'); //Just get to set related cache
+        $this->config->get('config.database'); //Just get to set related cache
+
+        $this->config->set('config.database.host', '127.0.0.1');
+        $expected = array(
+            'database' => array(
+                'host' => '127.0.0.1',
+                'name' => 'mydatabase'
+            )
+        );
+        $this->assertEquals($expected, $this->config->get('config'));
+
+        $expected = array(
+            'host' => '127.0.0.1',
+            'name' => 'mydatabase'
+        );
+        $this->assertEquals($expected, $this->config->get('config.database'));
+    }
+
+    /**
+     * @covers Noodlehaus\AbstractConfig::set()
+     */
     public function testSetAndUnsetArray()
     {
         $this->config->set('database', array(
@@ -184,7 +226,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->config->has('application.not_exist'));
         $this->assertFalse($this->config->has('not_exist.name'));
     }
-    
+
     /**
      * @covers Noodlehaus\AbstractConfig::all()
      */

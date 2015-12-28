@@ -91,13 +91,23 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface
     {
         $segs = explode('.', $key);
         $root = &$this->data;
+        $cacheKey = '';
 
         // Look for the key, creating nested keys if needed
         while ($part = array_shift($segs)) {
+            if($cacheKey != ''){
+                $cacheKey .= '.';
+            }
+            $cacheKey .= $part;
             if (!isset($root[$part]) && count($segs)) {
                 $root[$part] = array();
             }
             $root = &$root[$part];
+
+            //Unset all old nested cache
+            if(isset($this->cache[$cacheKey])){
+                unset($this->cache[$cacheKey]);
+            }
         }
 
         // Assign value at target node
