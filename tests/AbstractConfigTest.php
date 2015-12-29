@@ -297,4 +297,128 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
         unset($this->config['application']);
         $this->assertNull($this->config['application']);
     }
+
+    /**
+     * @covers Noodlehaus\AbstractConfig::current()
+     */
+    public function testCurrent()
+    {
+        /* Reset to the beginning of the test config */
+        $this->config->rewind();
+        $this->assertEquals($this->config['host'], $this->config->current());
+
+        /* Step through each of the other elements of the test config */
+        $this->config->next();
+        $this->assertEquals($this->config['port'], $this->config->current());
+        $this->config->next();
+        $this->assertEquals($this->config['servers'], $this->config->current());
+        $this->config->next();
+        $this->assertEquals($this->config['application'], $this->config->current());
+
+        /* Step beyond the end and confirm the result */
+        $this->config->next();
+        $this->assertFalse($this->config->current());
+    }
+
+    /**
+     * @covers Noodlehaus\AbstractConfig::key()
+     */
+    public function testKey()
+    {
+        /* Reset to the beginning of the test config */
+        $this->config->rewind();
+        $this->assertEquals('host', $this->config->key());
+
+        /* Step through each of the other elements of the test config */
+        $this->config->next();
+        $this->assertEquals('port', $this->config->key());
+        $this->config->next();
+        $this->assertEquals('servers', $this->config->key());
+        $this->config->next();
+        $this->assertEquals('application', $this->config->key());
+
+        /* Step beyond the end and confirm the result */
+        $this->config->next();
+        $this->assertNull($this->config->key());
+    }
+
+    /**
+     * @covers Noodlehaus\AbstractConfig::next()
+     */
+    public function testNext()
+    {
+        /* Reset to the beginning of the test config */
+        $this->config->rewind();
+
+        /* Step through each of the other elements of the test config */
+        $this->assertEquals($this->config['port'], $this->config->next());
+        $this->assertEquals($this->config['servers'], $this->config->next());
+        $this->assertEquals($this->config['application'], $this->config->next());
+
+        /* Step beyond the end and confirm the result */
+        $this->assertFalse($this->config->next());
+    }
+
+    /**
+     * @covers Noodlehaus\AbstractConfig::rewind()
+     */
+    public function testRewind()
+    {
+        /* Rewind from somewhere out in the array */
+        $this->config->next();
+        $this->config->next();
+        $this->assertEquals($this->config['host'], $this->config->rewind());
+
+        /* Rewind again from the beginning of the array */
+        $this->assertEquals($this->config['host'], $this->config->rewind());
+    }
+
+    /**
+     * @covers Noodlehaus\AbstractConfig::valid()
+     */
+    public function testValid()
+    {
+        /* Reset to the beginning of the test config */
+        $this->config->rewind();
+        $this->assertTrue($this->config->valid());
+
+        /* Step through each of the other elements of the test config */
+        $this->config->next();
+        $this->assertTrue($this->config->valid());
+        $this->config->next();
+        $this->assertTrue($this->config->valid());
+        $this->config->next();
+        $this->assertTrue($this->config->valid());
+
+        /* Step beyond the end and confirm the result */
+        $this->config->next();
+        $this->assertFalse($this->config->valid());
+    }
+
+    /**
+     * Tests to verify that Iterator is properly implemented by using a foreach
+     * loop on the test config
+     */
+    public function testIterator()
+    {
+        /* Create numerically indexed copies of the test config */
+        $expectedKeys = array('host', 'port', 'servers', 'application');
+        $expectedValues = array(
+            'localhost',
+            80,
+            array('host1', 'host2', 'host3'),
+            array(
+                'name'   => 'configuration',
+                'secret' => 's3cr3t'
+            )
+        );
+
+        $idxConfig = 0;
+
+        foreach ($this->config as $configKey => $configValue) {
+            $this->assertEquals($expectedKeys [$idxConfig], $configKey);
+            $this->assertEquals($expectedValues [$idxConfig], $configValue);
+            $idxConfig++;
+        }
+    }
 }

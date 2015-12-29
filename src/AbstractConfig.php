@@ -3,6 +3,7 @@
 namespace Noodlehaus;
 
 use ArrayAccess;
+use Iterator;
 
 /**
  * Abstract Config class
@@ -13,7 +14,7 @@ use ArrayAccess;
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-abstract class AbstractConfig implements ArrayAccess, ConfigInterface
+abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
 {
     /**
      * Stores the configuration data
@@ -183,5 +184,70 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface
     public function offsetUnset($offset)
     {
         $this->set($offset, null);
+    }
+
+    /**
+     * Iterator Methods
+     */
+
+    /**
+     * Returns the data array element referenced by its internal cursor
+     *
+     * @return mixed The element referenced by the data array's internal cursor.
+     *     If the array is empty or there is no element at the cursor, the
+     *     function returns false. If the array is undefined, the function
+     *     returns null
+     */
+    public function current()
+    {
+        return (is_array($this->data) ? current($this->data) : null);
+    }
+
+    /**
+     * Returns the data array index referenced by its internal cursor
+     *
+     * @return mixed The index referenced by the data array's internal cursor.
+     *     If the array is empty or undefined or there is no element at the
+     *     cursor, the function returns null
+     */
+    public function key()
+    {
+        return (is_array($this->data) ? key($this->data) : null);
+    }
+
+    /**
+     * Moves the data array's internal cursor forward one element
+     *
+     * @return mixed The element referenced by the data array's internal cursor
+     *     after the move is completed. If there are no more elements in the
+     *     array after the move, the function returns false. If the data array
+     *     is undefined, the function returns null
+     */
+    public function next()
+    {
+        return (is_array($this->data) ? next($this->data) : null);
+    }
+
+    /**
+     * Moves the data array's internal cursor to the first element
+     *
+     * @return mixed The element referenced by the data array's internal cursor
+     *     after the move is completed. If the data array is empty, the function
+     *     returns false. If the data array is undefined, the function returns
+     *     null
+     */
+    public function rewind()
+    {
+        return (is_array($this->data) ? reset($this->data) : null);
+    }
+
+    /**
+     * Tests whether the iterator's current index is valid
+     *
+     * @return bool True if the current index is valid; false otherwise
+     */
+    public function valid()
+    {
+        return (is_array($this->data) ? key($this->data) !== null : false);
     }
 }
