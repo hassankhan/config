@@ -194,6 +194,30 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Noodlehaus\AbstractConfig::set()
      */
+    public function testCacheWithNestedMiddleArray()
+    {
+      $this->config->set('config', array(
+          'database' => array(
+              'host' => 'localhost',
+              'name' => 'mydatabase'
+          )
+      ));
+      $this->config->get('config'); //Just get to set related cache
+      $this->config->get('config.database'); //Just get to set related cache
+      $this->config->get('config.database.host'); //Just get to set related cache
+      $this->config->get('config.database.name'); //Just get to set related cache
+
+      $this->config->set('config.database', array(
+          'host' => '127.0.0.1',
+          'name' => 'mynewdatabase'
+      ));
+      $this->assertEquals('127.0.0.1', $this->config->get('config.database.host'));
+      $this->assertEquals('mynewdatabase', $this->config->get('config.database.name'));
+    }
+
+    /**
+     * @covers Noodlehaus\AbstractConfig::set()
+     */
     public function testSetAndUnsetArray()
     {
         $this->config->set('database', array(

@@ -109,6 +109,15 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
             if(isset($this->cache[$cacheKey])){
                 unset($this->cache[$cacheKey]);
             }
+
+            //Unset all old nested cache in case of array
+            if(count($segs) == 0){
+                foreach ($this->cache as $cacheLocalKey => $cacheValue) {
+                    if(substr($cacheLocalKey, 0, strlen($cacheKey)) === $cacheKey){
+                        unset($this->cache[$cacheLocalKey]);
+                    }
+                }
+            }
         }
 
         // Assign value at target node
