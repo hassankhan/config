@@ -31,6 +31,16 @@ class XmlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Noodlehaus\FileParser\Xml::getSupportedExtensions()
+     */
+    public function testGetSupportedExtensions()
+    {
+        $expected = array('xml');
+        $actual   = $this->xml->getSupportedExtensions();
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * @covers                   Noodlehaus\FileParser\Xml::parse()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage Opening and ending tag mismatch: name line 4

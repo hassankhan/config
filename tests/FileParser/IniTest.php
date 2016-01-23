@@ -31,6 +31,16 @@ class IniTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Noodlehaus\FileParser\Ini::getSupportedExtensions()
+     */
+    public function testGetSupportedExtensions()
+    {
+        $expected = array('ini');
+        $actual   = $this->ini->getSupportedExtensions();
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * @covers                   Noodlehaus\FileParser\Ini::parse()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage syntax error, unexpected $end, expecting ']'
