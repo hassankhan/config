@@ -2,10 +2,22 @@
 
 All notable changes to `Config` will be documented in this file
 
-## 0.8.3 - 2015-10-22
+## 0.9.0 - 2015-10-22
 
 ### Fixed
 - PSR-2 compliance
+- Give YamlParser file content instead of path
+- Updated `AbstractConfig` constructor to only accept arrays
+- Removed check to fix loading an empty array
+- Fix for #44: Warnings emitted if configuration file is empty
+- Fix for #55: Unset cache after a set
+
+### Added
+- Added namespace to example in `README.md`
+- Added `has()` method to `ConfigInterface` and implemented in `AbstractConfig`
+- Added `all()` method to `ConfigInterface` and implemented in `AbstractConfig`
+- Added documentation for new methods
+- `AbstractConfig` now implements the `Iterator` interface
 
 
 ## 0.8.2 - 2015-03-21
