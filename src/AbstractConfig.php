@@ -62,27 +62,11 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
      */
     public function get($key, $default = null)
     {
-        // Check if already cached
-        if (isset($this->cache[$key])) {
+        if ($this->has($key)) {
             return $this->cache[$key];
         }
 
-        $segs = explode('.', $key);
-        $root = $this->data;
-
-        // nested case
-        foreach ($segs as $part) {
-            if (isset($root[$part])) {
-                $root = $root[$part];
-                continue;
-            } else {
-                $root = $default;
-                break;
-            }
-        }
-
-        // whatever we have is what we needed
-        return ($this->cache[$key] = $root);
+        return $default;
     }
 
     /**
@@ -129,7 +113,28 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
      */
     public function has($key)
     {
-        return !is_null($this->get($key));
+        // Check if already cached
+        if (isset($this->cache[$key])) {
+            return true;
+        }
+
+        $segments = explode('.', $key);
+        $root = $this->data;
+
+        // nested case
+        foreach ($segments as $segment) {
+            if (array_key_exists($segment, $root)) {
+                $root = $root[$segment];
+                continue;
+            } else {
+                return false;
+            }
+        }
+
+        // Set cache for the given key
+        $this->cache[$key] = $root;
+
+        return true;
     }
 
     /**
@@ -139,8 +144,6 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
     {
         return $this->data;
     }
-
-
 
     /**
      * ArrayAccess Methods

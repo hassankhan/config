@@ -30,8 +30,10 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
                 ),
                 'application' => array(
                     'name'   => 'configuration',
-                    'secret' => 's3cr3t'
-                )
+                    'secret' => 's3cr3t',
+                    'runtime' => null,
+                ),
+                'user' => null,
             )
         );
     }
@@ -115,7 +117,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertArrayHasKey('name', $this->config->get('application'));
         $this->assertEquals('configuration', $this->config->get('application.name'));
-        $this->assertCount(2, $this->config->get('application'));
+        $this->assertCount(3, $this->config->get('application'));
     }
 
     /**
@@ -238,6 +240,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     public function testHas()
     {
         $this->assertTrue($this->config->has('application'));
+        $this->assertTrue($this->config->has('user'));
         $this->assertFalse($this->config->has('not_exist'));
     }
 
@@ -247,6 +250,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     public function testHasNestedKey()
     {
         $this->assertTrue($this->config->has('application.name'));
+        $this->assertTrue($this->config->has('application.runtime'));
         $this->assertFalse($this->config->has('application.not_exist'));
         $this->assertFalse($this->config->has('not_exist.name'));
     }
@@ -266,8 +270,10 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
             ),
             'application' => array(
                 'name'   => 'configuration',
-                'secret' => 's3cr3t'
-            )
+                'secret' => 's3cr3t',
+                'runtime' => null,
+            ),
+            'user' => null,
         );
         $this->assertEquals($all, $this->config->all());
     }
@@ -338,6 +344,8 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->config['servers'], $this->config->current());
         $this->config->next();
         $this->assertEquals($this->config['application'], $this->config->current());
+        $this->config->next();
+        $this->assertEquals($this->config['user'], $this->config->current());
 
         /* Step beyond the end and confirm the result */
         $this->config->next();
@@ -360,6 +368,8 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('servers', $this->config->key());
         $this->config->next();
         $this->assertEquals('application', $this->config->key());
+        $this->config->next();
+        $this->assertEquals('user', $this->config->key());
 
         /* Step beyond the end and confirm the result */
         $this->config->next();
@@ -378,6 +388,7 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->config['port'], $this->config->next());
         $this->assertEquals($this->config['servers'], $this->config->next());
         $this->assertEquals($this->config['application'], $this->config->next());
+        $this->assertEquals($this->config['user'], $this->config->next());
 
         /* Step beyond the end and confirm the result */
         $this->assertFalse($this->config->next());
@@ -413,6 +424,8 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->config->valid());
         $this->config->next();
         $this->assertTrue($this->config->valid());
+        $this->config->next();
+        $this->assertTrue($this->config->valid());
 
         /* Step beyond the end and confirm the result */
         $this->config->next();
@@ -426,23 +439,32 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     public function testIterator()
     {
         /* Create numerically indexed copies of the test config */
-        $expectedKeys = array('host', 'port', 'servers', 'application');
+        $expectedKeys = array('host', 'port', 'servers', 'application', 'user');
         $expectedValues = array(
             'localhost',
             80,
             array('host1', 'host2', 'host3'),
             array(
                 'name'   => 'configuration',
-                'secret' => 's3cr3t'
-            )
+                'secret' => 's3cr3t',
+                'runtime' => null,
+            ),
+            null
         );
 
         $idxConfig = 0;
 
         foreach ($this->config as $configKey => $configValue) {
-            $this->assertEquals($expectedKeys [$idxConfig], $configKey);
-            $this->assertEquals($expectedValues [$idxConfig], $configValue);
+            $this->assertEquals($expectedKeys[$idxConfig], $configKey);
+            $this->assertEquals($expectedValues[$idxConfig], $configValue);
             $idxConfig++;
         }
+    }
+
+    public function testGetShouldNotSet()
+    {
+        $this->config->get('invalid', 'default');
+        $actual = $this->config->get('invalid', 'expected');
+        $this->assertSame('expected', $actual);
     }
 }
