@@ -35,7 +35,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
      *
      * @param array $data
      */
-    public function __construct(Array $data)
+    public function __construct(array $data)
     {
         $this->data = array_merge($this->getDefaults(), $data);
     }
@@ -96,7 +96,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
 
         // Look for the key, creating nested keys if needed
         while ($part = array_shift($segs)) {
-            if($cacheKey != ''){
+            if ($cacheKey != '') {
                 $cacheKey .= '.';
             }
             $cacheKey .= $part;
@@ -106,14 +106,14 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
             $root = &$root[$part];
 
             //Unset all old nested cache
-            if(isset($this->cache[$cacheKey])){
+            if (isset($this->cache[$cacheKey])) {
                 unset($this->cache[$cacheKey]);
             }
 
             //Unset all old nested cache in case of array
-            if(count($segs) == 0){
+            if (count($segs) == 0) {
                 foreach ($this->cache as $cacheLocalKey => $cacheValue) {
-                    if(substr($cacheLocalKey, 0, strlen($cacheKey)) === $cacheKey){
+                    if (substr($cacheLocalKey, 0, strlen($cacheKey)) === $cacheKey) {
                         unset($this->cache[$cacheLocalKey]);
                     }
                 }
