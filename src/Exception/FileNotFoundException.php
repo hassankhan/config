@@ -2,7 +2,7 @@
 
 namespace Noodlehaus\Exception;
 
-use Exception;
+use Noodlehaus\Exception;
 
 class FileNotFoundException extends Exception
 {

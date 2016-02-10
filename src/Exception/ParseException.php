@@ -2,7 +2,7 @@
 
 namespace Noodlehaus\Exception;
 
-use ErrorException;
+use Noodlehaus\ErrorException;
 
 class ParseException extends ErrorException
 {

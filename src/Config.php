@@ -58,7 +58,11 @@ class Config extends AbstractConfig
 
             // Get file information
             $info      = pathinfo($path);
-            $extension = isset($info['extension']) ? $info['extension'] : '';
+            $parts = explode('.', $info['basename']);
+            $extension = array_pop($parts);
+            if ($extension === 'dist') {
+                $extension = array_pop($parts);
+            }
             $parser    = $this->getParser($extension);
 
             // Try and load file
