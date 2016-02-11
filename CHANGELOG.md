@@ -2,7 +2,30 @@
 
 All notable changes to `Config` will be documented in this file
 
+## 0.10.0 - 2016-02-11
+
+### Added
+- Package-level exceptions so callers can catch exceptions at package-level
+- Added support for files suffixed with the `.dist` extension
+
+### Fixed
+- Rearranged error-handling in `FileParser\Json` for better test coverage
+- Project-wide code style fixes to adhere to PSR-2
+- Fixes `has()` method returning `false` on `null` values in a config field
+
+## 0.9.1 - 2016-01-23
+
+### Added
+- PHP 7.0 is now tested on Travis
+
 ## 0.9.0 - 2015-10-22
+
+### Added
+- Added namespace to example in `README.md`
+- Added `has()` method to `ConfigInterface` and implemented in `AbstractConfig`
+- Added `all()` method to `ConfigInterface` and implemented in `AbstractConfig`
+- Added documentation for new methods
+- `AbstractConfig` now implements the `Iterator` interface
 
 ### Fixed
 - PSR-2 compliance
@@ -11,13 +34,6 @@ All notable changes to `Config` will be documented in this file
 - Removed check to fix loading an empty array
 - Fix for #44: Warnings emitted if configuration file is empty
 - Fix for #55: Unset cache after a set
-
-### Added
-- Added namespace to example in `README.md`
-- Added `has()` method to `ConfigInterface` and implemented in `AbstractConfig`
-- Added `all()` method to `ConfigInterface` and implemented in `AbstractConfig`
-- Added documentation for new methods
-- `AbstractConfig` now implements the `Iterator` interface
 
 
 ## 0.8.2 - 2015-03-21
