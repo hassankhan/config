@@ -35,7 +35,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
      *
      * @param array $data
      */
-    public function __construct(Array $data)
+    public function __construct(array $data)
     {
         $this->data = array_merge($this->getDefaults(), $data);
     }
@@ -62,27 +62,11 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
      */
     public function get($key, $default = null)
     {
-        // Check if already cached
-        if (isset($this->cache[$key])) {
+        if ($this->has($key)) {
             return $this->cache[$key];
         }
 
-        $segs = explode('.', $key);
-        $root = $this->data;
-
-        // nested case
-        foreach ($segs as $part) {
-            if (isset($root[$part])) {
-                $root = $root[$part];
-                continue;
-            } else {
-                $root = $default;
-                break;
-            }
-        }
-
-        // whatever we have is what we needed
-        return ($this->cache[$key] = $root);
+        return $default;
     }
 
     /**
@@ -96,7 +80,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
 
         // Look for the key, creating nested keys if needed
         while ($part = array_shift($segs)) {
-            if($cacheKey != ''){
+            if ($cacheKey != '') {
                 $cacheKey .= '.';
             }
             $cacheKey .= $part;
@@ -106,14 +90,14 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
             $root = &$root[$part];
 
             //Unset all old nested cache
-            if(isset($this->cache[$cacheKey])){
+            if (isset($this->cache[$cacheKey])) {
                 unset($this->cache[$cacheKey]);
             }
 
             //Unset all old nested cache in case of array
-            if(count($segs) == 0){
+            if (count($segs) == 0) {
                 foreach ($this->cache as $cacheLocalKey => $cacheValue) {
-                    if(substr($cacheLocalKey, 0, strlen($cacheKey)) === $cacheKey){
+                    if (substr($cacheLocalKey, 0, strlen($cacheKey)) === $cacheKey) {
                         unset($this->cache[$cacheLocalKey]);
                     }
                 }
@@ -129,7 +113,28 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
      */
     public function has($key)
     {
-        return !is_null($this->get($key));
+        // Check if already cached
+        if (isset($this->cache[$key])) {
+            return true;
+        }
+
+        $segments = explode('.', $key);
+        $root = $this->data;
+
+        // nested case
+        foreach ($segments as $segment) {
+            if (array_key_exists($segment, $root)) {
+                $root = $root[$segment];
+                continue;
+            } else {
+                return false;
+            }
+        }
+
+        // Set cache for the given key
+        $this->cache[$key] = $root;
+
+        return true;
     }
 
     /**
@@ -139,8 +144,6 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
     {
         return $this->data;
     }
-
-
 
     /**
      * ArrayAccess Methods

@@ -52,5 +52,4 @@ interface ConfigInterface
      * @return array
      */
     public function all();
-
 }

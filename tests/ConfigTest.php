@@ -175,7 +175,23 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $actual);
     }
-    
+
+    /**
+     * @covers Noodlehaus\Config::__construct()
+     * @covers Noodlehaus\Config::getParser()
+     * @covers Noodlehaus\Config::getPathFromArray()
+     * @covers Noodlehaus\Config::getValidPath()
+     */
+    public function testConstructWithYmlDist()
+    {
+        $config = new Config(__DIR__ . '/mocks/pass/config.yml.dist');
+
+        $expected = 'localhost';
+        $actual   = $config->get('host');
+
+        $this->assertEquals($expected, $actual);
+    }
+
     /**
      * @covers Noodlehaus\Config::__construct()
      * @covers Noodlehaus\Config::getParser()
