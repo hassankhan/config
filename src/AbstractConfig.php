@@ -76,6 +76,10 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
                 $root = $root[$part];
                 continue;
             } else {
+                if ($default == 'noNull')
+                { 
+                    throw new \InvalidArgumentException('Configuration key: ' . $part . ' not found');
+                }    
                 $root = $default;
                 break;
             }
@@ -155,7 +159,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
      */
     public function offsetGet($offset)
     {
-        return $this->get($offset);
+        return $this->get($offset, 'noNull');
     }
 
     /**

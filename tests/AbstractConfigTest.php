@@ -94,18 +94,54 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Noodlehaus\AbstractConfig::get()
+     * @expectedException InvalidArgumentException 
      */
-    public function testGetNonexistentKey()
+    public function testGetNonexistentKeyAsArray()
     {
-        $this->assertNull($this->config->get('proxy'));
+        return $this->config['proxy'];
     }
 
     /**
      * @covers Noodlehaus\AbstractConfig::get()
+     * @expectedException InvalidArgumentException 
      */
-    public function testGetNonexistentNestedKey()
+    public function testGetNonexistentNestedKeyAsArray()
     {
-        $this->assertNull($this->config->get('proxy.name'));
+        return $this->config['proxy']['name'];
+    }
+    
+    /** 
+     * @covers Noodlehaus\AbstractConfig::get()
+     * @expectedException InvalidArgumentException
+     */ 
+    public function testGetNonexistentKeyNoNull() 
+    { 
+        return $this->config->get('proxy', 'noNull'); 
+    } 
+  
+    /** 
+     * @covers Noodlehaus\AbstractConfig::get()
+     * @expectedException InvalidArgumentException
+     */ 
+    public function testGetNonexistentNestedKeyNoNull() 
+    { 
+        return $this->config->get('proxy.name', 'noNull'); 
+    }
+    
+    /** 
+     * @covers Noodlehaus\AbstractConfig::get()
+     */ 
+    public function testGetNonexistentKey() 
+    { 
+        $this->assertNull($this->config->get('proxy')); 
+    } 
+  
+    /** 
+     * @covers Noodlehaus\AbstractConfig::get()
+     */ 
+    public function testGetNonexistentNestedKey() 
+    { 
+        $this->assertNull($this->config->get('proxy.name')); 
     }
 
     /**
