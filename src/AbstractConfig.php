@@ -262,4 +262,16 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
     {
         return (is_array($this->data) ? key($this->data) !== null : false);
     }
+
+    /**
+     * Remove a value using the offset as a key
+     *
+     * @param  string $key
+     *
+     * @return void
+     */
+    public function remove($key)
+    {
+        $this->offsetUnset($key);
+    }
 }
