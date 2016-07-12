@@ -59,4 +59,20 @@ class IniTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('localhost', $actual['host']);
         $this->assertEquals('80', $actual['port']);
     }
+
+    /**
+     * @covers Noodlehaus\FileParser\Ini::parse()
+     * @covers Noodlehaus\FileParser\Ini::expandDottedKey()
+     */
+    public function testLoadIniWithDottedName()
+    {
+        $actual = $this->ini->parse(__DIR__ . '/../mocks/pass/config2.ini');
+        $expected = ['host1', 'host2', 'host3'];
+
+        print_r($actual);
+        $this->assertEquals($expected, $actual['network']['group']['servers']);
+
+        $this->assertEquals('localhost', $actual['network']['http']['host']);
+        $this->assertEquals('80', $actual['network']['http']['port']);
+    }
 }

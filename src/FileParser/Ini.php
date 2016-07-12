@@ -30,13 +30,39 @@ class Ini implements FileParserInterface
             throw new ParseException($error);
         }
 
+        return $this->expandDottedKey($data);
+    }
+
+    /**
+     * Expand array with dotted keys to multidimensional array
+     *
+     * @param array $data
+     *
+     * @return array
+     */
+    protected function expandDottedKey($data)
+    {
+        foreach ($data as $key => $value) {
+            if (($found = strpos($key, '.')) !== false) {
+                $newKey = substr($key, 0, $found);
+                $remainder = substr($key, $found + 1);
+
+                $expandedValue = $this->expandDottedKey(array($remainder => $value));
+                if (isset($data[$newKey])) {
+                    $data[$newKey] = array_merge_recursive($data[$newKey], $expandedValue);
+                } else {
+                    $data[$newKey] = $expandedValue;
+                }
+                unset($data[$key]);
+            }
+        }
         return $data;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getSupportedExtensions()
+    public static function getSupportedExtensions()
     {
         return array('ini');
     }
