@@ -42,7 +42,7 @@ class Yaml implements FileParserInterface
     /**
      * {@inheritDoc}
      */
-    public function getSupportedExtensions()
+    public static function getSupportedExtensions()
     {
         return array('yaml', 'yml');
     }
