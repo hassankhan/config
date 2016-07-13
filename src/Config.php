@@ -83,8 +83,6 @@ class Config extends AbstractConfig
      */
     private function getParser($extension)
     {
-        $parser = null;
-
         foreach ($this->supportedFileParsers as $fileParser) {
             if (in_array($extension, $fileParser::getSupportedExtensions($extension))) {
                 return new $fileParser();
