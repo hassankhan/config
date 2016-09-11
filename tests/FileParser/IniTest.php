@@ -43,6 +43,18 @@ class IniTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers                   Noodlehaus\FileParser\Ini::parse()
      * @expectedException        Noodlehaus\Exception\ParseException
+     * @expectedExceptionMessage No parsable content in file.
+     * Tests the case where an .ini file contains no parsable data at all, resulting in parse_ini_file
+     * returning NULL, but not setting an error retrievable by error_get_last()
+     */
+    public function testLoadInvalidIniGBH()
+    {
+        $this->ini->parse(__DIR__ . '/../mocks/fail/error2.ini');
+    }
+
+    /**
+     * @covers                   Noodlehaus\FileParser\Ini::parse()
+     * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage syntax error, unexpected $end, expecting ']'
      */
     public function testLoadInvalidIni()
