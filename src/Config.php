@@ -88,9 +88,7 @@ class Config extends AbstractConfig
             } elseif (true === is_string($value)) {
                 $value = preg_replace_callback('/%([^%]+)%/', function ($m) use ($parameters) {
                     if (null === $parameterValue = $parameters->get($m[1])) {
-                        throw new ParseException(
-                            sprintf('Parameter "%s" does not exist', $m[1])
-                        );
+                        return $m[0];
                     }
                     return $parameterValue;
                 }, $value);
