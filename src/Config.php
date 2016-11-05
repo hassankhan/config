@@ -83,10 +83,9 @@ class Config extends AbstractConfig
     protected function replaceParameters(array &$data, ConfigInterface $parameters)
     {
         foreach ($data as &$value) {
-            if (is_array($value)) {
+            if (true === is_array($value)) {
                 $this->replaceParameters($value, $parameters);
-                continue;
-            } elseif (is_string($value)) {
+            } elseif (true === is_string($value)) {
                 $value = preg_replace_callback('/%([^%]+)%/', function ($m) use ($parameters) {
                     if (null === $parameterValue = $parameters->get($m[1])) {
                         throw new ParseException(
