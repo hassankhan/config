@@ -34,11 +34,12 @@ class Config extends AbstractConfig
     /**
      * Static method for loading a Config instance.
      *
-     * @param  string|array $path
+     * @param string|array $path
+     * @param array        $parameters
      *
      * @return Config
      */
-    public static function load($path, array $parameters = [])
+    public static function load($path, array $parameters = null)
     {
         return new static($path, $parameters);
     }
