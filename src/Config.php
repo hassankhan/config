@@ -49,7 +49,7 @@ class Config extends AbstractConfig
      * @param string|array $path
      * @param array        $parameters
      */
-    public function __construct($path, array $parameters = [])
+    public function __construct($path, array $parameters = null)
     {
         $paths      = $this->getValidPath($path);
         $this->data = array();
@@ -69,7 +69,9 @@ class Config extends AbstractConfig
             $this->data = array_replace_recursive($this->data, (array) $parser->parse($path));
         }
 
-        $this->replaceParameters($this->data, new Config($parameters));
+        if (null !== $parameters) {
+            $this->replaceParameters($this->data, new DataConfig($parameters));
+        }
 
         parent::__construct($this->data);
     }

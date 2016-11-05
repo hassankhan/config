@@ -2,6 +2,6 @@
 
 namespace Noodlehaus;
 
-class Config extends AbstractConfig
+class DataConfig extends AbstractConfig
 {
 }
