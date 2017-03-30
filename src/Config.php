@@ -4,6 +4,11 @@ namespace mhndev\config;
 use mhndev\config\Exception\FileNotFoundException;
 use mhndev\config\Exception\UnsupportedFormatException;
 use mhndev\config\Exception\EmptyDirectoryException;
+use mhndev\config\FileParser\Ini;
+use mhndev\config\FileParser\Json;
+use mhndev\config\FileParser\Php;
+use mhndev\config\FileParser\Xml;
+use mhndev\config\FileParser\Yaml;
 
 /**
  * Config
@@ -22,11 +27,11 @@ class Config extends AbstractConfig
      * @var array
      */
     private $supportedFileParsers = array(
-        'Noodlehaus\FileParser\Php',
-        'Noodlehaus\FileParser\Ini',
-        'Noodlehaus\FileParser\Json',
-        'Noodlehaus\FileParser\Xml',
-        'Noodlehaus\FileParser\Yaml'
+        Php::class,
+        Ini::class,
+        Json::class,
+        Xml::class,
+        Yaml::class
     );
 
     /**
