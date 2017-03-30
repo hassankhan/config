@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\FileParser;
+namespace mhndev\config\FileParser;
 
 /**
  * Abstract file parser

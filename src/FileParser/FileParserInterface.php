@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\FileParser;
+namespace mhndev\config\FileParser;
 
 /**
  * Config file parser interface
@@ -27,5 +27,5 @@ interface FileParserInterface
      *
      * @return array
      */
-    public function getSupportedExtensions();
+    public static function getSupportedExtensions();
 }

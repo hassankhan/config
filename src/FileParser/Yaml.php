@@ -1,10 +1,10 @@
 <?php
 
-namespace Noodlehaus\FileParser;
+namespace mhndev\config\FileParser;
 
 use Exception;
 use Symfony\Component\Yaml\Yaml as YamlParser;
-use Noodlehaus\Exception\ParseException;
+use mhndev\config\Exception\ParseException;
 
 /**
  * YAML file parser
@@ -42,7 +42,7 @@ class Yaml implements FileParserInterface
     /**
      * {@inheritDoc}
      */
-    public function getSupportedExtensions()
+    public static function getSupportedExtensions()
     {
         return array('yaml', 'yml');
     }

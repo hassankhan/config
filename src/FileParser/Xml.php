@@ -1,8 +1,8 @@
 <?php
 
-namespace Noodlehaus\FileParser;
+namespace mhndev\config\FileParser;
 
-use Noodlehaus\Exception\ParseException;
+use mhndev\config\Exception\ParseException;
 
 /**
  * XML file parser
@@ -48,7 +48,7 @@ class Xml implements FileParserInterface
     /**
      * {@inheritDoc}
      */
-    public function getSupportedExtensions()
+    public static function getSupportedExtensions()
     {
         return array('xml');
     }

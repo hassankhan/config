@@ -1,8 +1,8 @@
 <?php
 
-namespace Noodlehaus\Test\Fixture;
+namespace mhndev\config\Test\Fixture;
 
-use Noodlehaus\AbstractConfig;
+use mhndev\config\AbstractConfig;
 
 class SimpleConfig extends AbstractConfig
 {

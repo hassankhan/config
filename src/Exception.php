@@ -1,7 +1,7 @@
 <?php
-
-namespace Noodlehaus;
+namespace mhndev\config;
 
 class Exception extends \Exception
 {
+
 }

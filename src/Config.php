@@ -1,10 +1,14 @@
 <?php
+namespace mhndev\config;
 
-namespace Noodlehaus;
-
-use Noodlehaus\Exception\FileNotFoundException;
-use Noodlehaus\Exception\UnsupportedFormatException;
-use Noodlehaus\Exception\EmptyDirectoryException;
+use mhndev\config\Exception\FileNotFoundException;
+use mhndev\config\Exception\UnsupportedFormatException;
+use mhndev\config\Exception\EmptyDirectoryException;
+use mhndev\config\FileParser\Ini;
+use mhndev\config\FileParser\Json;
+use mhndev\config\FileParser\Php;
+use mhndev\config\FileParser\Xml;
+use mhndev\config\FileParser\Yaml;
 
 /**
  * Config
@@ -23,11 +27,11 @@ class Config extends AbstractConfig
      * @var array
      */
     private $supportedFileParsers = array(
-        'Noodlehaus\FileParser\Php',
-        'Noodlehaus\FileParser\Ini',
-        'Noodlehaus\FileParser\Json',
-        'Noodlehaus\FileParser\Xml',
-        'Noodlehaus\FileParser\Yaml'
+        Php::class,
+        Ini::class,
+        Json::class,
+        Xml::class,
+        Yaml::class
     );
 
     /**
@@ -56,8 +60,10 @@ class Config extends AbstractConfig
 
         foreach ($paths as $path) {
 
+
             // Get file information
             $info      = pathinfo($path);
+
             $parts = explode('.', $info['basename']);
             $extension = array_pop($parts);
             if ($extension === 'dist') {
@@ -65,8 +71,10 @@ class Config extends AbstractConfig
             }
             $parser    = $this->getParser($extension);
 
+            $data = [$info['filename'] => (array) $parser->parse($path) ];
+
             // Try and load file
-            $this->data = array_replace_recursive($this->data, (array) $parser->parse($path));
+            $this->data = array_replace_recursive($this->data, $data);
         }
 
         parent::__construct($this->data);
@@ -83,24 +91,15 @@ class Config extends AbstractConfig
      */
     private function getParser($extension)
     {
-        $parser = null;
-
         foreach ($this->supportedFileParsers as $fileParser) {
-            $tempParser = new $fileParser;
-
-            if (in_array($extension, $tempParser->getSupportedExtensions($extension))) {
-                $parser = $tempParser;
-                continue;
+            if (in_array($extension, $fileParser::getSupportedExtensions($extension))) {
+                return new $fileParser();
             }
 
         }
 
         // If none exist, then throw an exception
-        if ($parser === null) {
-            throw new UnsupportedFormatException('Unsupported configuration format');
-        }
-
-        return $parser;
+        throw new UnsupportedFormatException('Unsupported configuration format');
     }
 
     /**

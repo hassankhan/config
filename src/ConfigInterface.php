@@ -1,6 +1,5 @@
 <?php
-
-namespace Noodlehaus;
+namespace mhndev\config;
 
 /**
  * Config interface
