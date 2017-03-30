@@ -1,5 +1,4 @@
 <?php
-
 namespace mhndev\config;
 
 use ArrayAccess;
