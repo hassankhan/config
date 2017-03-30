@@ -1,10 +1,10 @@
 <?php
 
-namespace Noodlehaus\FileParser;
+namespace mhndev\config\FileParser;
 
 use Exception;
-use Noodlehaus\Exception\ParseException;
-use Noodlehaus\Exception\UnsupportedFormatException;
+use mhndev\config\Exception\ParseException;
+use mhndev\config\Exception\UnsupportedFormatException;
 
 /**
  * PHP file parser

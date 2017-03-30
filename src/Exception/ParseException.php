@@ -1,8 +1,8 @@
 <?php
 
-namespace Noodlehaus\Exception;
+namespace mhndev\config\Exception;
 
-use Noodlehaus\ErrorException;
+use mhndev\config\ErrorException;
 
 class ParseException extends ErrorException
 {

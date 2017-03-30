@@ -1,10 +1,10 @@
 <?php
 
-namespace Noodlehaus;
+namespace mhndev\config;
 
-use Noodlehaus\Exception\FileNotFoundException;
-use Noodlehaus\Exception\UnsupportedFormatException;
-use Noodlehaus\Exception\EmptyDirectoryException;
+use mhndev\config\Exception\FileNotFoundException;
+use mhndev\config\Exception\UnsupportedFormatException;
+use mhndev\config\Exception\EmptyDirectoryException;
 
 /**
  * Config

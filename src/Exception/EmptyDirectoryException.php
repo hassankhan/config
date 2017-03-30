@@ -1,8 +1,8 @@
 <?php
 
-namespace Noodlehaus\Exception;
+namespace mhndev\config\Exception;
 
-use Noodlehaus\Exception;
+use mhndev\config\Exception;
 
 class EmptyDirectoryException extends Exception
 {

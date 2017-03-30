@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus;
+namespace mhndev\config;
 
 use ArrayAccess;
 use Iterator;

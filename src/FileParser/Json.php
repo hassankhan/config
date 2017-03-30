@@ -1,8 +1,8 @@
 <?php
 
-namespace Noodlehaus\FileParser;
+namespace mhndev\config\FileParser;
 
-use Noodlehaus\Exception\ParseException;
+use mhndev\config\Exception\ParseException;
 
 /**
  * JSON file parser
