@@ -1,5 +1,5 @@
 {
-    "name": "hassankhan/config",
+    "name": "mhndev/config",
     "type": "library",
     "description": "Lightweight configuration file loader that supports PHP, INI, XML, JSON, and YAML files forked from hassankhan/config",
     "keywords": ["configuration", "config", "json", "yaml", "yml", "ini", "xml", "unframework", "microphp"],
