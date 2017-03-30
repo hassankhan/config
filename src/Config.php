@@ -56,8 +56,10 @@ class Config extends AbstractConfig
 
         foreach ($paths as $path) {
 
+
             // Get file information
             $info      = pathinfo($path);
+
             $parts = explode('.', $info['basename']);
             $extension = array_pop($parts);
             if ($extension === 'dist') {
@@ -65,8 +67,10 @@ class Config extends AbstractConfig
             }
             $parser    = $this->getParser($extension);
 
+            $data = [$info['filename'] => (array) $parser->parse($path) ];
+
             // Try and load file
-            $this->data = array_replace_recursive($this->data, (array) $parser->parse($path));
+            $this->data = array_replace_recursive($this->data, $data);
         }
 
         parent::__construct($this->data);
