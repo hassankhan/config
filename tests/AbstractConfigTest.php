@@ -467,4 +467,13 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
         $actual = $this->config->get('invalid', 'expected');
         $this->assertSame('expected', $actual);
     }
+
+    /**
+     * @covers Noodlehaus\AbstractConfig::remove()
+     */
+    public function testRemove()
+    {
+        $this->config->remove('application');
+        $this->assertNull($this->config['application']);
+    }
 }
