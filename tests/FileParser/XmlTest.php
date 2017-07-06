@@ -58,5 +58,6 @@ class XmlTest extends \PHPUnit_Framework_TestCase
         $actual = $this->xml->parse(__DIR__ . '/../mocks/pass/config.xml');
         $this->assertEquals('localhost', $actual['host']);
         $this->assertEquals('80', $actual['port']);
+        $this->assertEquals('This is a long comment.', $actual['comment']);
     }
 }

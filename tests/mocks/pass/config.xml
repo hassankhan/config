@@ -11,4 +11,5 @@
         <server2>host2</server2>
         <server3>host3</server3>
     </servers>
+    <comment><![CDATA[This is a long comment.]]></comment>
 </config>
