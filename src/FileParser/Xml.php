@@ -25,7 +25,7 @@ class Xml implements FileParserInterface
     {
         libxml_use_internal_errors(true);
 
-        $data = simplexml_load_file($path, null, LIBXML_NOERROR);
+        $data = simplexml_load_file($path, null, LIBXML_NOERROR | LIBXML_NOCDATA);
 
         if ($data === false) {
             $errors      = libxml_get_errors();
