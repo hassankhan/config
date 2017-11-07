@@ -15,6 +15,8 @@ and YML files.
 
 Config requires PHP 5.3+, and suggests using the [Symfony Yaml component](https://github.com/symfony/Yaml).
 
+> **WARNING:** This library may not function correctly on PHP 5.6+.
+
 ## Installation
 
 The supported way of installing Config is via Composer.
