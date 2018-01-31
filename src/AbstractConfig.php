@@ -138,6 +138,18 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
     }
 
     /**
+     * Merge config from another instance
+     *
+     * @param ConfigInterface $config
+     * @return ConfigInterface
+     */
+    public function merge(ConfigInterface $config)
+    {
+        $this->data = array_replace_recursive($this->data, $config->all());
+        return $this;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function all()
