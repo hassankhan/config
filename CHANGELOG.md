@@ -2,6 +2,20 @@
 
 All notable changes to `Config` will be documented in this file
 
+## 1.0.0 - 2018-03-03
+
+### Added
+- Merge support (#96)
+- Set PHP 5.5.9 as minimum required version (#75 and #99)
+
+### Fixed
+- Fix PHP 5.6 test (#100)
+- Edit PHP versions tested on Travis (#101)
+- Add more info about the symfony/yaml requirement (#97 and #102)
+
+### Breaking changes
+- PHP 5.3 and 5.4 are no longer supported.
+
 ## 0.10.0 - 2016-02-11
 
 ### Added
