@@ -279,6 +279,22 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Noodlehaus\AbstractConfig::merge()
+     */
+    public function testMerge()
+    {
+        $remote = new SimpleConfig(
+            array(
+                'host' => '127.0.0.1'
+            )
+        );
+
+        $this->config->merge($remote);
+
+        $this->assertEquals('127.0.0.1', $this->config['host']);
+    }
+
+    /**
      * @covers Noodlehaus\AbstractConfig::offsetGet()
      */
     public function testOffsetGet()

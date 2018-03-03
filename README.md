@@ -148,6 +148,16 @@ class MyConfig extends AbstractConfig
 }
 ```
 
+### Merging instances
+
+You may want merging multiple Config instances:
+
+```php
+$conf1 = Config::load('conf1.json');
+$conf2 = Config::load('conf2.json');
+$conf1->merge($conf2);
+```
+
 ### Examples of supported configuration files
 
 Examples of simple, valid configuration files can be found [here](tests/mocks/pass).
