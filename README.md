@@ -13,9 +13,9 @@ and YML files.
 
 ## Requirements
 
-Config requires PHP 5.3+, and suggests using the [Symfony Yaml component](https://github.com/symfony/Yaml).
+Config requires PHP 5.5.9+.
 
-> **WARNING:** This library may not function correctly on PHP 5.6+.
+> **IMPORTANT:** If you want to use YAML files, require the [Symfony Yaml component](https://github.com/symfony/Yaml) in your `composer.json`.
 
 ## Installation
 
