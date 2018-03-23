@@ -22,7 +22,7 @@ class Config extends AbstractConfig
      *
      * @var array
      */
-    private $supportedFileParsers = array(
+    protected $supportedFileParsers = array(
         'Noodlehaus\FileParser\Php',
         'Noodlehaus\FileParser\Ini',
         'Noodlehaus\FileParser\Json',
