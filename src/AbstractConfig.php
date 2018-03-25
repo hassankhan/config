@@ -19,9 +19,9 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
     /**
      * Stores the configuration data
      *
-     * @var array|null
+     * @var array
      */
-    protected $data = null;
+    protected $data = array();
 
     /**
      * Caches the configuration data

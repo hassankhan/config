@@ -5,6 +5,7 @@ namespace Noodlehaus;
 use Noodlehaus\Exception\FileNotFoundException;
 use Noodlehaus\Exception\UnsupportedFormatException;
 use Noodlehaus\Exception\EmptyDirectoryException;
+use Noodlehaus\FileParser\FileParserInterface;
 
 /**
  * Config
@@ -46,13 +47,13 @@ class Config extends AbstractConfig
      * Loads a supported configuration file format.
      *
      * @param  string|array $path
+     * @param  boolean      $prefix
      *
      * @throws EmptyDirectoryException    If `$path` is an empty directory
      */
-    public function __construct($path)
+    public function __construct($path, $prefix = false)
     {
         $paths      = $this->getValidPath($path);
-        $this->data = array();
 
         foreach ($paths as $path) {
 
@@ -66,7 +67,11 @@ class Config extends AbstractConfig
             $parser    = $this->getParser($extension);
 
             // Try and load file
-            $this->data = array_replace_recursive($this->data, (array) $parser->parse($path));
+            $data = (array) $parser->parse($path);
+            if ($prefix) {
+                $data = [array_shift($parts) => $data];
+            }
+            $this->data = array_replace_recursive($this->data, $data);
         }
 
         parent::__construct($this->data);
@@ -77,7 +82,7 @@ class Config extends AbstractConfig
      *
      * @param  string $extension
      *
-     * @return Noodlehaus\FileParser\FileParserInterface
+     * @return FileParserInterface
      *
      * @throws UnsupportedFormatException If `$path` is an unsupported file format
      */
