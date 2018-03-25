@@ -31,7 +31,7 @@ class XmlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\FileParser\Xml::getSupportedExtensions()
+     * @covers \Noodlehaus\FileParser\Xml::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
@@ -41,8 +41,8 @@ class XmlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\FileParser\Xml::parse()
-     * @expectedException        Noodlehaus\Exception\ParseException
+     * @covers                   \Noodlehaus\FileParser\Xml::parse()
+     * @expectedException        \Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage Opening and ending tag mismatch: name line 4
      */
     public function testLoadInvalidXml()
@@ -51,7 +51,7 @@ class XmlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\FileParser\Xml::parse()
+     * @covers \Noodlehaus\FileParser\Xml::parse()
      */
     public function testLoadXml()
     {

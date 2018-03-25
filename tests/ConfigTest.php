@@ -6,7 +6,6 @@ namespace Noodlehaus\Test;
  */
 
 use Noodlehaus\Config;
-use Noodlehaus\Exception\UnsupportedFormatException;
 
 class ConfigTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,58 +31,58 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Config::load()
-     * @covers                   Config::getParser()
-     * @expectedException        UnsupportedFormatException
+     * @covers                   \Noodlehaus\Config::load()
+     * @covers                   \Noodlehaus\Config::getParser()
+     * @expectedException        \Noodlehaus\Exception\UnsupportedFormatException
      * @expectedExceptionMessage Unsupported configuration format
      */
     public function testLoadWithUnsupportedFormat()
     {
-        $config = Config::load(__DIR__ . '/mocks/fail/error.lib');
+        Config::load(__DIR__ . '/mocks/fail/error.lib');
         // $this->markTestIncomplete('Not yet implemented');
     }
 
     /**
-     * @covers                   Noodlehaus\Config::__construct()
-     * @covers                   Noodlehaus\Config::getParser()
-     * @expectedException        Noodlehaus\Exception\UnsupportedFormatException
+     * @covers                   \Noodlehaus\Config::__construct()
+     * @covers                   \Noodlehaus\Config::getParser()
+     * @expectedException        \Noodlehaus\Exception\UnsupportedFormatException
      * @expectedExceptionMessage Unsupported configuration format
      */
     public function testConstructWithUnsupportedFormat()
     {
-        $config = new Config(__DIR__ . '/mocks/fail/error.lib');
+        new Config(__DIR__ . '/mocks/fail/error.lib');
     }
 
     /**
-     * @covers                   Noodlehaus\Config::__construct()
-     * @covers                   Noodlehaus\Config::getParser()
-     * @covers                   Noodlehaus\Config::getPathFromArray()
-     * @covers                   Noodlehaus\Config::getValidPath()
-     * @expectedException        Noodlehaus\Exception\FileNotFoundException
+     * @covers                   \Noodlehaus\Config::__construct()
+     * @covers                   \Noodlehaus\Config::getParser()
+     * @covers                   \Noodlehaus\Config::getPathFromArray()
+     * @covers                   \Noodlehaus\Config::getValidPath()
+     * @expectedException        \Noodlehaus\Exception\FileNotFoundException
      * @expectedExceptionMessage Configuration file: [ladadeedee] cannot be found
      */
     public function testConstructWithInvalidPath()
     {
-        $config = new Config('ladadeedee');
+        new Config('ladadeedee');
     }
 
     /**
-     * @covers            Noodlehaus\Config::__construct()
-     * @covers            Noodlehaus\Config::getParser()
-     * @covers            Noodlehaus\Config::getPathFromArray()
-     * @covers            Noodlehaus\Config::getValidPath()
-     * @expectedException Noodlehaus\Exception\EmptyDirectoryException
+     * @covers            \Noodlehaus\Config::__construct()
+     * @covers            \Noodlehaus\Config::getParser()
+     * @covers            \Noodlehaus\Config::getPathFromArray()
+     * @covers            \Noodlehaus\Config::getValidPath()
+     * @expectedException \Noodlehaus\Exception\EmptyDirectoryException
      */
     public function testConstructWithEmptyDirectory()
     {
-        $config = new Config(__DIR__ . '/mocks/empty');
+        new Config(__DIR__ . '/mocks/empty');
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::getParser()
-     * @covers Noodlehaus\Config::getPathFromArray()
-     * @covers Noodlehaus\Config::getValidPath()
+     * @covers \Noodlehaus\Config::__construct()
+     * @covers \Noodlehaus\Config::getParser()
+     * @covers \Noodlehaus\Config::getPathFromArray()
+     * @covers \Noodlehaus\Config::getValidPath()
      */
     public function testConstructWithArray()
     {
@@ -97,11 +96,11 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers            Noodlehaus\Config::__construct()
-     * @covers            Noodlehaus\Config::getParser()
-     * @covers            Noodlehaus\Config::getPathFromArray()
-     * @covers            Noodlehaus\Config::getValidPath()
-     * @expectedException Noodlehaus\Exception\FileNotFoundException
+     * @covers            \Noodlehaus\Config::__construct()
+     * @covers            \Noodlehaus\Config::getParser()
+     * @covers            \Noodlehaus\Config::getPathFromArray()
+     * @covers            \Noodlehaus\Config::getValidPath()
+     * @expectedException \Noodlehaus\Exception\FileNotFoundException
      */
     public function testConstructWithArrayWithNonexistentFile()
     {
@@ -115,10 +114,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::getParser()
-     * @covers Noodlehaus\Config::getPathFromArray()
-     * @covers Noodlehaus\Config::getValidPath()
+     * @covers \Noodlehaus\Config::__construct()
+     * @covers \Noodlehaus\Config::getParser()
+     * @covers \Noodlehaus\Config::getPathFromArray()
+     * @covers \Noodlehaus\Config::getValidPath()
      */
     public function testConstructWithArrayWithOptionalFile()
     {
@@ -132,10 +131,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::getParser()
-     * @covers Noodlehaus\Config::getPathFromArray()
-     * @covers Noodlehaus\Config::getValidPath()
+     * @covers \Noodlehaus\Config::__construct()
+     * @covers \Noodlehaus\Config::getParser()
+     * @covers \Noodlehaus\Config::getPathFromArray()
+     * @covers \Noodlehaus\Config::getValidPath()
      */
     public function testConstructWithArrayWithOptionalNonexistentFile()
     {
@@ -149,10 +148,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::getParser()
-     * @covers Noodlehaus\Config::getPathFromArray()
-     * @covers Noodlehaus\Config::getValidPath()
+     * @covers \Noodlehaus\Config::__construct()
+     * @covers \Noodlehaus\Config::getParser()
+     * @covers \Noodlehaus\Config::getPathFromArray()
+     * @covers \Noodlehaus\Config::getValidPath()
      */
     public function testConstructWithDirectory()
     {
@@ -165,10 +164,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::getParser()
-     * @covers Noodlehaus\Config::getPathFromArray()
-     * @covers Noodlehaus\Config::getValidPath()
+     * @covers \Noodlehaus\Config::__construct()
+     * @covers \Noodlehaus\Config::getParser()
+     * @covers \Noodlehaus\Config::getPathFromArray()
+     * @covers \Noodlehaus\Config::getValidPath()
      */
     public function testConstructWithYml()
     {
@@ -181,10 +180,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::getParser()
-     * @covers Noodlehaus\Config::getPathFromArray()
-     * @covers Noodlehaus\Config::getValidPath()
+     * @covers \Noodlehaus\Config::__construct()
+     * @covers \Noodlehaus\Config::getParser()
+     * @covers \Noodlehaus\Config::getPathFromArray()
+     * @covers \Noodlehaus\Config::getValidPath()
      */
     public function testConstructWithYmlDist()
     {
@@ -197,10 +196,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::getParser()
-     * @covers Noodlehaus\Config::getPathFromArray()
-     * @covers Noodlehaus\Config::getValidPath()
+     * @covers \Noodlehaus\Config::__construct()
+     * @covers \Noodlehaus\Config::getParser()
+     * @covers \Noodlehaus\Config::getPathFromArray()
+     * @covers \Noodlehaus\Config::getValidPath()
      */
     public function testConstructWithEmptyYml()
     {
@@ -213,9 +212,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers       Noodlehaus\Config::__construct()
-     * @covers       Noodlehaus\Config::get()
+     * @covers       \Noodlehaus\Config::__construct()
+     * @covers       \Noodlehaus\Config::get()
      * @dataProvider specialConfigProvider()
+     * @param $config \Noodlehaus\Config
      */
     public function testGetReturnsArrayMergedArray($config)
     {
@@ -223,8 +223,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers      Config::__construct()
-     * @covers      Noodlehause\Config::get()
+     * @covers      \Noodlehaus\Config::__construct()
+     * @covers      \Noodlehaus\Config::get()
      */
     public function testConstructWithPrefix() {
         $config = new Config(__DIR__ . '/mocks/dir', true);

@@ -71,6 +71,7 @@ class Config extends AbstractConfig
             if ($prefix) {
                 $data = [array_shift($parts) => $data];
             }
+
             $this->data = array_replace_recursive($this->data, $data);
         }
 

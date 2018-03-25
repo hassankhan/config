@@ -31,7 +31,7 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\FileParser\Php::getSupportedExtensions()
+     * @covers \Noodlehaus\FileParser\Php::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
@@ -41,8 +41,8 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\FileParser\Php::parse()
-     * @expectedException        Noodlehaus\Exception\UnsupportedFormatException
+     * @covers                   \Noodlehaus\FileParser\Php::parse()
+     * @expectedException        \Noodlehaus\Exception\UnsupportedFormatException
      * @expectedExceptionMessage PHP file does not return an array
      */
     public function testLoadInvalidPhp()
@@ -51,8 +51,8 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\FileParser\Php::parse()
-     * @expectedException        Noodlehaus\Exception\ParseException
+     * @covers                   \Noodlehaus\FileParser\Php::parse()
+     * @expectedException        \Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage PHP file threw an exception
      */
     public function testLoadExceptionalPhp()
@@ -61,7 +61,7 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\FileParser\Php::parse()
+     * @covers \Noodlehaus\FileParser\Php::parse()
      */
     public function testLoadPhpArray()
     {
@@ -71,7 +71,7 @@ class PhpTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\FileParser\Php::parse()
+     * @covers \Noodlehaus\FileParser\Php::parse()
      */
     public function testLoadPhpCallable()
     {

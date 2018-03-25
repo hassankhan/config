@@ -31,7 +31,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\FileParser\Json::getSupportedExtensions()
+     * @covers \Noodlehaus\FileParser\Json::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
@@ -41,8 +41,8 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\FileParser\Json::parse()
-     * @expectedException        Noodlehaus\Exception\ParseException
+     * @covers                   \Noodlehaus\FileParser\Json::parse()
+     * @expectedException        \Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage Syntax error
      */
     public function testLoadInvalidJson()
@@ -51,7 +51,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\FileParser\Json::parse()
+     * @covers \Noodlehaus\FileParser\Json::parse()
      */
     public function testLoadJson()
     {
