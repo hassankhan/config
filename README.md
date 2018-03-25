@@ -50,10 +50,13 @@ $conf = new Config(__DIR__ . '/config');
 
 // Load values from optional files
 $conf = new Config(['config.dist.json', '?config.json']);
+
+// Loads several configuration files and set root key for every file equal to the file name.
+$conf = new Config(['database.json', 'app.xml'], true);
 ```
 
 Files are parsed and loaded depending on the file extension. Note that when
-loading multiple files, entries with **duplicate keys will take on the value
+loading multiple files without prefixing (second argument of constructor/load method), entries with **duplicate keys will take on the value
 from the last loaded file**.
 
 When loading a directory, the path is `glob`ed and files are loaded in by
@@ -72,6 +75,9 @@ $secret = $conf->get('security.secret');
 
 // Get a value with a fallback
 $ttl = $conf->get('app.timeout', 3000);
+
+//Get value using nested key from database.* file (file prefixes enabled)
+$username = $conf->get('database.credentials.username');
 ```
 
 The second method, is by using it like an array:
@@ -85,6 +91,9 @@ $secret = $conf['security.secret'];
 
 // Get nested value like you would from a nested array
 $secret = $conf['security']['secret'];
+
+//Get value using nested key from database.* file (file prefixes enabled)
+$username = $conf['database']['credentials']['username'];
 ```
 
 The third method, is by using the `all()` method:
