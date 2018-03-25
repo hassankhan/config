@@ -35,6 +35,7 @@ class Config extends AbstractConfig
      * Static method for loading a Config instance.
      *
      * @param  string|array $path
+     * @param  boolean      $prefix
      *
      * @return Config
      */
