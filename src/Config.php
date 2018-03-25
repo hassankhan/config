@@ -38,9 +38,9 @@ class Config extends AbstractConfig
      *
      * @return Config
      */
-    public static function load($path)
+    public static function load($path, $prefix = false)
     {
-        return new static($path);
+        return new static($path, $prefix);
     }
 
     /**
