@@ -2,6 +2,11 @@
 
 All notable changes to `Config` will be documented in this file
 
+## 1.0.1 - 2018-03-31
+
+### Fixed
+- Possibility to use an own file parser (#103)
+
 ## 1.0.0 - 2018-03-03
 
 ### Added
