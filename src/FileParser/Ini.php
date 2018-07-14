@@ -61,7 +61,7 @@ class Ini implements FileParserInterface
                 $newKey = substr($key, 0, $found);
                 $remainder = substr($key, $found + 1);
 
-                $expandedValue = $this->expandDottedKey(array($remainder => $value));
+                $expandedValue = $this->expandDottedKey([$remainder => $value]);
                 if (isset($data[$newKey])) {
                     $data[$newKey] = array_merge_recursive($data[$newKey], $expandedValue);
                 } else {
@@ -78,6 +78,6 @@ class Ini implements FileParserInterface
      */
     public static function getSupportedExtensions()
     {
-        return array('ini');
+        return ['ini'];
     }
 }

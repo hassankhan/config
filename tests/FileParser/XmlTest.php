@@ -35,7 +35,7 @@ class XmlTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSupportedExtensions()
     {
-        $expected = array('xml');
+        $expected = ['xml'];
         $actual   = $this->xml->getSupportedExtensions();
         $this->assertEquals($expected, $actual);
     }

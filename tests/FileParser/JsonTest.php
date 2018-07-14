@@ -35,7 +35,7 @@ class JsonTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSupportedExtensions()
     {
-        $expected = array('json');
+        $expected = ['json'];
         $actual   = $this->json->getSupportedExtensions();
         $this->assertEquals($expected, $actual);
     }

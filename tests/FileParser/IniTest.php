@@ -35,7 +35,7 @@ class IniTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSupportedExtensions()
     {
-        $expected = array('ini');
+        $expected = ['ini'];
         $actual   = $this->ini->getSupportedExtensions();
         $this->assertEquals($expected, $actual);
     }
@@ -79,7 +79,7 @@ class IniTest extends \PHPUnit_Framework_TestCase
     public function testLoadIniWithDottedName()
     {
         $actual = $this->ini->parse(__DIR__ . '/../mocks/pass/config2.ini');
-        $expected = array('host1', 'host2', 'host3');
+        $expected = ['host1', 'host2', 'host3'];
 
         $this->assertEquals($expected, $actual['network']['group']['servers']);
 

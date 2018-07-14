@@ -35,7 +35,7 @@ class YamlTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSupportedExtensions()
     {
-        $expected = array('yaml', 'yml');
+        $expected = ['yaml', 'yml'];
         $actual   = $this->yaml->getSupportedExtensions();
         $this->assertEquals($expected, $actual);
     }
