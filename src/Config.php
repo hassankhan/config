@@ -58,12 +58,14 @@ class Config extends AbstractConfig
 
             // Get file information
             $info      = pathinfo($path);
-            $parts = explode('.', $info['basename']);
+            $parts     = explode('.', $info['basename']);
             $extension = array_pop($parts);
+
             if ($extension === 'dist') {
                 $extension = array_pop($parts);
             }
-            $parser    = $this->getParser($extension);
+
+            $parser = $this->getParser($extension);
 
             // Try and load file
             $this->data = array_replace_recursive($this->data, (array) $parser->parse($path));
@@ -81,7 +83,7 @@ class Config extends AbstractConfig
      *
      * @throws UnsupportedFormatException If `$path` is an unsupported file format
      */
-    private function getParser($extension)
+    protected function getParser($extension)
     {
         foreach ($this->supportedFileParsers as $fileParser) {
             if (in_array($extension, $fileParser::getSupportedExtensions($extension))) {
@@ -103,7 +105,7 @@ class Config extends AbstractConfig
      *
      * @throws FileNotFoundException   If a file is not found at `$path`
      */
-    private function getPathFromArray($path)
+    protected function getPathFromArray($path)
     {
         $paths = [];
 
@@ -116,6 +118,7 @@ class Config extends AbstractConfig
                     $paths = array_merge($paths, $this->getValidPath($unverifiedPath));
                     continue;
                 }
+
                 $optionalPath = ltrim($unverifiedPath, '?');
                 $paths = array_merge($paths, $this->getValidPath($optionalPath));
 
@@ -124,6 +127,7 @@ class Config extends AbstractConfig
                 if ($unverifiedPath[0] === '?') {
                     continue;
                 }
+
                 // Otherwise rethrow the exception
                 throw $e;
             }
@@ -143,7 +147,7 @@ class Config extends AbstractConfig
      *
      * @throws FileNotFoundException   If a file is not found at `$path`
      */
-    private function getValidPath($path)
+    protected function getValidPath($path)
     {
         // If `$path` is array
         if (is_array($path)) {
@@ -156,6 +160,7 @@ class Config extends AbstractConfig
             if (empty($paths)) {
                 throw new EmptyDirectoryException("Configuration directory: [$path] is empty");
             }
+
             return $paths;
         }
 
@@ -163,6 +168,7 @@ class Config extends AbstractConfig
         if (!file_exists($path)) {
             throw new FileNotFoundException("Configuration file: [$path] cannot be found");
         }
+
         return [$path];
     }
 }
