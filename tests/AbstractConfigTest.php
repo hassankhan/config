@@ -198,23 +198,23 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testCacheWithNestedMiddleArray()
     {
-      $this->config->set('config', [
+        $this->config->set('config', [
           'database' => [
               'host' => 'localhost',
               'name' => 'mydatabase'
           ]
-      ]);
-      $this->config->get('config'); //Just get to set related cache
-      $this->config->get('config.database'); //Just get to set related cache
-      $this->config->get('config.database.host'); //Just get to set related cache
-      $this->config->get('config.database.name'); //Just get to set related cache
+        ]);
+        $this->config->get('config'); //Just get to set related cache
+        $this->config->get('config.database'); //Just get to set related cache
+        $this->config->get('config.database.host'); //Just get to set related cache
+        $this->config->get('config.database.name'); //Just get to set related cache
 
-      $this->config->set('config.database', [
+        $this->config->set('config.database', [
           'host' => '127.0.0.1',
           'name' => 'mynewdatabase'
-      ]);
-      $this->assertEquals('127.0.0.1', $this->config->get('config.database.host'));
-      $this->assertEquals('mynewdatabase', $this->config->get('config.database.name'));
+        ]);
+        $this->assertEquals('127.0.0.1', $this->config->get('config.database.host'));
+        $this->assertEquals('mynewdatabase', $this->config->get('config.database.name'));
     }
 
     /**
