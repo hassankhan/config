@@ -106,7 +106,7 @@ class Config extends AbstractConfig
                 }
 
                 // Get file parser
-                $parser = $this->getFileParser($extension);
+                $parser = $this->getParser($extension);
 
                 // Try to load file
                 $this->data = array_replace_recursive($this->data, (array) $parser->parse($path));
@@ -143,32 +143,11 @@ class Config extends AbstractConfig
      *
      * @throws UnsupportedFormatException If `$extension` is an unsupported file format
      */
-    protected function getFileParser($extension)
+    protected function getParser($extension)
     {
         foreach ($this->supportedFileParsers as $fileParser) {
             if (in_array($extension, $fileParser::getSupportedExtensions())) {
                 return new $fileParser();
-            }
-        }
-
-        // If none exist, then throw an exception
-        throw new UnsupportedFormatException('Unsupported configuration format');
-    }
-
-    /**
-     * Get a parser for a given format.
-     *
-     * @param  string $format
-     *
-     * @return Noodlehaus\StringParser\StringParserInterface
-     *
-     * @throws UnsupportedFormatException If `$format` is unsupported format
-     */
-    protected function getStringParser($format)
-    {
-        foreach ($this->supportedStringParsers as $stringParser) {
-            if (in_array($format, $stringParser::getSupportedFormats())) {
-                return new $stringParser();
             }
         }
 
