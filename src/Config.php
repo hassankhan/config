@@ -5,9 +5,12 @@ namespace Noodlehaus;
 use Noodlehaus\Exception\FileNotFoundException;
 use Noodlehaus\Exception\UnsupportedFormatException;
 use Noodlehaus\Exception\EmptyDirectoryException;
+use InvalidArgumentException;
+use Noodlehaus\FileParser\FileParserInterface;
+use Noodlehaus\StringParser\StringParserInterface;
 
 /**
- * Config
+ * Configuration reader and writer for PHP.
  *
  * @package    Config
  * @author     Jesus A. Domingo <jesus.domingo@gmail.com>
@@ -18,7 +21,7 @@ use Noodlehaus\Exception\EmptyDirectoryException;
 class Config extends AbstractConfig
 {
     /**
-     * All file formats supported by Config
+     * All file formats supported by Config.
      *
      * @var array
      */
@@ -31,65 +34,140 @@ class Config extends AbstractConfig
     ];
 
     /**
+     * All string formats supported by Config.
+     *
+     * @var array
+     */
+    protected $supportedStringParsers = [
+        'Noodlehaus\StringParser\Php',
+        'Noodlehaus\StringParser\Ini',
+        'Noodlehaus\StringParser\Json',
+        'Noodlehaus\StringParser\Xml',
+        'Noodlehaus\StringParser\Yaml'
+    ];
+
+    /**
      * Static method for loading a Config instance.
      *
-     * @param  string|array $path
+     * @param  string|array                              $values Filenames or string with configuration
+     * @param  FileParserInterface|StringParserInterface $parser Configuration parser
      *
      * @return Config
      */
-    public static function load($path)
+    public static function load($values, $parser = null)
     {
-        return new static($path);
+        return new static($values, $parser);
     }
 
     /**
-     * Loads a supported configuration file format.
+     * Loads a Config instance.
      *
-     * @param  string|array $path
+     * @param  string|array                              $values Filenames or string with configuration
+     * @param  FileParserInterface|StringParserInterface $parser Configuration parser
      *
-     * @throws EmptyDirectoryException    If `$path` is an empty directory
+     * @throws InvalidArgumentException If `$parser` is not implementing correct interface
      */
-    public function __construct($path)
+    public function __construct($values, $parser = null)
     {
-        $paths      = $this->getValidPath($path);
-        $this->data = [];
-
-        foreach ($paths as $path) {
-
-            // Get file information
-            $info      = pathinfo($path);
-            $parts     = explode('.', $info['basename']);
-            $extension = array_pop($parts);
-
-            if ($extension === 'dist') {
-                $extension = array_pop($parts);
-            }
-
-            $parser = $this->getParser($extension);
-
-            // Try and load file
-            $this->data = array_replace_recursive($this->data, (array) $parser->parse($path));
+        if ($parser instanceof FileParserInterface || $parser === null) {
+            $this->loadFromFile($values, $parser);
+        } elseif ($parser instanceof StringParserInterface) {
+            $this->loadFromString($values, $parser);
+        } else {
+            throw new InvalidArgumentException('Parser not implementing correct interface');
         }
 
         parent::__construct($this->data);
     }
 
     /**
-     * Gets a parser for a given file extension
+     * Loads configuration from file.
+     *
+     * @param  string|array         $path   Filenames or directories with configuration
+     * @param  FileParserInterface  $parser Configuration parser
+     *
+     * @throws EmptyDirectoryException If `$path` is an empty directory
+     */
+    protected function loadFromFile($path, FileParserInterface $parser = null)
+    {
+        $paths      = $this->getValidPath($path);
+        $this->data = [];
+
+        foreach ($paths as $path) {
+            if ($parser === null) {
+                // Get file information
+                $info      = pathinfo($path);
+                $parts     = explode('.', $info['basename']);
+                $extension = array_pop($parts);
+
+                // Skip the `dist` extension
+                if ($extension === 'dist') {
+                    $extension = array_pop($parts);
+                }
+
+                // Get file parser
+                $parser = $this->getFileParser($extension);
+
+                // Try to load file
+                $this->data = array_replace_recursive($this->data, (array) $parser->parse($path));
+
+                // Clean parser
+                $parser = null;
+            } else {
+                // Try to load file using specified parser
+                $this->data = array_replace_recursive($this->data, (array) $parser->parse($path));
+            }
+        }
+    }
+
+    /**
+     * Loads configuration from string.
+     *
+     * @param  string                $configuration String with configuration
+     * @param  StringParserInterface $parser        Configuration parser
+     */
+    protected function loadFromString($configuration, $parser)
+    {
+        // Try to load file
+        $this->data = array_replace_recursive($this->data, (array) $parser->parse($configuration));
+    }
+
+    /**
+     * Gets a parser for a given file extension.
      *
      * @param  string $extension
      *
      * @return Noodlehaus\FileParser\FileParserInterface
      *
-     * @throws UnsupportedFormatException If `$path` is an unsupported file format
+     * @throws UnsupportedFormatException If `$extension` is an unsupported file format
      */
-    protected function getParser($extension)
+    protected function getFileParser($extension)
     {
         foreach ($this->supportedFileParsers as $fileParser) {
-            if (in_array($extension, $fileParser::getSupportedExtensions($extension))) {
+            if (in_array($extension, $fileParser::getSupportedExtensions())) {
                 return new $fileParser();
             }
+        }
 
+        // If none exist, then throw an exception
+        throw new UnsupportedFormatException('Unsupported configuration format');
+    }
+
+    /**
+     * Get a parser for a given format.
+     *
+     * @param  string $format
+     *
+     * @return Noodlehaus\StringParser\StringParserInterface
+     *
+     * @throws UnsupportedFormatException If `$format` is unsupported format
+     */
+    protected function getStringParser($format)
+    {
+        foreach ($this->supportedStringParsers as $stringParser) {
+            if (in_array($format, $stringParser::getSupportedFormats())) {
+                return new $stringParser();
+            }
         }
 
         // If none exist, then throw an exception
@@ -121,7 +199,6 @@ class Config extends AbstractConfig
 
                 $optionalPath = ltrim($unverifiedPath, '?');
                 $paths = array_merge($paths, $this->getValidPath($optionalPath));
-
             } catch (FileNotFoundException $e) {
                 // If `$unverifiedPath` is optional, then skip it
                 if ($unverifiedPath[0] === '?') {
@@ -137,7 +214,7 @@ class Config extends AbstractConfig
     }
 
     /**
-     * Checks `$path` to see if it is either an array, a directory, or a file
+     * Checks `$path` to see if it is either an array, a directory, or a file.
      *
      * @param  string|array $path
      *
