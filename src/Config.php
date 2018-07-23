@@ -128,7 +128,9 @@ class Config extends AbstractConfig
      */
     protected function loadFromString($configuration, $parser)
     {
-        // Try to load file
+        $this->data = [];
+
+        // Try to parse string
         $this->data = array_replace_recursive($this->data, (array) $parser->parse($configuration));
     }
 
