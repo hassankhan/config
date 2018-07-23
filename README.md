@@ -37,6 +37,7 @@ by direct instantiation:
 
 ```php
 use Noodlehaus\Config;
+use Noodlehaus\FileParser\Json;
 
 // Load a single file
 $conf = Config::load('config.json');
@@ -50,14 +51,61 @@ $conf = new Config(__DIR__ . '/config');
 
 // Load values from optional files
 $conf = new Config(['config.dist.json', '?config.json']);
+
+// Load a file using specified parser
+$conf = new Config('configuration.config', new Json);
 ```
 
-Files are parsed and loaded depending on the file extension. Note that when
-loading multiple files, entries with **duplicate keys will take on the value
-from the last loaded file**.
+Files are parsed and loaded depending on the file extension or specified file
+parser. If the parser is specified, it **will be used for all files**. Note
+that when loading multiple files, entries with **duplicate keys will take on
+the value from the last loaded file**.
 
 When loading a directory, the path is `glob`ed and files are loaded in by
 name alphabetically.
+
+### Loading string
+
+Configuration from string can be created via the factory method `load()` or
+by direct instantiation, with specified string parser:
+
+```php
+use Noodlehaus\Config;
+use Noodlehaus\FileParser\Json;
+use Noodlehaus\FileParser\Yaml;
+
+$settingsJson = <<<FOOBAR
+{
+  "application": {
+    "name": "configuration",
+    "secret": "s3cr3t"
+  },
+  "host": "localhost",
+  "port": 80,
+  "servers": [
+    "host1",
+    "host2",
+    "host3"
+  ]
+}
+FOOBAR;
+
+$settingsYaml = <<<FOOBAR
+application:
+    name: configuration
+    secret: s3cr3t
+host: localhost
+port: 80
+servers:
+- host1
+- host2
+- host3
+
+FOOBAR;
+
+$conf = Config::load($settingsJson, new Json);
+$conf = new Config($settingsYaml, new Yaml);
+```
 
 ### Getting values
 
