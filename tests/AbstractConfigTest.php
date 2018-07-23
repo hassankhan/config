@@ -256,6 +256,15 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Noodlehaus\AbstractConfig::has()
+     */
+    public function testHasCache()
+    {
+        $this->assertTrue($this->config->has('application.name'));
+        $this->assertTrue($this->config->has('application.name'));
+    }
+
+    /**
      * @covers Noodlehaus\AbstractConfig::all()
      */
     public function testAll()
