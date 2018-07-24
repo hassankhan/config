@@ -9,13 +9,13 @@
 [![Gitter][ico-gitter]][link-gitter]
 
 Config is a file configuration loader that supports PHP, INI, XML, JSON,
-and YML files.
+and YML files and strings.
 
 ## Requirements
 
 Config requires PHP 5.5.9+.
 
-> **IMPORTANT:** If you want to use YAML files, require the [Symfony Yaml component](https://github.com/symfony/Yaml) in your `composer.json`.
+> **IMPORTANT:** If you want to use YAML files or strings, require the [Symfony Yaml component](https://github.com/symfony/Yaml) in your `composer.json`.
 
 ## Installation
 
@@ -64,6 +64,9 @@ the value from the last loaded file**.
 When loading a directory, the path is `glob`ed and files are loaded in by
 name alphabetically.
 
+**Warning:** Do not include untrusted configuration in PHP format. It could
+contain and execute malicious code.
+
 ### Loading string
 
 Configuration from string can be created via the factory method `load()` or
@@ -71,8 +74,8 @@ by direct instantiation, with specified string parser:
 
 ```php
 use Noodlehaus\Config;
-use Noodlehaus\FileParser\Json;
-use Noodlehaus\FileParser\Yaml;
+use Noodlehaus\StringParser\Json;
+use Noodlehaus\StringParser\Yaml;
 
 $settingsJson = <<<FOOBAR
 {
@@ -106,6 +109,9 @@ FOOBAR;
 $conf = Config::load($settingsJson, new Json);
 $conf = new Config($settingsYaml, new Yaml);
 ```
+
+**Warning:** Do not include untrusted configuration in PHP format. It could
+contain and execute malicious code.
 
 ### Getting values
 
