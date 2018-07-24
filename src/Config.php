@@ -123,10 +123,10 @@ class Config extends AbstractConfig
     /**
      * Loads configuration from string.
      *
-     * @param  string                $configuration String with configuration
-     * @param  StringParserInterface $parser        Configuration parser
+     * @param string                $configuration String with configuration
+     * @param StringParserInterface $parser        Configuration parser
      */
-    protected function loadFromString($configuration, $parser)
+    protected function loadFromString($configuration, StringParserInterface $parser)
     {
         $this->data = [];
 
