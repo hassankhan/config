@@ -26,7 +26,7 @@ class Yaml implements FileParserInterface
     public function parse($path)
     {
         try {
-            $data = YamlParser::parse(file_get_contents($path));
+            $data = YamlParser::parse(file_get_contents($path), YamlParser::PARSE_CONSTANT);
         } catch (Exception $exception) {
             throw new ParseException(
                 array(
