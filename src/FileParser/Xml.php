@@ -30,13 +30,13 @@ class Xml implements FileParserInterface
         if ($data === false) {
             $errors      = libxml_get_errors();
             $latestError = array_pop($errors);
-            $error       = array(
+            $error       = [
                 'message' => $latestError->message,
                 'type'    => $latestError->level,
                 'code'    => $latestError->code,
                 'file'    => $latestError->file,
                 'line'    => $latestError->line,
-            );
+            ];
             throw new ParseException($error);
         }
 
@@ -50,6 +50,6 @@ class Xml implements FileParserInterface
      */
     public static function getSupportedExtensions()
     {
-        return array('xml');
+        return ['xml'];
     }
 }

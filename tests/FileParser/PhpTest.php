@@ -35,7 +35,7 @@ class PhpTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSupportedExtensions()
     {
-        $expected = array('php');
+        $expected = ['php'];
         $actual   = $this->php->getSupportedExtensions();
         $this->assertEquals($expected, $actual);
     }

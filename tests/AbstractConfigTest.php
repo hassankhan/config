@@ -20,21 +20,21 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->config = new SimpleConfig(
-            array(
+            [
                 'host' => 'localhost',
                 'port'    => 80,
-                'servers' => array(
+                'servers' => [
                     'host1',
                     'host2',
                     'host3'
-                ),
-                'application' => array(
+                ],
+                'application' => [
                     'name'   => 'configuration',
                     'secret' => 's3cr3t',
                     'runtime' => null,
-                ),
+                ],
                 'user' => null,
-            )
+            ]
         );
     }
 
@@ -53,10 +53,10 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     public function testDefaultOptionsSetOnInstantiation()
     {
         $config = new SimpleConfig(
-            array(
+            [
                 'host' => 'localhost',
                 'port'    => 80,
-            )
+            ]
         );
         $this->assertEquals('localhost', $config->get('host'));
         $this->assertEquals(80, $config->get('port'));
@@ -143,10 +143,10 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetArray()
     {
-        $this->config->set('database', array(
+        $this->config->set('database', [
             'host' => 'localhost',
             'name' => 'mydatabase'
-        ));
+        ]);
         $this->assertTrue(is_array($this->config->get('database')));
         $this->assertEquals('localhost', $this->config->get('database.host'));
     }
@@ -156,40 +156,40 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testCacheWithNestedArray()
     {
-        $this->config->set('database', array(
+        $this->config->set('database', [
             'host' => 'localhost',
             'name' => 'mydatabase'
-        ));
+        ]);
         $this->assertTrue(is_array($this->config->get('database')));
         $this->config->set('database.host', '127.0.0.1');
-        $expected = array(
+        $expected = [
             'host' => '127.0.0.1',
             'name' => 'mydatabase'
-        );
+        ];
         $this->assertEquals($expected, $this->config->get('database'));
 
-        $this->config->set('config', array(
-            'database' => array(
+        $this->config->set('config', [
+            'database' => [
                 'host' => 'localhost',
                 'name' => 'mydatabase'
-            )
-        ));
+            ]
+        ]);
         $this->config->get('config'); //Just get to set related cache
         $this->config->get('config.database'); //Just get to set related cache
 
         $this->config->set('config.database.host', '127.0.0.1');
-        $expected = array(
-            'database' => array(
+        $expected = [
+            'database' => [
                 'host' => '127.0.0.1',
                 'name' => 'mydatabase'
-            )
-        );
+            ]
+        ];
         $this->assertEquals($expected, $this->config->get('config'));
 
-        $expected = array(
+        $expected = [
             'host' => '127.0.0.1',
             'name' => 'mydatabase'
-        );
+        ];
         $this->assertEquals($expected, $this->config->get('config.database'));
     }
 
@@ -198,21 +198,21 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testCacheWithNestedMiddleArray()
     {
-      $this->config->set('config', array(
-          'database' => array(
+      $this->config->set('config', [
+          'database' => [
               'host' => 'localhost',
               'name' => 'mydatabase'
-          )
-      ));
+          ]
+      ]);
       $this->config->get('config'); //Just get to set related cache
       $this->config->get('config.database'); //Just get to set related cache
       $this->config->get('config.database.host'); //Just get to set related cache
       $this->config->get('config.database.name'); //Just get to set related cache
 
-      $this->config->set('config.database', array(
+      $this->config->set('config.database', [
           'host' => '127.0.0.1',
           'name' => 'mynewdatabase'
-      ));
+      ]);
       $this->assertEquals('127.0.0.1', $this->config->get('config.database.host'));
       $this->assertEquals('mynewdatabase', $this->config->get('config.database.name'));
     }
@@ -222,10 +222,10 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetAndUnsetArray()
     {
-        $this->config->set('database', array(
+        $this->config->set('database', [
             'host' => 'localhost',
             'name' => 'mydatabase'
-        ));
+        ]);
         $this->assertTrue(is_array($this->config->get('database')));
         $this->assertEquals('localhost', $this->config->get('database.host'));
         $this->config->set('database.host', null);
@@ -260,21 +260,21 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testAll()
     {
-        $all = array(
+        $all = [
             'host' => 'localhost',
             'port'    => 80,
-            'servers' => array(
+            'servers' => [
                 'host1',
                 'host2',
                 'host3'
-            ),
-            'application' => array(
+            ],
+            'application' => [
                 'name'   => 'configuration',
                 'secret' => 's3cr3t',
                 'runtime' => null,
-            ),
+            ],
             'user' => null,
-        );
+        ];
         $this->assertEquals($all, $this->config->all());
     }
 
@@ -284,9 +284,9 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     public function testMerge()
     {
         $remote = new SimpleConfig(
-            array(
+            [
                 'host' => '127.0.0.1'
-            )
+            ]
         );
 
         $this->config->merge($remote);
@@ -455,18 +455,18 @@ class AbstractConfigTest extends \PHPUnit_Framework_TestCase
     public function testIterator()
     {
         /* Create numerically indexed copies of the test config */
-        $expectedKeys = array('host', 'port', 'servers', 'application', 'user');
-        $expectedValues = array(
+        $expectedKeys = ['host', 'port', 'servers', 'application', 'user'];
+        $expectedValues = [
             'localhost',
             80,
-            array('host1', 'host2', 'host3'),
-            array(
+            ['host1', 'host2', 'host3'],
+            [
                 'name'   => 'configuration',
                 'secret' => 's3cr3t',
                 'runtime' => null,
-            ),
+            ],
             null
-        );
+        ];
 
         $idxConfig = 0;
 

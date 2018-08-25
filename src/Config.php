@@ -22,13 +22,13 @@ class Config extends AbstractConfig
      *
      * @var array
      */
-    protected $supportedFileParsers = array(
+    protected $supportedFileParsers = [
         'Noodlehaus\FileParser\Php',
         'Noodlehaus\FileParser\Ini',
         'Noodlehaus\FileParser\Json',
         'Noodlehaus\FileParser\Xml',
         'Noodlehaus\FileParser\Yaml'
-    );
+    ];
 
     /**
      * Static method for loading a Config instance.
@@ -52,7 +52,7 @@ class Config extends AbstractConfig
     public function __construct($path)
     {
         $paths      = $this->getValidPath($path);
-        $this->data = array();
+        $this->data = [];
 
         foreach ($paths as $path) {
 
@@ -105,7 +105,7 @@ class Config extends AbstractConfig
      */
     private function getPathFromArray($path)
     {
-        $paths = array();
+        $paths = [];
 
         foreach ($path as $unverifiedPath) {
             try {
@@ -163,6 +163,6 @@ class Config extends AbstractConfig
         if (!file_exists($path)) {
             throw new FileNotFoundException("Configuration file: [$path] cannot be found");
         }
-        return array($path);
+        return [$path];
     }
 }

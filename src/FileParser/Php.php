@@ -31,10 +31,10 @@ class Php implements FileParserInterface
             $temp = require $path;
         } catch (Exception $exception) {
             throw new ParseException(
-                array(
+                [
                     'message'   => 'PHP file threw an exception',
                     'exception' => $exception,
-                )
+                ]
             );
         }
 
@@ -56,6 +56,6 @@ class Php implements FileParserInterface
      */
     public static function getSupportedExtensions()
     {
-        return array('php');
+        return ['php'];
     }
 }

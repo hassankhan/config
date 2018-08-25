@@ -1,16 +1,16 @@
 <?php
 return function () {
-    return array(
+    return [
     'host' => 'localhost',
     'port' => 80,
-    'servers' => array(
+    'servers' => [
       'host1',
       'host2',
       'host3'
-    ),
-    'application' => array(
+    ],
+    'application' => [
       'name' => 'configuration',
       'secret' => 's3cr3t'
-    )
-    );
+    ]
+    ];
 };

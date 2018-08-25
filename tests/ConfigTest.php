@@ -83,7 +83,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructWithArray()
     {
-        $paths = array(__DIR__ . '/mocks/pass/config.xml', __DIR__ . '/mocks/pass/config2.json');
+        $paths = [__DIR__ . '/mocks/pass/config.xml', __DIR__ . '/mocks/pass/config2.json'];
         $config = new Config($paths);
 
         $expected = 'localhost';
@@ -101,7 +101,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructWithArrayWithNonexistentFile()
     {
-        $paths = array(__DIR__ . '/mocks/pass/config.xml', __DIR__ . '/mocks/pass/config3.json');
+        $paths = [__DIR__ . '/mocks/pass/config.xml', __DIR__ . '/mocks/pass/config3.json'];
         $config = new Config($paths);
 
         $expected = 'localhost';
@@ -118,7 +118,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructWithArrayWithOptionalFile()
     {
-        $paths = array(__DIR__ . '/mocks/pass/config.xml', '?' . __DIR__ . '/mocks/pass/config2.json');
+        $paths = [__DIR__ . '/mocks/pass/config.xml', '?' . __DIR__ . '/mocks/pass/config2.json'];
         $config = new Config($paths);
 
         $expected = 'localhost';
@@ -135,7 +135,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructWithArrayWithOptionalNonexistentFile()
     {
-        $paths = array(__DIR__ . '/mocks/pass/config.xml', '?' . __DIR__ . '/mocks/pass/config3.json');
+        $paths = [__DIR__ . '/mocks/pass/config.xml', '?' . __DIR__ . '/mocks/pass/config3.json'];
         $config = new Config($paths);
 
         $expected = 'localhost';
@@ -202,7 +202,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     {
         $config = new Config(__DIR__ . '/mocks/pass/empty.yaml');
 
-        $expected = array();
+        $expected = [];
         $actual   = $config->all();
 
         $this->assertEquals($expected, $actual);
@@ -224,14 +224,14 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function configProvider()
     {
         return array_merge(
-            array(
-                array(new Config(__DIR__ . '/mocks/pass/config-exec.php')),
-                array(new Config(__DIR__ . '/mocks/pass/config.ini')),
-                array(new Config(__DIR__ . '/mocks/pass/config.json')),
-                array(new Config(__DIR__ . '/mocks/pass/config.php')),
-                array(new Config(__DIR__ . '/mocks/pass/config.xml')),
-                array(new Config(__DIR__ . '/mocks/pass/config.yaml'))
-            )
+            [
+                [new Config(__DIR__ . '/mocks/pass/config-exec.php')],
+                [new Config(__DIR__ . '/mocks/pass/config.ini')],
+                [new Config(__DIR__ . '/mocks/pass/config.json')],
+                [new Config(__DIR__ . '/mocks/pass/config.php')],
+                [new Config(__DIR__ . '/mocks/pass/config.xml')],
+                [new Config(__DIR__ . '/mocks/pass/config.yaml')]
+            ]
         );
     }
 
@@ -240,16 +240,16 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function specialConfigProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 new Config(
-                    array(
+                    [
                         __DIR__ . '/mocks/pass/config2.json',
                         __DIR__ . '/mocks/pass/config.yaml'
-                    )
+                    ]
                 ),
                 new Config(__DIR__ . '/mocks/dir/')
-            )
-        );
+            ]
+        ];
     }
 }

@@ -31,11 +31,11 @@ class Json implements FileParserInterface
                 $error_message = json_last_error_msg();
             }
 
-            $error = array(
+            $error = [
                 'message' => $error_message,
                 'type'    => json_last_error(),
                 'file'    => $path,
-            );
+            ];
             throw new ParseException($error);
         }
 
@@ -47,6 +47,6 @@ class Json implements FileParserInterface
      */
     public static function getSupportedExtensions()
     {
-        return array('json');
+        return ['json'];
     }
 }
