@@ -228,7 +228,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructWithFileParser()
     {
-        $config = new Config(__DIR__ . '/mocks/pass/json.config', new FileParser\Json);
+        $config = new Config(__DIR__ . '/mocks/pass/json.config', new Parser\Json);
 
         $expected = 'localhost';
         $actual   = $config->get('host');
@@ -243,22 +243,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function testConstructWithStringParser()
     {
         $settings = file_get_contents(__DIR__ . '/mocks/pass/config.php');
-        $config = new Config($settings, new StringParser\Php);
+        $config = new Config($settings, new Parser\Php, true);
 
         $expected = 'localhost';
         $actual   = $config->get('host');
 
         $this->assertEquals($expected, $actual);
-    }
-
-    /**
-     * @covers                   Noodlehaus\Config::__construct()
-     * @expectedException        InvalidArgumentException
-     * @expectedExceptionMessage Parser not implementing correct interface
-     */
-    public function testConstructWithInvalidParser()
-    {
-        $config = new Config(__DIR__ . '/mocks/pass/config.php', new Exception);
     }
 
     /**
