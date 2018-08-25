@@ -37,7 +37,7 @@ by direct instantiation:
 
 ```php
 use Noodlehaus\Config;
-use Noodlehaus\FileParser\Json;
+use Noodlehaus\Parser\Json;
 
 // Load a single file
 $conf = Config::load('config.json');
@@ -56,7 +56,7 @@ $conf = new Config(['config.dist.json', '?config.json']);
 $conf = new Config('configuration.config', new Json);
 ```
 
-Files are parsed and loaded depending on the file extension or specified file
+Files are parsed and loaded depending on the file extension or specified
 parser. If the parser is specified, it **will be used for all files**. Note
 that when loading multiple files, entries with **duplicate keys will take on
 the value from the last loaded file**.
@@ -70,12 +70,12 @@ contain and execute malicious code.
 ### Loading string
 
 Configuration from string can be created via the factory method `load()` or
-by direct instantiation, with specified string parser:
+by direct instantiation, with argument `$string` set to `true`:
 
 ```php
 use Noodlehaus\Config;
-use Noodlehaus\StringParser\Json;
-use Noodlehaus\StringParser\Yaml;
+use Noodlehaus\Parser\Json;
+use Noodlehaus\Parser\Yaml;
 
 $settingsJson = <<<FOOBAR
 {
@@ -106,8 +106,8 @@ servers:
 
 FOOBAR;
 
-$conf = Config::load($settingsJson, new Json);
-$conf = new Config($settingsYaml, new Yaml);
+$conf = Config::load($settingsJson, new Json, true);
+$conf = new Config($settingsYaml, new Yaml, true);
 ```
 
 **Warning:** Do not include untrusted configuration in PHP format. It could
