@@ -27,7 +27,7 @@ class Yaml implements ParserInterface
     public function parse($config, $filename = null)
     {
         try {
-            $data = YamlParser::parse($config);
+            $data = YamlParser::parse($config, YamlParser::PARSE_CONSTANT);
         } catch (Exception $exception) {
             throw new ParseException(
                 [

@@ -2,6 +2,11 @@
 
 All notable changes to `Config` will be documented in this file
 
+## 1.1.0 - 2018-08-22
+
+### Added
+- Added support for PHP constants in YAML (#112)
+
 ## 1.0.1 - 2018-03-31
 
 ### Fixed
