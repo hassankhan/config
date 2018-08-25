@@ -1,29 +1,30 @@
 <?php
 
-namespace Noodlehaus\FileParser;
+namespace Noodlehaus\Parser;
 
 use Noodlehaus\Exception\ParseException;
 
 /**
- * JSON file parser
+ * JSON parser
  *
  * @package    Config
  * @author     Jesus A. Domingo <jesus.domingo@gmail.com>
  * @author     Hassan Khan <contact@hassankhan.me>
+ * @author     Filip Š <projects@filips.si>
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-class Json implements FileParserInterface
+class Json implements ParserInterface
 {
     /**
      * {@inheritDoc}
-     * Loads a JSON file as an array
+     * Loads a JSON string as an array
      *
-     * @throws ParseException If there is an error parsing the JSON file
+     * @throws ParseException If there is an error parsing the JSON string
      */
-    public function parse($path)
+    public function parse($config, $filename = null)
     {
-        $data = json_decode(file_get_contents($path), true);
+        $data = json_decode($config, true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
             $error_message  = 'Syntax error';
@@ -34,7 +35,7 @@ class Json implements FileParserInterface
             $error = [
                 'message' => $error_message,
                 'type'    => json_last_error(),
-                'file'    => $path,
+                'file'    => $filename,
             ];
             throw new ParseException($error);
         }

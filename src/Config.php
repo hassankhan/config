@@ -6,8 +6,7 @@ use Noodlehaus\Exception\FileNotFoundException;
 use Noodlehaus\Exception\UnsupportedFormatException;
 use Noodlehaus\Exception\EmptyDirectoryException;
 use InvalidArgumentException;
-use Noodlehaus\FileParser\FileParserInterface;
-use Noodlehaus\StringParser\StringParserInterface;
+use Noodlehaus\Parser\ParserInterface;
 
 /**
  * Configuration reader and writer for PHP.
@@ -22,60 +21,45 @@ use Noodlehaus\StringParser\StringParserInterface;
 class Config extends AbstractConfig
 {
     /**
-     * All file formats supported by Config.
+     * All formats supported by Config.
      *
      * @var array
      */
-    protected $supportedFileParsers = [
-        'Noodlehaus\FileParser\Php',
-        'Noodlehaus\FileParser\Ini',
-        'Noodlehaus\FileParser\Json',
-        'Noodlehaus\FileParser\Xml',
-        'Noodlehaus\FileParser\Yaml'
-    ];
-
-    /**
-     * All string formats supported by Config.
-     *
-     * @var array
-     */
-    protected $supportedStringParsers = [
-        'Noodlehaus\StringParser\Php',
-        'Noodlehaus\StringParser\Ini',
-        'Noodlehaus\StringParser\Json',
-        'Noodlehaus\StringParser\Xml',
-        'Noodlehaus\StringParser\Yaml'
+    protected $supportedParsers = [
+        'Noodlehaus\Parser\Php',
+        'Noodlehaus\Parser\Ini',
+        'Noodlehaus\Parser\Json',
+        'Noodlehaus\Parser\Xml',
+        'Noodlehaus\Parser\Yaml'
     ];
 
     /**
      * Static method for loading a Config instance.
      *
-     * @param  string|array                              $values Filenames or string with configuration
-     * @param  FileParserInterface|StringParserInterface $parser Configuration parser
+     * @param  string|array    $values Filenames or string with configuration
+     * @param  ParserInterface $parser Configuration parser
+     * @param  bool            $string Enable loading from string
      *
      * @return Config
      */
-    public static function load($values, $parser = null)
+    public static function load($values, $parser = null, $string = false)
     {
-        return new static($values, $parser);
+        return new static($values, $parser, $string);
     }
 
     /**
      * Loads a Config instance.
      *
-     * @param  string|array                              $values Filenames or string with configuration
-     * @param  FileParserInterface|StringParserInterface $parser Configuration parser
-     *
-     * @throws InvalidArgumentException If `$parser` is not implementing correct interface
+     * @param  string|array    $values Filenames or string with configuration
+     * @param  ParserInterface $parser Configuration parser
+     * @param  bool            $string Enable loading from string
      */
-    public function __construct($values, $parser = null)
+    public function __construct($values, ParserInterface $parser = null, $string = false)
     {
-        if ($parser instanceof FileParserInterface || $parser === null) {
-            $this->loadFromFile($values, $parser);
-        } elseif ($parser instanceof StringParserInterface) {
+        if ($string === true) {
             $this->loadFromString($values, $parser);
         } else {
-            throw new InvalidArgumentException('Parser not implementing correct interface');
+            $this->loadFromFile($values, $parser);
         }
 
         parent::__construct($this->data);
@@ -84,12 +68,12 @@ class Config extends AbstractConfig
     /**
      * Loads configuration from file.
      *
-     * @param  string|array         $path   Filenames or directories with configuration
-     * @param  FileParserInterface  $parser Configuration parser
+     * @param  string|array     $path   Filenames or directories with configuration
+     * @param  ParserInterface  $parser Configuration parser
      *
      * @throws EmptyDirectoryException If `$path` is an empty directory
      */
-    protected function loadFromFile($path, FileParserInterface $parser = null)
+    protected function loadFromFile($path, ParserInterface $parser = null)
     {
         $paths      = $this->getValidPath($path);
         $this->data = [];
@@ -110,13 +94,13 @@ class Config extends AbstractConfig
                 $parser = $this->getParser($extension);
 
                 // Try to load file
-                $this->data = array_replace_recursive($this->data, (array) $parser->parse($path));
+                $this->data = array_replace_recursive($this->data, (array) $parser->parse(file_get_contents($path)));
 
                 // Clean parser
                 $parser = null;
             } else {
                 // Try to load file using specified parser
-                $this->data = array_replace_recursive($this->data, (array) $parser->parse($path));
+                $this->data = array_replace_recursive($this->data, (array) $parser->parse(file_get_contents($path)));
             }
         }
     }
@@ -124,10 +108,10 @@ class Config extends AbstractConfig
     /**
      * Loads configuration from string.
      *
-     * @param string                $configuration String with configuration
-     * @param StringParserInterface $parser        Configuration parser
+     * @param string          $configuration String with configuration
+     * @param ParserInterface $parser        Configuration parser
      */
-    protected function loadFromString($configuration, StringParserInterface $parser)
+    protected function loadFromString($configuration, ParserInterface $parser)
     {
         $this->data = [];
 
@@ -140,15 +124,15 @@ class Config extends AbstractConfig
      *
      * @param  string $extension
      *
-     * @return Noodlehaus\FileParser\FileParserInterface
+     * @return Noodlehaus\Parser\ParserInterface
      *
      * @throws UnsupportedFormatException If `$extension` is an unsupported file format
      */
     protected function getParser($extension)
     {
-        foreach ($this->supportedFileParsers as $fileParser) {
-            if (in_array($extension, $fileParser::getSupportedExtensions())) {
-                return new $fileParser();
+        foreach ($this->supportedParsers as $parser) {
+            if (in_array($extension, $parser::getSupportedExtensions())) {
+                return new $parser();
             }
         }
 

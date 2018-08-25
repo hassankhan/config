@@ -1,20 +1,22 @@
 <?php
 
-namespace Noodlehaus\StringParser;
+namespace Noodlehaus\Parser;
 
 use Exception;
 use Symfony\Component\Yaml\Yaml as YamlParser;
 use Noodlehaus\Exception\ParseException;
 
 /**
- * YAML string parser
+ * YAML parser
  *
  * @package    Config
+ * @author     Jesus A. Domingo <jesus.domingo@gmail.com>
+ * @author     Hassan Khan <contact@hassankhan.me>
  * @author     Filip Š <projects@filips.si>
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-class Yaml implements StringParserInterface
+class Yaml implements ParserInterface
 {
     /**
      * {@inheritDoc}
@@ -22,10 +24,10 @@ class Yaml implements StringParserInterface
      *
      * @throws ParseException If If there is an error parsing the YAML string
      */
-    public function parse($configuration)
+    public function parse($config, $filename = null)
     {
         try {
-            $data = YamlParser::parse($configuration);
+            $data = YamlParser::parse($config);
         } catch (Exception $exception) {
             throw new ParseException(
                 [
@@ -36,5 +38,13 @@ class Yaml implements StringParserInterface
         }
 
         return $data;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function getSupportedExtensions()
+    {
+        return ['yaml', 'yml'];
     }
 }

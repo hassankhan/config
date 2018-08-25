@@ -1,28 +1,32 @@
 <?php
 
-namespace Noodlehaus\StringParser;
+namespace Noodlehaus\Parser;
 
 use Noodlehaus\Exception\ParseException;
 
 /**
- * INI string parser
+ * INI parser
  *
  * @package    Config
+ * @author     Jesus A. Domingo <jesus.domingo@gmail.com>
+ * @author     Hassan Khan <contact@hassankhan.me>
  * @author     Filip Š <projects@filips.si>
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-class Ini implements StringParserInterface
+class Ini implements ParserInterface
 {
+
+
     /**
      * {@inheritDoc}
      * Parses an INI string as an array
      *
      * @throws ParseException If there is an error parsing the INI string
      */
-    public function parse($configuration)
+    public function parse($config, $filename = null)
     {
-        $data = @parse_ini_string($configuration, true);
+        $data = @parse_ini_string($config, true);
 
         if (!$data) {
             $error = error_get_last();
@@ -31,6 +35,8 @@ class Ini implements StringParserInterface
             if (!is_array($error)) {
                 $error["message"] = "No parsable content in string.";
             }
+
+            $error["file"] = $filename;
 
             // if string contains no parsable data, no error is set, resulting in any previous error
             // persisting in error_get_last(). in php 7 this can be addressed with error_clear_last()
@@ -68,5 +74,13 @@ class Ini implements StringParserInterface
             }
         }
         return $data;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function getSupportedExtensions()
+    {
+        return ['ini'];
     }
 }

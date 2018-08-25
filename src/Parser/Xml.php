@@ -1,18 +1,20 @@
 <?php
 
-namespace Noodlehaus\StringParser;
+namespace Noodlehaus\Parser;
 
 use Noodlehaus\Exception\ParseException;
 
 /**
- * XML string parser
+ * XML parser
  *
  * @package    Config
+ * @author     Jesus A. Domingo <jesus.domingo@gmail.com>
+ * @author     Hassan Khan <contact@hassankhan.me>
  * @author     Filip Š <projects@filips.si>
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-class Xml implements StringParserInterface
+class Xml implements ParserInterface
 {
     /**
      * {@inheritDoc}
@@ -20,11 +22,11 @@ class Xml implements StringParserInterface
      *
      * @throws ParseException If there is an error parsing the XML string
      */
-    public function parse($configuration)
+    public function parse($config, $filename = null)
     {
         libxml_use_internal_errors(true);
 
-        $data = simplexml_load_string($configuration, null, LIBXML_NOERROR);
+        $data = simplexml_load_string($config, null, LIBXML_NOERROR);
 
         if ($data === false) {
             $errors      = libxml_get_errors();
@@ -33,6 +35,7 @@ class Xml implements StringParserInterface
                 'message' => $latestError->message,
                 'type'    => $latestError->level,
                 'code'    => $latestError->code,
+                'file'    => $filename,
                 'line'    => $latestError->line,
             ];
             throw new ParseException($error);
@@ -41,5 +44,13 @@ class Xml implements StringParserInterface
         $data = json_decode(json_encode($data), true);
 
         return $data;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function getSupportedExtensions()
+    {
+        return ['xml'];
     }
 }
