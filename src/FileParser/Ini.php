@@ -25,23 +25,21 @@ class Ini implements FileParserInterface
      */
     public function parse($path)
     {
-        $data = @parse_ini_file($path, true);
+        set_error_handler(function($severity, $message, $file, $line) {
+            throw new ParseException([
+                'severity' => $severity,
+                'message' => $message,
+                'file' => $file,
+                'line' => $line
+            ]);
+        });
+
+        $data = parse_ini_file($path, true);
+
+        restore_error_handler();
 
         if (!$data) {
-            $error = error_get_last();
-
-            // parse_ini_file() may return NULL but set no error if the file contains no parsable data
-            if (!is_array($error)) {
-                $error["message"] = "No parsable content in file.";
-            }
-
-            // if file contains no parsable data, no error is set, resulting in any previous error
-            // persisting in error_get_last(). in php 7 this can be addressed with error_clear_last()
-            if (function_exists("error_clear_last")) {
-                error_clear_last();
-            }
-
-            throw new ParseException($error);
+            throw new ParseException(['message' => "No parsable content in file."]);
         }
 
         return $this->expandDottedKey($data);

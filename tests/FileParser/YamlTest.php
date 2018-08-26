@@ -31,7 +31,7 @@ class YamlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\FileParser\Yaml::getSupportedExtensions()
+     * @covers \Noodlehaus\FileParser\Yaml::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
@@ -41,8 +41,8 @@ class YamlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\FileParser\Yaml::parse()
-     * @expectedException        Noodlehaus\Exception\ParseException
+     * @covers                   \Noodlehaus\FileParser\Yaml::parse()
+     * @expectedException        \Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage Error parsing YAML file
      */
     public function testLoadInvalidYaml()
@@ -51,7 +51,7 @@ class YamlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\FileParser\Yaml::parse()
+     * @covers \Noodlehaus\FileParser\Yaml::parse()
      */
     public function testLoadYaml()
     {
@@ -61,7 +61,7 @@ class YamlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Noodlehaus\FileParser\Yaml::parse()
+     * @covers \Noodlehaus\FileParser\Yaml::parse()
      */
     public function testLoadYml()
     {
