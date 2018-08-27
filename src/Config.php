@@ -3,6 +3,7 @@
 namespace Noodlehaus;
 
 use Noodlehaus\Exception\FileNotFoundException;
+use Noodlehaus\Exception\ParseException;
 use Noodlehaus\Exception\UnsupportedFormatException;
 use Noodlehaus\Exception\EmptyDirectoryException;
 
@@ -33,23 +34,23 @@ class Config extends AbstractConfig
     /**
      * Static method for loading a Config instance.
      *
-     * @param  string|array $path
+     * @param string|array $path
+     * @param array        $parameters
      *
      * @return Config
      */
-    public static function load($path)
+    public static function load($path, array $parameters = null)
     {
-        return new static($path);
+        return new static($path, $parameters);
     }
 
     /**
      * Loads a supported configuration file format.
      *
-     * @param  string|array $path
-     *
-     * @throws EmptyDirectoryException    If `$path` is an empty directory
+     * @param string|array $path
+     * @param array        $parameters
      */
-    public function __construct($path)
+    public function __construct($path, array $parameters = null)
     {
         $paths      = $this->getValidPath($path);
         $this->data = array();
@@ -69,7 +70,31 @@ class Config extends AbstractConfig
             $this->data = array_replace_recursive($this->data, (array) $parser->parse($path));
         }
 
+        if (null !== $parameters) {
+            $this->replaceParameters($this->data, new DataConfig($parameters));
+        }
+
         parent::__construct($this->data);
+    }
+
+    /**
+     * @param array           $data
+     * @param ConfigInterface $parameters
+     */
+    protected function replaceParameters(array &$data, ConfigInterface $parameters)
+    {
+        foreach ($data as &$value) {
+            if (true === is_array($value)) {
+                $this->replaceParameters($value, $parameters);
+            } elseif (true === is_string($value)) {
+                $value = preg_replace_callback('/%([^%]+)%/', function ($m) use ($parameters) {
+                    if (null === $parameterValue = $parameters->get($m[1])) {
+                        return $m[0];
+                    }
+                    return $parameterValue;
+                }, $value);
+            }
+        }
     }
 
     /**
