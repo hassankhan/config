@@ -1,41 +1,44 @@
 <?php
 
-namespace Noodlehaus\FileParser;
+namespace Noodlehaus\Parser;
 
 use Noodlehaus\Exception\ParseException;
 
 /**
- * INI file parser
+ * INI parser
  *
  * @package    Config
  * @author     Jesus A. Domingo <jesus.domingo@gmail.com>
  * @author     Hassan Khan <contact@hassankhan.me>
+ * @author     Filip Š <projects@filips.si>
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-class Ini implements FileParserInterface
+class Ini implements ParserInterface
 {
 
 
     /**
      * {@inheritDoc}
-     * Parses an INI file as an array
+     * Parses an INI string as an array
      *
-     * @throws ParseException If there is an error parsing the INI file
+     * @throws ParseException If there is an error parsing the INI string
      */
-    public function parse($path)
+    public function parse($config, $filename = null)
     {
-        $data = @parse_ini_file($path, true);
+        $data = @parse_ini_string($config, true);
 
         if (!$data) {
             $error = error_get_last();
 
-            // parse_ini_file() may return NULL but set no error if the file contains no parsable data
+            // parse_ini_string() may return NULL but set no error if the string contains no parsable data
             if (!is_array($error)) {
-                $error["message"] = "No parsable content in file.";
+                $error["message"] = "No parsable content in string.";
             }
 
-            // if file contains no parsable data, no error is set, resulting in any previous error
+            $error["file"] = $filename;
+
+            // if string contains no parsable data, no error is set, resulting in any previous error
             // persisting in error_get_last(). in php 7 this can be addressed with error_clear_last()
             if (function_exists("error_clear_last")) {
                 error_clear_last();
@@ -61,7 +64,7 @@ class Ini implements FileParserInterface
                 $newKey = substr($key, 0, $found);
                 $remainder = substr($key, $found + 1);
 
-                $expandedValue = $this->expandDottedKey(array($remainder => $value));
+                $expandedValue = $this->expandDottedKey([$remainder => $value]);
                 if (isset($data[$newKey])) {
                     $data[$newKey] = array_merge_recursive($data[$newKey], $expandedValue);
                 } else {
@@ -78,6 +81,6 @@ class Ini implements FileParserInterface
      */
     public static function getSupportedExtensions()
     {
-        return array('ini');
+        return ['ini'];
     }
 }

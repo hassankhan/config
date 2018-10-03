@@ -1,38 +1,39 @@
 <?php
 
-namespace Noodlehaus\FileParser;
+namespace Noodlehaus\Parser;
 
 use Exception;
 use Symfony\Component\Yaml\Yaml as YamlParser;
 use Noodlehaus\Exception\ParseException;
 
 /**
- * YAML file parser
+ * YAML parser
  *
  * @package    Config
  * @author     Jesus A. Domingo <jesus.domingo@gmail.com>
  * @author     Hassan Khan <contact@hassankhan.me>
+ * @author     Filip Š <projects@filips.si>
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-class Yaml implements FileParserInterface
+class Yaml implements ParserInterface
 {
     /**
      * {@inheritDoc}
-     * Loads a YAML/YML file as an array
+     * Loads a YAML/YML string as an array
      *
-     * @throws ParseException If If there is an error parsing the YAML file
+     * @throws ParseException If If there is an error parsing the YAML string
      */
-    public function parse($path)
+    public function parse($config, $filename = null)
     {
         try {
-            $data = YamlParser::parse(file_get_contents($path), YamlParser::PARSE_CONSTANT);
+            $data = YamlParser::parse($config, YamlParser::PARSE_CONSTANT);
         } catch (Exception $exception) {
             throw new ParseException(
-                array(
-                    'message'   => 'Error parsing YAML file',
+                [
+                    'message'   => 'Error parsing YAML string',
                     'exception' => $exception,
-                )
+                ]
             );
         }
 
@@ -44,6 +45,6 @@ class Yaml implements FileParserInterface
      */
     public static function getSupportedExtensions()
     {
-        return array('yaml', 'yml');
+        return ['yaml', 'yml'];
     }
 }

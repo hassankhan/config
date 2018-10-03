@@ -28,7 +28,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
      *
      * @var array
      */
-    protected $cache = array();
+    protected $cache = [];
 
     /**
      * Constructor method and sets default options, if any
@@ -50,7 +50,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
      */
     protected function getDefaults()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -85,7 +85,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
             }
             $cacheKey .= $part;
             if (!isset($root[$part]) && count($segs)) {
-                $root[$part] = array();
+                $root[$part] = [];
             }
             $root = &$root[$part];
 
