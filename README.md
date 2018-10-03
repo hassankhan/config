@@ -9,13 +9,13 @@
 [![Gitter][ico-gitter]][link-gitter]
 
 Config is a file configuration loader that supports PHP, INI, XML, JSON,
-and YML files.
+and YML files and strings.
 
 ## Requirements
 
 Config requires PHP 5.5.9+.
 
-> **IMPORTANT:** If you want to use YAML files, require the [Symfony Yaml component](https://github.com/symfony/Yaml) in your `composer.json`.
+> **IMPORTANT:** If you want to use YAML files or strings, require the [Symfony Yaml component](https://github.com/symfony/Yaml) in your `composer.json`.
 
 ## Installation
 
@@ -37,6 +37,7 @@ by direct instantiation:
 
 ```php
 use Noodlehaus\Config;
+use Noodlehaus\Parser\Json;
 
 // Load a single file
 $conf = Config::load('config.json');
@@ -50,14 +51,67 @@ $conf = new Config(__DIR__ . '/config');
 
 // Load values from optional files
 $conf = new Config(['config.dist.json', '?config.json']);
+
+// Load a file using specified parser
+$conf = new Config('configuration.config', new Json);
 ```
 
-Files are parsed and loaded depending on the file extension. Note that when
-loading multiple files, entries with **duplicate keys will take on the value
-from the last loaded file**.
+Files are parsed and loaded depending on the file extension or specified
+parser. If the parser is specified, it **will be used for all files**. Note
+that when loading multiple files, entries with **duplicate keys will take on
+the value from the last loaded file**.
 
 When loading a directory, the path is `glob`ed and files are loaded in by
 name alphabetically.
+
+**Warning:** Do not include untrusted configuration in PHP format. It could
+contain and execute malicious code.
+
+### Loading string
+
+Configuration from string can be created via the factory method `load()` or
+by direct instantiation, with argument `$string` set to `true`:
+
+```php
+use Noodlehaus\Config;
+use Noodlehaus\Parser\Json;
+use Noodlehaus\Parser\Yaml;
+
+$settingsJson = <<<FOOBAR
+{
+  "application": {
+    "name": "configuration",
+    "secret": "s3cr3t"
+  },
+  "host": "localhost",
+  "port": 80,
+  "servers": [
+    "host1",
+    "host2",
+    "host3"
+  ]
+}
+FOOBAR;
+
+$settingsYaml = <<<FOOBAR
+application:
+    name: configuration
+    secret: s3cr3t
+host: localhost
+port: 80
+servers:
+- host1
+- host2
+- host3
+
+FOOBAR;
+
+$conf = Config::load($settingsJson, new Json, true);
+$conf = new Config($settingsYaml, new Yaml, true);
+```
+
+**Warning:** Do not include untrusted configuration in PHP format. It could
+contain and execute malicious code.
 
 ### Getting values
 
@@ -131,19 +185,19 @@ class MyConfig extends AbstractConfig
 {
     protected function getDefaults()
     {
-        return array(
+        return [
             'host' => 'localhost',
             'port'    => 80,
-            'servers' => array(
+            'servers' => [
                 'host1',
                 'host2',
                 'host3'
-            ),
-            'application' => array(
+            ],
+            'application' => [
                 'name'   => 'configuration',
                 'secret' => 's3cr3t'
-            )
-        );
+            ]
+        ];
     }
 }
 ```
