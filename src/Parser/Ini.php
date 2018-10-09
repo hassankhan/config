@@ -16,7 +16,17 @@ use Noodlehaus\Exception\ParseException;
  */
 class Ini implements ParserInterface
 {
-
+    /**
+     * {@inheritDoc}
+     * Parses an INI file as an array
+     *
+     * @throws ParseException If there is an error parsing the INI file
+     */
+    public function parseFile($filename)
+    {
+        $data = @parse_ini_file($filename, true);
+        return $this->parse($data, $filename);
+    }
 
     /**
      * {@inheritDoc}
@@ -24,16 +34,28 @@ class Ini implements ParserInterface
      *
      * @throws ParseException If there is an error parsing the INI string
      */
-    public function parse($config, $filename = null)
+    public function parseString($config)
     {
         $data = @parse_ini_string($config, true);
+        return $this->parse($data);
+    }
 
+    /**
+     * Completes parsing of INI data
+     *
+     * @param  array   $data
+     * @param  strring $filename
+     *
+     * @throws ParseException If there is an error parsing the INI data
+     */
+    protected function parse($data = null, $filename = null)
+    {
         if (!$data) {
             $error = error_get_last();
 
-            // parse_ini_string() may return NULL but set no error if the string contains no parsable data
+            // Parse functions may return NULL but set no error if the string contains no parsable data
             if (!is_array($error)) {
-                $error["message"] = "No parsable content in string.";
+                $error["message"] = "No parsable content in data.";
             }
 
             $error["file"] = $filename;

@@ -15,14 +15,22 @@ namespace Noodlehaus\Parser;
 interface ParserInterface
 {
     /**
-     * Parses a configuration from `$config` and gets its contents as an array
+     * Parses a configuration from file `$filename` and gets its contents as an array
      *
-     * @param  string $config
      * @param  string $filename
      *
      * @return array
      */
-    public function parse($config, $filename = null);
+    public function parseFile($filename);
+
+    /**
+     * Parses a configuration from string `$config` and gets its contents as an array
+     *
+     * @param  string $config
+     *
+     * @return array
+     */
+    public function parseString($config);
 
     /**
      * Returns an array of allowed file extensions for this parser

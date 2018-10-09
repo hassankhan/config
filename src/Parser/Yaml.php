@@ -20,11 +20,33 @@ class Yaml implements ParserInterface
 {
     /**
      * {@inheritDoc}
+     * Loads a YAML/YML file as an array
+     *
+     * @throws ParseException If If there is an error parsing the YAML file
+     */
+    public function parseFile($filename)
+    {
+        try {
+            $data = YamlParser::parseFile($filename, YamlParser::PARSE_CONSTANT);
+        } catch (Exception $exception) {
+            throw new ParseException(
+                [
+                    'message'   => 'Error parsing YAML file',
+                    'exception' => $exception,
+                ]
+            );
+        }
+
+        return $this->parse($data, $filename);
+    }
+
+    /**
+     * {@inheritDoc}
      * Loads a YAML/YML string as an array
      *
      * @throws ParseException If If there is an error parsing the YAML string
      */
-    public function parse($config, $filename = null)
+    public function parseString($config)
     {
         try {
             $data = YamlParser::parse($config, YamlParser::PARSE_CONSTANT);
@@ -37,6 +59,19 @@ class Yaml implements ParserInterface
             );
         }
 
+        return $this->parse($data);
+    }
+
+    /**
+     * Completes parsing of YAML/YML data
+     *
+     * @param  array   $data
+     * @param  strring $filename
+     *
+     * @throws ParseException If there is an error parsing the YAML data
+     */
+    protected function parse($data = null, $filename = null)
+    {
         return $data;
     }
 
