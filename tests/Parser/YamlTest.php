@@ -42,21 +42,34 @@ class YamlTest extends TestCase
     }
 
     /**
+     * @covers                   Noodlehaus\Parser\Yaml::parseFile()
+     * @covers                   Noodlehaus\Parser\Yaml::parse()
+     * @expectedException        Noodlehaus\Exception\ParseException
+     * @expectedExceptionMessage Error parsing YAML file
+     */
+    public function testLoadInvalidYamlFile()
+    {
+        $this->yaml->parseFile(__DIR__ . '/../mocks/fail/error.yaml');
+    }
+
+    /**
+     * @covers                   Noodlehaus\Parser\Yaml::parseString()
      * @covers                   Noodlehaus\Parser\Yaml::parse()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage Error parsing YAML string
      */
-    public function testLoadInvalidYaml()
+    public function testLoadInvalidYamlString()
     {
-        $this->yaml->parse(file_get_contents(__DIR__ . '/../mocks/fail/error.yaml'));
+        $this->yaml->parseString(file_get_contents(__DIR__ . '/../mocks/fail/error.yaml'));
     }
 
     /**
+     * @covers Noodlehaus\Parser\Yaml::parseFile()
      * @covers Noodlehaus\Parser\Yaml::parse()
      */
     public function testLoadYaml()
     {
-        $actual = $this->yaml->parse(file_get_contents(__DIR__ . '/../mocks/pass/config.yaml'));
+        $actual = $this->yaml->parseFile(__DIR__ . '/../mocks/pass/config.yaml');
         $this->assertEquals('localhost', $actual['host']);
         $this->assertEquals('80', $actual['port']);
     }
@@ -66,7 +79,17 @@ class YamlTest extends TestCase
      */
     public function testLoadYml()
     {
-        $actual = $this->yaml->parse(file_get_contents(__DIR__ . '/../mocks/pass/config.yml'));
+        $actual = $this->yaml->parseFile(__DIR__ . '/../mocks/pass/config.yml');
+        $this->assertEquals('localhost', $actual['host']);
+        $this->assertEquals('80', $actual['port']);
+    }
+
+    /**
+     * @covers Noodlehaus\Parser\Yaml::parseString()
+     */
+    public function testLoadYamlString()
+    {
+        $actual = $this->yaml->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config.yaml'));
         $this->assertEquals('localhost', $actual['host']);
         $this->assertEquals('80', $actual['port']);
     }

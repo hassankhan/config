@@ -42,22 +42,30 @@ class JsonTest extends TestCase
     }
 
     /**
+     * @covers                   Noodlehaus\Parser\Json::parseFile()
      * @covers                   Noodlehaus\Parser\Json::parse()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage Syntax error
      */
     public function testLoadInvalidJson()
     {
-        $this->json->parse(file_get_contents(__DIR__ . '/../mocks/fail/error.json'));
+        $this->json->parseFile(__DIR__ . '/../mocks/fail/error.json');
     }
 
     /**
+     * @covers Noodlehaus\Parser\Json::parseFile()
+     * @covers Noodlehaus\Parser\Json::parseString()
      * @covers Noodlehaus\Parser\Json::parse()
      */
     public function testLoadJson()
     {
-        $actual = $this->json->parse(file_get_contents(__DIR__ . '/../mocks/pass/config.json'));
-        $this->assertEquals('localhost', $actual['host']);
-        $this->assertEquals('80', $actual['port']);
+        $file = $this->json->parseFile(__DIR__ . '/../mocks/pass/config.json');
+        $string = $this->json->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config.json'));
+
+        $this->assertEquals('localhost', $file['host']);
+        $this->assertEquals('80', $file['port']);
+
+        $this->assertEquals('localhost', $string['host']);
+        $this->assertEquals('80', $string['port']);
     }
 }
