@@ -52,10 +52,11 @@ class Php implements ParserInterface
      */
     public function parseString($config)
     {
-        // Strip PHP start and end tags
-        $config = str_replace('<?php', '', $config);
-        $config = str_replace('<?', '', $config);
-        $config = str_replace('?>', '', $config);
+        // Handle PHP start tag
+        $config = trim($config);
+        if (substr($config, 0, 2) === '<?') {
+            $config = '?>' . $config;
+        }
 
         // Eval the string, if it throws an exception, rethrow it
         try {
