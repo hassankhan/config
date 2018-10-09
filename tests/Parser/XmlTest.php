@@ -42,22 +42,30 @@ class XmlTest extends TestCase
     }
 
     /**
+     * @covers                   Noodlehaus\Parser\Xml::parseFile()
      * @covers                   Noodlehaus\Parser\Xml::parse()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage Opening and ending tag mismatch: name line 4
      */
     public function testLoadInvalidXml()
     {
-        $this->xml->parse(file_get_contents(__DIR__ . '/../mocks/fail/error.xml'));
+        $this->xml->parseFile(__DIR__ . '/../mocks/fail/error.xml');
     }
 
     /**
+     * @covers Noodlehaus\Parser\Xml::parseFile()
+     * @covers Noodlehaus\Parser\Xml::parseString()
      * @covers Noodlehaus\Parser\Xml::parse()
      */
     public function testLoadXml()
     {
-        $actual = $this->xml->parse(file_get_contents(__DIR__ . '/../mocks/pass/config.xml'));
-        $this->assertEquals('localhost', $actual['host']);
-        $this->assertEquals('80', $actual['port']);
+        $file = $this->xml->parseFile(__DIR__ . '/../mocks/pass/config.xml');
+        $string = $this->xml->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config.xml'));
+
+        $this->assertEquals('localhost', $file['host']);
+        $this->assertEquals('80', $file['port']);
+
+        $this->assertEquals('localhost', $string['host']);
+        $this->assertEquals('80', $string['port']);
     }
 }

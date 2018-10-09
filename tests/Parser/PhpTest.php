@@ -42,42 +42,67 @@ class PhpTest extends TestCase
     }
 
     /**
+     * @covers                   Noodlehaus\Parser\Php::parseFile()
      * @covers                   Noodlehaus\Parser\Php::parse()
      * @expectedException        Noodlehaus\Exception\UnsupportedFormatException
-     * @expectedExceptionMessage PHP string does not return an array
+     * @expectedExceptionMessage PHP data does not return an array
      */
     public function testLoadInvalidPhp()
     {
-        $this->php->parse(file_get_contents(__DIR__ . '/../mocks/fail/error.php'));
+        $this->php->parseFile(__DIR__ . '/../mocks/fail/error.php');
     }
 
     /**
-     * @covers                   Noodlehaus\Parser\Php::parse()
+     * @covers                   Noodlehaus\Parser\Php::parseFile()
+     * @expectedException        Noodlehaus\Exception\ParseException
+     * @expectedExceptionMessage PHP file threw an exception
+     */
+    public function testLoadExceptionalPhpFile()
+    {
+        $this->php->parseFile(__DIR__ . '/../mocks/fail/error-exception.php');
+    }
+
+    /**
+     * @covers                   Noodlehaus\Parser\Php::parseString()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage PHP string threw an exception
      */
-    public function testLoadExceptionalPhp()
+    public function testLoadExceptionalPhpString()
     {
-        $this->php->parse(file_get_contents(__DIR__ . '/../mocks/fail/error-exception.php'));
+        $this->php->parseString(file_get_contents(__DIR__ . '/../mocks/fail/error-exception.php'));
     }
 
     /**
+     * @covers Noodlehaus\Parser\Php::parseFile()
+     * @covers Noodlehaus\Parser\Php::parseString()
      * @covers Noodlehaus\Parser\Php::parse()
      */
     public function testLoadPhpArray()
     {
-        $actual = $this->php->parse(file_get_contents(__DIR__ . '/../mocks/pass/config.php'));
-        $this->assertEquals('localhost', $actual['host']);
-        $this->assertEquals('80', $actual['port']);
+        $file = $this->php->parseFile(__DIR__ . '/../mocks/pass/config.php');
+        $string = $this->php->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config.php'));
+
+        $this->assertEquals('localhost', $file['host']);
+        $this->assertEquals('80', $file['port']);
+
+        $this->assertEquals('localhost', $string['host']);
+        $this->assertEquals('80', $string['port']);
     }
 
     /**
+     * @covers Noodlehaus\Parser\Php::parseFile()
+     * @covers Noodlehaus\Parser\Php::parseString()
      * @covers Noodlehaus\Parser\Php::parse()
      */
     public function testLoadPhpCallable()
     {
-        $actual = $this->php->parse(file_get_contents(__DIR__ . '/../mocks/pass/config-exec.php'));
-        $this->assertEquals('localhost', $actual['host']);
-        $this->assertEquals('80', $actual['port']);
+        $file = $this->php->parseFile(__DIR__ . '/../mocks/pass/config-exec.php');
+        $string = $this->php->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config-exec.php'));
+
+        $this->assertEquals('localhost', $file['host']);
+        $this->assertEquals('80', $file['port']);
+
+        $this->assertEquals('localhost', $string['host']);
+        $this->assertEquals('80', $string['port']);
     }
 }

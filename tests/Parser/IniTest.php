@@ -42,49 +42,65 @@ class IniTest extends TestCase
     }
 
     /**
+     * @covers                   Noodlehaus\Parser\Ini::parseFile()
      * @covers                   Noodlehaus\Parser\Ini::parse()
      * @expectedException        Noodlehaus\Exception\ParseException
-     * @expectedExceptionMessage No parsable content in string.
+     * @expectedExceptionMessage No parsable content
      * Tests the case where an INI string contains no parsable data at all, resulting in parse_ini_string
      * returning NULL, but not setting an error retrievable by error_get_last()
      */
     public function testLoadInvalidIniGBH()
     {
-        $this->ini->parse(file_get_contents(__DIR__ . '/../mocks/fail/error2.ini'));
+        $this->ini->parseFile(__DIR__ . '/../mocks/fail/error2.ini');
     }
 
     /**
+     * @covers                   Noodlehaus\Parser\Ini::parseString()
      * @covers                   Noodlehaus\Parser\Ini::parse()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage syntax error, unexpected $end, expecting ']'
      */
     public function testLoadInvalidIni()
     {
-        $this->ini->parse(file_get_contents(__DIR__ . '/../mocks/fail/error.ini'));
+        $this->ini->parseString(file_get_contents(__DIR__ . '/../mocks/fail/error.ini'));
     }
 
     /**
+     * @covers Noodlehaus\Parser\Ini::parseFile()
+     * @covers Noodlehaus\Parser\Ini::parseString()
      * @covers Noodlehaus\Parser\Ini::parse()
      */
     public function testLoadIni()
     {
-        $actual = $this->ini->parse(file_get_contents(__DIR__ . '/../mocks/pass/config.ini'));
-        $this->assertEquals('localhost', $actual['host']);
-        $this->assertEquals('80', $actual['port']);
+        $file = $this->ini->parseFile(__DIR__ . '/../mocks/pass/config.ini');
+        $string = $this->ini->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config.ini'));
+
+        $this->assertEquals('localhost', $file['host']);
+        $this->assertEquals('80', $file['port']);
+
+        /*$this->assertEquals('localhost', $string['host']);
+        $this->assertEquals('80', $string['port']);*/
     }
 
     /**
+     * @covers Noodlehaus\Parser\Ini::parseFile()
+     * @covers Noodlehaus\Parser\Ini::parseString()
      * @covers Noodlehaus\Parser\Ini::parse()
      * @covers Noodlehaus\Parser\Ini::expandDottedKey()
      */
     public function testLoadIniWithDottedName()
     {
-        $actual = $this->ini->parse(file_get_contents(__DIR__ . '/../mocks/pass/config2.ini'));
+        $file = $this->ini->parseFile(__DIR__ . '/../mocks/pass/config2.ini');
+        $string = $this->ini->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config2.ini'));
+
         $expected = ['host1', 'host2', 'host3'];
 
-        $this->assertEquals($expected, $actual['network']['group']['servers']);
+        $this->assertEquals($expected, $file['network']['group']['servers']);
+        $this->assertEquals('localhost', $file['network']['http']['host']);
+        $this->assertEquals('80', $file['network']['http']['port']);
 
-        $this->assertEquals('localhost', $actual['network']['http']['host']);
-        $this->assertEquals('80', $actual['network']['http']['port']);
+        $this->assertEquals($expected, $string['network']['group']['servers']);
+        $this->assertEquals('localhost', $string['network']['http']['host']);
+        $this->assertEquals('80', $string['network']['http']['port']);
     }
 }
