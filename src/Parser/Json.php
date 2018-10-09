@@ -18,14 +18,38 @@ class Json implements ParserInterface
 {
     /**
      * {@inheritDoc}
-     * Loads a JSON string as an array
+     * Parses an JSON file as an array
+     *
+     * @throws ParseException If there is an error parsing the JSON file
+     */
+    public function parseFile($filename)
+    {
+        $data = json_decode(file_get_contents($filename), true);
+        return $this->parse($data, $filename);
+    }
+
+    /**
+     * {@inheritDoc}
+     * Parses an JSON string as an array
      *
      * @throws ParseException If there is an error parsing the JSON string
      */
-    public function parse($config, $filename = null)
+    public function parseString($config)
     {
         $data = json_decode($config, true);
+        return $this->parse($data);
+    }
 
+    /**
+     * Completes parsing of JSON data
+     *
+     * @param  array   $data
+     * @param  strring $filename
+     *
+     * @throws ParseException If there is an error parsing the JSON data
+     */
+    protected function parse($data = null, $filename = null)
+    {
         if (json_last_error() !== JSON_ERROR_NONE) {
             $error_message  = 'Syntax error';
             if (function_exists('json_last_error_msg')) {

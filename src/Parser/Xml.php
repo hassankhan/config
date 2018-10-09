@@ -18,16 +18,40 @@ class Xml implements ParserInterface
 {
     /**
      * {@inheritDoc}
+     * Parses an XML file as an array
+     *
+     * @throws ParseException If there is an error parsing the XML file
+     */
+    public function parseFile($filename)
+    {
+        libxml_use_internal_errors(true);
+        $data = simplexml_load_file($filename, null, LIBXML_NOERROR);
+        return $this->parse($data, $filename);
+    }
+
+    /**
+     * {@inheritDoc}
      * Parses an XML string as an array
      *
      * @throws ParseException If there is an error parsing the XML string
      */
-    public function parse($config, $filename = null)
+    public function parseString($config)
     {
         libxml_use_internal_errors(true);
-
         $data = simplexml_load_string($config, null, LIBXML_NOERROR);
+        return $this->parse($data);
+    }
 
+    /**
+     * Completes parsing of XML data
+     *
+     * @param  array   $data
+     * @param  strring $filename
+     *
+     * @throws ParseException If there is an error parsing the XML data
+     */
+    protected function parse($data = null, $filename = null)
+    {
         if ($data === false) {
             $errors      = libxml_get_errors();
             $latestError = array_pop($errors);

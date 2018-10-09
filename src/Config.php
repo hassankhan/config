@@ -94,13 +94,13 @@ class Config extends AbstractConfig
                 $parser = $this->getParser($extension);
 
                 // Try to load file
-                $this->data = array_replace_recursive($this->data, (array) $parser->parse(file_get_contents($path)));
+                $this->data = array_replace_recursive($this->data, (array) $parser->parseFile($path));
 
                 // Clean parser
                 $parser = null;
             } else {
                 // Try to load file using specified parser
-                $this->data = array_replace_recursive($this->data, (array) $parser->parse(file_get_contents($path)));
+                $this->data = array_replace_recursive($this->data, (array) $parser->parseFile($path));
             }
         }
     }
@@ -116,7 +116,7 @@ class Config extends AbstractConfig
         $this->data = [];
 
         // Try to parse string
-        $this->data = array_replace_recursive($this->data, (array) $parser->parse($configuration));
+        $this->data = array_replace_recursive($this->data, (array) $parser->parseString($configuration));
     }
 
     /**
