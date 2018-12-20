@@ -502,4 +502,16 @@ class AbstractConfigTest extends TestCase
         $this->config->remove('application');
         $this->assertNull($this->config['application']);
     }
+
+    public function testDefaultOptionsSetOnInstantiationDoNotOverwriteSections()
+    {
+        $config = new SimpleConfig(
+            [
+                'application' => ['secret' => 'verysecret']
+            ]
+        );
+        $this->assertEquals('configuration', $config->get('application.name'));
+        $this->assertEquals('verysecret', $config->get('application.secret'));
+    }    
 }
+
