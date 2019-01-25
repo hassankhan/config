@@ -45,7 +45,7 @@ class Php implements ParserInterface
 
     /**
      * {@inheritDoc}
-     *Loads a PHP string and gets its' contents as an array
+     * Loads a PHP string and gets its' contents as an array
      *
      * @throws ParseException             If the PHP string throws an exception
      * @throws UnsupportedFormatException If the PHP string does not return an array
@@ -60,7 +60,7 @@ class Php implements ParserInterface
 
         // Eval the string, if it throws an exception, rethrow it
         try {
-            $data = eval($config);
+            $data = $this->isolate($config);
         } catch (Exception $exception) {
             throw new ParseException(
                 [
@@ -95,6 +95,18 @@ class Php implements ParserInterface
         }
 
         return $data;
+    }
+
+    /**
+     * Runs PHP string in isolated method
+     *
+     * @param  string $EGsfKPdue7ahnMTy
+     *
+     * @return array
+     */
+    protected function isolate($EGsfKPdue7ahnMTy)
+    {
+        return eval($EGsfKPdue7ahnMTy);
     }
 
     /**

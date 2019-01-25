@@ -64,6 +64,7 @@ class PhpTest extends TestCase
 
     /**
      * @covers                   Noodlehaus\Parser\Php::parseString()
+     * @covers                   Noodlehaus\Parser\Php::isolate()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage PHP string threw an exception
      */
@@ -75,6 +76,7 @@ class PhpTest extends TestCase
     /**
      * @covers Noodlehaus\Parser\Php::parseFile()
      * @covers Noodlehaus\Parser\Php::parseString()
+     * @covers Noodlehaus\Parser\Php::isolate()
      * @covers Noodlehaus\Parser\Php::parse()
      */
     public function testLoadPhpArray()
@@ -92,12 +94,31 @@ class PhpTest extends TestCase
     /**
      * @covers Noodlehaus\Parser\Php::parseFile()
      * @covers Noodlehaus\Parser\Php::parseString()
+     * @covers Noodlehaus\Parser\Php::isolate()
      * @covers Noodlehaus\Parser\Php::parse()
      */
     public function testLoadPhpCallable()
     {
         $file = $this->php->parseFile(__DIR__ . '/../mocks/pass/config-exec.php');
         $string = $this->php->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config-exec.php'));
+
+        $this->assertEquals('localhost', $file['host']);
+        $this->assertEquals('80', $file['port']);
+
+        $this->assertEquals('localhost', $string['host']);
+        $this->assertEquals('80', $string['port']);
+    }
+
+    /**
+     * @covers Noodlehaus\Parser\Php::parseFile()
+     * @covers Noodlehaus\Parser\Php::parseString()
+     * @covers Noodlehaus\Parser\Php::isolate()
+     * @covers Noodlehaus\Parser\Php::parse()
+     */
+    public function testLoadPhpVariable()
+    {
+        $file = $this->php->parseFile(__DIR__ . '/../mocks/pass/config-var.php');
+        $string = $this->php->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config-var.php'));
 
         $this->assertEquals('localhost', $file['host']);
         $this->assertEquals('80', $file['port']);
