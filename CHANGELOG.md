@@ -2,6 +2,12 @@
 
 All notable changes to `Config` will be documented in this file
 
+## 2.0.1 - 2019-02-02
+
+### Fixed
+- Parsing PHP file (#114).
+- Parsing PHP string with `$config` variable (#118).
+
 ## 2.0.0 - 2018-10-03
 
 ### Added
