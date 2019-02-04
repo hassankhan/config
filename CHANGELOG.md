@@ -2,6 +2,15 @@
 
 All notable changes to `Config` will be documented in this file
 
+## 2.0.0 - 2018-10-03
+
+### Added
+- Usage of short array syntax (#109).
+- Support for string parsers (#111)
+
+### Breaking changes
+- Changes of interface and parsers.
+
 ## 1.1.0 - 2018-08-22
 
 ### Added
