@@ -26,7 +26,9 @@ class Xml implements ParserInterface
     {
         libxml_use_internal_errors(true);
         $data = simplexml_load_file($filename, null, LIBXML_NOERROR);
-        return $this->parse($data, $filename);
+        $parsed = $this->parse($data, $filename);
+
+        return $parsed === null ? [] : $parsed;
     }
 
     /**
@@ -39,15 +41,18 @@ class Xml implements ParserInterface
     {
         libxml_use_internal_errors(true);
         $data = simplexml_load_string($config, null, LIBXML_NOERROR);
-        return $this->parse($data);
+        $parsed = $this->parse($data);
+
+        return $parsed === null ? [] : $parsed;
     }
 
     /**
      * Completes parsing of XML data
      *
-     * @param  array   $data
-     * @param  strring $filename
+     * @param  array $data
+     * @param  string $filename
      *
+     * @return array|null
      * @throws ParseException If there is an error parsing the XML data
      */
     protected function parse($data = null, $filename = null)
