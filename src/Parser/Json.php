@@ -25,7 +25,8 @@ class Json implements ParserInterface
     public function parseFile($filename)
     {
         $data = json_decode(file_get_contents($filename), true);
-        return $this->parse($data, $filename);
+        $parsed = $this->parse($data, $filename);
+        return $parsed === null ? [] : $parsed;
     }
 
     /**
@@ -37,7 +38,9 @@ class Json implements ParserInterface
     public function parseString($config)
     {
         $data = json_decode($config, true);
-        return $this->parse($data);
+        $parsed = $this->parse($data);
+
+        return $parsed === null ? [] : $parsed;
     }
 
     /**
