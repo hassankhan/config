@@ -22,7 +22,7 @@ class Yaml implements ParserInterface
      * {@inheritDoc}
      * Loads a YAML/YML file as an array
      *
-     * @throws ParseException If If there is an error parsing the YAML file
+     * @throws ParseException If there is an error parsing the YAML file
      */
     public function parseFile($filename)
     {
@@ -37,7 +37,9 @@ class Yaml implements ParserInterface
             );
         }
 
-        return $this->parse($data, $filename);
+        $parsed = $this->parse($data);
+
+        return $parsed === null ? [] : $parsed;
     }
 
     /**
@@ -59,18 +61,19 @@ class Yaml implements ParserInterface
             );
         }
 
-        return $this->parse($data);
+        $parsed = $this->parse($data);
+
+        return $parsed === null ? [] : $parsed;
     }
 
     /**
      * Completes parsing of YAML/YML data
      *
-     * @param  array   $data
-     * @param  strring $filename
+     * @param  array $data
      *
-     * @throws ParseException If there is an error parsing the YAML data
+     * @return array|null
      */
-    protected function parse($data = null, $filename = null)
+    protected function parse($data = null)
     {
         return $data;
     }
