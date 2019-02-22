@@ -47,7 +47,7 @@ class Json implements ParserInterface
      * Completes parsing of JSON data
      *
      * @param  array   $data
-     * @param  strring $filename
+     * @param  string $filename
      *
      * @throws ParseException If there is an error parsing the JSON data
      */
@@ -64,6 +64,7 @@ class Json implements ParserInterface
                 'type'    => json_last_error(),
                 'file'    => $filename,
             ];
+
             throw new ParseException($error);
         }
 
