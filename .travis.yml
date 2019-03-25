@@ -1,23 +1,26 @@
 language: php
 
-matrix:
-  allow_failures:
-    - php: hhvm
+php:
+  - 5.5
+  - 5.6
+  - 7.0
+  - 7.1
+  - 7.2
+  - 7.3
 
-  include:
-    - php: 5.5
-    - php: 5.6
-    - php: 7.0
-    - php: 7.1
-    - php: 7.2
-    - php: hhvm
+cache:
+  directories:
+    - $HOME/.composer/cache
 
-before_script:
-  - travis_retry composer self-update
-  - travis_retry composer install --no-interaction --prefer-source
+install:
+  - travis_retry composer update --no-interaction --no-progress --no-suggest --prefer-dist
 
 script:
   - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
 
 after_script:
-  - php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
+  - |
+    if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.3" ]]
+    then
+      php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
+    fi
