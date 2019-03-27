@@ -40,8 +40,7 @@ class Php implements ParserInterface
         }
 
         // Complete parsing
-        $parsed = $this->parse($data, $filename);
-        return $parsed === null ? [] : $parsed;
+        return (array)$this->parse($data, $filename);
     }
 
     /**
@@ -72,8 +71,7 @@ class Php implements ParserInterface
         }
 
         // Complete parsing
-        $parsed = $this->parse($data);
-        return $parsed === null ? [] : $parsed;
+        return (array)$this->parse($data);
     }
 
     /**
