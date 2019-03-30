@@ -40,7 +40,7 @@ class Php implements ParserInterface
         }
 
         // Complete parsing
-        return $this->parse($data, $filename);
+        return (array)$this->parse($data, $filename);
     }
 
     /**
@@ -71,16 +71,17 @@ class Php implements ParserInterface
         }
 
         // Complete parsing
-        return $this->parse($data);
+        return (array)$this->parse($data);
     }
 
     /**
      * Completes parsing of PHP data
      *
-     * @param  array   $data
-     * @param  strring $filename
+     * @param  array $data
+     * @param  string $filename
      *
-     * @throws ParseException If there is an error parsing the PHP data
+     * @return array|null
+     * @throws UnsupportedFormatException
      */
     protected function parse($data = null, $filename = null)
     {
