@@ -2,20 +2,26 @@
 
 All notable changes to `Config` will be documented in this file
 
+## 2.0.2 - 2019-04-06
+
+### Fixed
+- Implementations of `ParserInterface` and cleanup (#120)
+- Tests for PHP 7
+
 ## 2.0.1 - 2019-02-02
 
 ### Fixed
-- Parsing PHP file (#114).
-- Parsing PHP string with `$config` variable (#118).
+- Parsing PHP file (#114)
+- Parsing PHP string with `$config` variable (#118)
 
 ## 2.0.0 - 2018-10-03
 
 ### Added
-- Usage of short array syntax (#109).
+- Usage of short array syntax (#109)
 - Support for string parsers (#111)
 
 ### Breaking changes
-- Changes of interface and parsers.
+- Changes of interface and parsers
 
 ## 1.1.0 - 2018-08-22
 
