@@ -10,7 +10,7 @@ class YamlTest extends TestCase
     /**
      * @var Yaml
      */
-    protected $Yaml;
+    protected $writer;
 
     /**
      * @var string
@@ -28,9 +28,8 @@ class YamlTest extends TestCase
      */
     protected function setUp()
     {
-        $this->Yaml = new Yaml();
+        $this->writer = new Yaml();
         $this->temp_file = tempnam(sys_get_temp_dir(), 'config.yaml');
-        // $this->temp_file = __DIR__.'/../mocks/temp/config.yaml';
         $this->data = [
             'application' => [
                 'name' => 'configuration',
@@ -61,7 +60,28 @@ class YamlTest extends TestCase
     public function testGetSupportedExtensions()
     {
         $expected = ['yaml'];
-        $actual = $this->Yaml->getSupportedExtensions();
+        $actual = $this->writer->getSupportedExtensions();
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers Noodlehaus\Writer\Yaml::toString()
+     */
+    public function testEncodeYaml()
+    {
+        $actual = $this->writer->toString($this->data);
+        $expected = <<<'EOD'
+application:
+    name: configuration
+    secret: s3cr3t
+host: localhost
+port: 80
+servers:
+    - host1
+    - host2
+    - host3
+
+EOD;
         $this->assertEquals($expected, $actual);
     }
 
@@ -71,9 +91,9 @@ class YamlTest extends TestCase
      */
     public function testWriteYaml()
     {
-        $this->Yaml->toFile($this->data, $this->temp_file);
+        $this->writer->toFile($this->data, $this->temp_file);
         $this->assertFileExists($this->temp_file);
-        $this->assertEquals(sha1_file($this->temp_file), sha1_file(__DIR__.'/../mocks/pass/config2.yaml'));
+        $this->assertEquals(file_get_contents($this->temp_file), file_get_contents(__DIR__.'/../mocks/pass/config4.yaml'));
     }
 
     /**
@@ -86,6 +106,6 @@ class YamlTest extends TestCase
     {
         chmod($this->temp_file, 0444);
 
-        $this->Yaml->toFile($this->data, $this->temp_file);
+        $this->writer->toFile($this->data, $this->temp_file);
     }
 }

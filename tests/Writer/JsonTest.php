@@ -10,7 +10,7 @@ class JsonTest extends TestCase
     /**
      * @var Json
      */
-    protected $json;
+    protected $writer;
 
     /**
      * @var string
@@ -28,7 +28,7 @@ class JsonTest extends TestCase
      */
     protected function setUp()
     {
-        $this->json = new Json();
+        $this->writer = new Json();
         $this->temp_file = tempnam(sys_get_temp_dir(), 'config.json');
         $this->data = [
             'application' => [
@@ -60,7 +60,18 @@ class JsonTest extends TestCase
     public function testGetSupportedExtensions()
     {
         $expected = ['json'];
-        $actual = $this->json->getSupportedExtensions();
+        $actual = $this->writer->getSupportedExtensions();
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers Noodlehaus\Writer\Json::toString()
+     */
+    public function testEncodeJson()
+    {
+        $actual = $this->writer->toString($this->data, false);
+        $expected = '{"application":{"name":"configuration","secret":"s3cr3t"},"host":"localhost","port":80,"servers":["host1","host2","host3"]}';
+
         $this->assertEquals($expected, $actual);
     }
 
@@ -70,14 +81,14 @@ class JsonTest extends TestCase
      */
     public function testWriteJson()
     {
-        $this->json->toFile($this->data, $this->temp_file);
+        $this->writer->toFile($this->data, $this->temp_file);
 
         $file_a = json_decode(file_get_contents(__DIR__.'/../mocks/pass/config.json'), true);
         $file_b = json_decode(file_get_contents($this->temp_file), true);
 
         $this->assertFileExists($this->temp_file);
         $this->assertEqualsCanonicalizing($file_a, $file_b);
-        $this->assertEquals(sha1_file($this->temp_file), sha1_file(__DIR__.'/../mocks/pass/config4.json'));
+        $this->assertEquals(file_get_contents($this->temp_file), file_get_contents(__DIR__.'/../mocks/pass/config4.json'));
     }
 
     /**
@@ -90,6 +101,6 @@ class JsonTest extends TestCase
     {
         chmod($this->temp_file, 0444);
 
-        $this->json->toFile($this->data, $this->temp_file);
+        $this->writer->toFile($this->data, $this->temp_file);
     }
 }

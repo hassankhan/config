@@ -63,11 +63,10 @@ class IniTest extends TestCase
 
     /**
      * @covers Noodlehaus\Writer\Ini::toString()
-     * @covers Noodlehaus\Writer\Ini::toFile()
      */
-    public function testWriteIni()
+    public function testEncodeIni()
     {
-        $this->writer->toFile($this->data, $this->temp_file);
+        $actual = $this->writer->toString($this->data);
         $expected = <<< 'EOD'
 [database]
 host=localhost
@@ -77,9 +76,19 @@ name=config
 description=Config Reader and Writer
 
 EOD;
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers Noodlehaus\Writer\Ini::toString()
+     * @covers Noodlehaus\Writer\Ini::toFile()
+     */
+    public function testWriteIni()
+    {
+        $this->writer->toFile($this->data, $this->temp_file);
 
         $this->assertFileExists($this->temp_file);
-        $this->assertEquals(file_get_contents($this->temp_file), $expected);
+        $this->assertEquals(file_get_contents($this->temp_file), file_get_contents(__DIR__.'/../mocks/pass/config4.ini'));
     }
 
     /**

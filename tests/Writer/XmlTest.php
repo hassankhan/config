@@ -65,25 +65,29 @@ class XmlTest extends TestCase
     }
 
     /**
+     * @covers Noodlehaus\Writer\Xml::toString()
+     */
+    public function testEncodeXml()
+    {
+        $actual = $this->writer->toString($this->data, false);
+        $expected = <<<'EOD'
+<?xml version="1.0"?>
+<config><application><name>configuration</name><secret>s3cr3t</secret></application><host>localhost</host><port>80</port><servers><server1>host1</server1><server2>host2</server2><server3>host3</server3></servers></config>
+
+EOD;
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * @covers Noodlehaus\Writer\Xml::toFile()
+     * @covers Noodlehaus\Writer\Xml::toString()
      */
     public function testWriteXml()
     {
         $this->writer->toFile($this->data, $this->temp_file);
 
         $this->assertFileExists($this->temp_file);
-        $this->assertEquals(sha1_file($this->temp_file), sha1_file(__DIR__.'/../mocks/pass/config2.xml'));
-    }
-
-    /**
-     * @covers Noodlehaus\Writer\Xml::toString()
-     */
-    public function testEncodeXml()
-    {
-        $actual = $this->writer->toString($this->data);
-        $expected = file_get_contents(__DIR__.'/../mocks/pass/config2.xml');
-
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals(file_get_contents($this->temp_file), file_get_contents(__DIR__.'/../mocks/pass/config4.xml'));
     }
 
     /**
