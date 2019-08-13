@@ -4,7 +4,6 @@ namespace Noodlehaus\Writer;
 
 use DOMDocument;
 use SimpleXMLElement;
-use Noodlehaus\Exception\WriteException;
 
 /**
  * Xml Writer.
@@ -17,30 +16,25 @@ use Noodlehaus\Exception\WriteException;
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-class Xml implements WriterInterface
+class Xml extends AbstractWriter
 {
-    /**
-     * {@inheritdoc}
-     * Writes an array to a Xml file.
-     */
-    public function toFile($config, $filename)
-    {
-        $document = $this->toDocument($config);
-        $success = @$document->save($filename);
-        if ($success === false) {
-            throw new WriteException(['file' => $filename]);
-        }
-
-        return $document->saveXML();
-    }
-
     /**
      * {@inheritdoc}
      * Writes an array to a Xml string.
      */
-    public function toString($config)
+    public function toString($config, $pretty = true)
     {
-        return $this->toDocument($config)->saveXml();
+        $xml = $this->toXML($config);
+        if ($pretty == false) {
+            return $xml;
+        }
+
+        $dom = new DOMDocument();
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = true;
+        $dom->loadXML($xml);
+
+        return $dom->saveXML();
     }
 
     /**
@@ -49,22 +43,6 @@ class Xml implements WriterInterface
     public static function getSupportedExtensions()
     {
         return ['xml'];
-    }
-
-    /**
-     * Converts array to DOM Document.
-     * @param array             $arr       Array to be converted
-     *
-     * @return DOMDocument
-     */
-    protected function toDocument(array $xml)
-    {
-        $dom = new DOMDocument();
-        $dom->preserveWhiteSpace = false;
-        $dom->formatOutput = true;
-        $dom->loadXML($this->toXML($xml));
-
-        return $dom;
     }
 
     /**

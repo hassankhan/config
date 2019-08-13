@@ -2,8 +2,6 @@
 
 namespace Noodlehaus\Writer;
 
-use Noodlehaus\Exception\WriteException;
-
 /**
  * Ini Writer.
  *
@@ -15,28 +13,13 @@ use Noodlehaus\Exception\WriteException;
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-class Ini implements WriterInterface
+class Ini extends AbstractWriter
 {
-    /**
-     * {@inheritdoc}
-     * Writes an array to a Ini file.
-     */
-    public function toFile($config, $filename)
-    {
-        $data = $this->toString($config);
-        $success = @file_put_contents($filename, $data);
-        if ($success === false) {
-            throw new WriteException(['file' => $filename]);
-        }
-
-        return $data;
-    }
-
     /**
      * {@inheritdoc}
      * Writes an array to a Ini string.
      */
-    public function toString($config)
+    public function toString($config, $pretty = true)
     {
         return $this->toINI($config);
     }

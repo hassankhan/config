@@ -2,7 +2,6 @@
 
 namespace Noodlehaus\Writer;
 
-use Noodlehaus\Exception\WriteException;
 use Symfony\Component\Yaml\Yaml as YamlParser;
 
 /**
@@ -16,28 +15,13 @@ use Symfony\Component\Yaml\Yaml as YamlParser;
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
-class Yaml implements WriterInterface
+class Yaml extends AbstractWriter
 {
-    /**
-     * {@inheritdoc}
-     * Writes an array to a Yaml file.
-     */
-    public function toFile($config, $filename)
-    {
-        $data = $this->toString($config);
-        $success = @file_put_contents($filename, $data);
-        if ($success === false) {
-            throw new WriteException(['file' => $filename]);
-        }
-
-        return $data;
-    }
-
     /**
      * {@inheritdoc}
      * Writes an array to a Yaml string.
      */
-    public function toString($config)
+    public function toString($config, $pretty = true)
     {
         return YamlParser::dump($config);
     }
