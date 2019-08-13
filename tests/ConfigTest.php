@@ -265,6 +265,10 @@ class ConfigTest extends TestCase
         $this->assertCount(4, $config->get('servers'));
     }
 
+    /**
+     * @covers       Noodlehaus\Config::saveToFile()
+     * @covers       Noodlehaus\Config::getWriter()
+     */
     public function testWritesToFile()
     {
         $config = new Config(json_encode(['foo' => 'bar']), new JsonParser(), true);
@@ -275,6 +279,9 @@ class ConfigTest extends TestCase
         $this->assertFileExists($filename);
     }
 
+    /**
+     * @covers       Noodlehaus\Config::encode()
+     */
     public function testEncodesToString()
     {
         $config = new Config(json_encode(['foo' => 'bar']), new JsonParser(), true);

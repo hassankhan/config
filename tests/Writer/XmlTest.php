@@ -66,6 +66,7 @@ class XmlTest extends TestCase
 
     /**
      * @covers Noodlehaus\Writer\Xml::toString()
+     * @covers Noodlehaus\Writer\Xml::toXML()
      */
     public function testEncodeXml()
     {
@@ -81,6 +82,7 @@ EOD;
     /**
      * @covers Noodlehaus\Writer\Xml::toFile()
      * @covers Noodlehaus\Writer\Xml::toString()
+     * @covers Noodlehaus\Writer\Xml::toXML()
      */
     public function testWriteXml()
     {
@@ -92,6 +94,7 @@ EOD;
 
     /**
      * @covers Noodlehaus\Writer\Xml::toFile()
+     * @covers Noodlehaus\Writer\Xml::toXML()
      * @expectedException        Noodlehaus\Exception\WriteException
      * @expectedExceptionMessage There was an error writing the file
      */

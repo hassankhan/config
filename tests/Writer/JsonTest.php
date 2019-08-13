@@ -83,11 +83,7 @@ class JsonTest extends TestCase
     {
         $this->writer->toFile($this->data, $this->temp_file);
 
-        $file_a = json_decode(file_get_contents(__DIR__.'/../mocks/pass/config.json'), true);
-        $file_b = json_decode(file_get_contents($this->temp_file), true);
-
         $this->assertFileExists($this->temp_file);
-        $this->assertEqualsCanonicalizing($file_a, $file_b);
         $this->assertEquals(file_get_contents($this->temp_file), file_get_contents(__DIR__.'/../mocks/pass/config4.json'));
     }
 
