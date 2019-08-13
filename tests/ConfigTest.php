@@ -1,6 +1,8 @@
 <?php
 namespace Noodlehaus;
 
+use Noodlehaus\Parser\Json as JsonParser;
+use Noodlehaus\Writer\Json as JsonWriter;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -261,6 +263,25 @@ class ConfigTest extends TestCase
     public function testGetReturnsArrayMergedArray($config)
     {
         $this->assertCount(4, $config->get('servers'));
+    }
+
+    public function testWritesToFile()
+    {
+        $config = new Config(json_encode(['foo' => 'bar']), new JsonParser(), true);
+        $filename = tempnam(sys_get_temp_dir(), 'config').'.json';
+
+        $config->saveToFile($filename);
+
+        $this->assertFileExists($filename);
+    }
+
+    public function testEncodesToString()
+    {
+        $config = new Config(json_encode(['foo' => 'bar']), new JsonParser(), true);
+
+        $string = $config->encode(new JsonWriter());
+
+        $this->assertNotEmpty($string);
     }
 
     /**
