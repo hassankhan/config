@@ -174,6 +174,19 @@ assert($conf['secret'] == '123');
 assert($conf['secret'] == '456');
 ```
 
+### Saving config
+
+It is possible to save the config back to a file in any of the supported formats
+except PHP.
+
+```php
+$config = Config::load('config.json');
+
+$ini = $config->encode(new Ini()); // Encode to string if you want to save the file yourself
+
+$config->saveToFile('config.yaml');
+```
+
 ### Using with default values
 
 Sometimes in your own projects you may want to use Config for storing
