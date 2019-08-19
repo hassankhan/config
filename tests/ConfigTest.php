@@ -266,7 +266,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers       Noodlehaus\Config::saveToFile()
+     * @covers       Noodlehaus\Config::writeToFile()
      * @covers       Noodlehaus\Config::getWriter()
      */
     public function testWritesToFile()
@@ -274,19 +274,19 @@ class ConfigTest extends TestCase
         $config = new Config(json_encode(['foo' => 'bar']), new JsonParser(), true);
         $filename = tempnam(sys_get_temp_dir(), 'config').'.json';
 
-        $config->saveToFile($filename);
+        $config->writeToFile($filename);
 
         $this->assertFileExists($filename);
     }
 
     /**
-     * @covers       Noodlehaus\Config::encode()
+     * @covers       Noodlehaus\Config::writeToString()
      */
-    public function testEncodesToString()
+    public function testWritesToString()
     {
         $config = new Config(json_encode(['foo' => 'bar']), new JsonParser(), true);
 
-        $string = $config->encode(new JsonWriter());
+        $string = $config->writeToString(new JsonWriter());
 
         $this->assertNotEmpty($string);
     }

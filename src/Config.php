@@ -119,14 +119,14 @@ class Config extends AbstractConfig
     }
 
     /**
-     * Saves configuration to file.
+     * Writes configuration to file.
      *
      * @param  string           $filename   Filename to save configuration to
      * @param  WriterInterface  $writer Configuration writer
      *
      * @throws WriteException if the data could not be written to the file
      */
-    public function saveToFile($filename, WriterInterface $writer = null)
+    public function writeToFile($filename, WriterInterface $writer = null)
     {
         if ($writer === null) {
             // Get file information
@@ -168,12 +168,12 @@ class Config extends AbstractConfig
     }
 
     /**
-     * Encodes configuration to string.
+     * Writes configuration to string.
      *
      * @param  WriterInterface  $writer Configuration writer
      * @param boolean           $pretty Encode pretty
      */
-    public function encode(WriterInterface $writer, $pretty = true)
+    public function writeToString(WriterInterface $writer, $pretty = true)
     {
         return $writer->toString($this->all(), $pretty);
     }
