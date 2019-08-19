@@ -126,7 +126,7 @@ class Config extends AbstractConfig
      *
      * @throws WriteException if the data could not be written to the file
      */
-    public function writeToFile($filename, WriterInterface $writer = null)
+    public function toFile($filename, WriterInterface $writer = null)
     {
         if ($writer === null) {
             // Get file information
@@ -173,7 +173,7 @@ class Config extends AbstractConfig
      * @param  WriterInterface  $writer Configuration writer
      * @param boolean           $pretty Encode pretty
      */
-    public function writeToString(WriterInterface $writer, $pretty = true)
+    public function toString(WriterInterface $writer, $pretty = true)
     {
         return $writer->toString($this->all(), $pretty);
     }

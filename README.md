@@ -182,9 +182,9 @@ except PHP.
 ```php
 $config = Config::load('config.json');
 
-$ini = $config->encode(new Ini()); // Encode to string if you want to save the file yourself
+$ini = $config->toString(new Ini()); // Encode to string if you want to save the file yourself
 
-$config->saveToFile('config.yaml');
+$config->toFile('config.yaml');
 ```
 
 ### Using with default values
