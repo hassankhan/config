@@ -2,6 +2,11 @@
 
 All notable changes to `Config` will be documented in this file
 
+## 2.1.0 - 2019-09-01
+
+### Added
+- Support for writing configuration back to file and string (#122)
+
 ## 2.0.2 - 2019-04-06
 
 ### Fixed
