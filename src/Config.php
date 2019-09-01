@@ -7,6 +7,7 @@ use Noodlehaus\Exception\UnsupportedFormatException;
 use Noodlehaus\Exception\EmptyDirectoryException;
 use InvalidArgumentException;
 use Noodlehaus\Parser\ParserInterface;
+use Noodlehaus\Writer\WriterInterface;
 
 /**
  * Configuration reader and writer for PHP.
@@ -31,6 +32,18 @@ class Config extends AbstractConfig
         'Noodlehaus\Parser\Json',
         'Noodlehaus\Parser\Xml',
         'Noodlehaus\Parser\Yaml'
+    ];
+
+    /**
+     * All formats supported by Config.
+     *
+     * @var array
+     */
+    protected $supportedWriters = [
+        'Noodlehaus\Writer\Ini',
+        'Noodlehaus\Writer\Json',
+        'Noodlehaus\Writer\Xml',
+        'Noodlehaus\Writer\Yaml'
     ];
 
     /**
@@ -106,6 +119,41 @@ class Config extends AbstractConfig
     }
 
     /**
+     * Writes configuration to file.
+     *
+     * @param  string           $filename   Filename to save configuration to
+     * @param  WriterInterface  $writer Configuration writer
+     *
+     * @throws WriteException if the data could not be written to the file
+     */
+    public function toFile($filename, WriterInterface $writer = null)
+    {
+        if ($writer === null) {
+            // Get file information
+            $info      = pathinfo($filename);
+            $parts     = explode('.', $info['basename']);
+            $extension = array_pop($parts);
+
+            // Skip the `dist` extension
+            if ($extension === 'dist') {
+                $extension = array_pop($parts);
+            }
+
+            // Get file writer
+            $writer = $this->getWriter($extension);
+
+            // Try to save file
+            $writer->toFile($this->all(), $filename);
+
+            // Clean writer
+            $writer = null;
+        } else {
+            // Try to load file using specified writer
+            $writer->toFile($this->all(), $filename);
+        }
+    }
+
+    /**
      * Loads configuration from string.
      *
      * @param string          $configuration String with configuration
@@ -117,6 +165,17 @@ class Config extends AbstractConfig
 
         // Try to parse string
         $this->data = array_replace_recursive($this->data, $parser->parseString($configuration));
+    }
+
+    /**
+     * Writes configuration to string.
+     *
+     * @param  WriterInterface  $writer Configuration writer
+     * @param boolean           $pretty Encode pretty
+     */
+    public function toString(WriterInterface $writer, $pretty = true)
+    {
+        return $writer->toString($this->all(), $pretty);
     }
 
     /**
@@ -138,6 +197,27 @@ class Config extends AbstractConfig
 
         // If none exist, then throw an exception
         throw new UnsupportedFormatException('Unsupported configuration format');
+    }
+
+    /**
+     * Gets a writer for a given file extension.
+     *
+     * @param  string $extension
+     *
+     * @return Noodlehaus\Writer\WriterInterface
+     *
+     * @throws UnsupportedFormatException If `$extension` is an unsupported file format
+     */
+    protected function getWriter($extension)
+    {
+        foreach ($this->supportedWriters as $writer) {
+            if (in_array($extension, $writer::getSupportedExtensions())) {
+                return new $writer();
+            }
+        }
+
+        // If none exist, then throw an exception
+        throw new UnsupportedFormatException('Unsupported configuration format'.$extension);
     }
 
     /**
