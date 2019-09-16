@@ -111,6 +111,22 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
     /**
      * {@inheritDoc}
      */
+    public function unset($key)
+    {
+        $segs = explode('.', $key);
+        $root = &$this->data;
+
+        foreach(array_slice($segs, 0, -1) as $seg) {
+            $root = &$root[$seg];
+        }
+
+        unset($root[array_pop($segs)]);
+        unset($this->cache[$key]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function has($key)
     {
         // Check if already cached
@@ -207,7 +223,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
      */
     public function offsetUnset($offset)
     {
-        $this->set($offset, null);
+        $this->unset($offset);
     }
 
     /**
@@ -284,6 +300,6 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
      */
     public function remove($key)
     {
-        $this->offsetUnset($key);
+        $this->unset($key);
     }
 }
