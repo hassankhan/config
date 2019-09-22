@@ -111,7 +111,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
     /**
      * {@inheritDoc}
      */
-    public function unset($key)
+    public function remove($key)
     {
         $segs = explode('.', $key);
         $root = &$this->data;
@@ -223,7 +223,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
      */
     public function offsetUnset($offset)
     {
-        $this->unset($offset);
+        $this->remove($offset);
     }
 
     /**
@@ -289,17 +289,5 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
     public function valid()
     {
         return (is_array($this->data) ? key($this->data) !== null : false);
-    }
-
-    /**
-     * Remove a value using the offset as a key
-     *
-     * @param  string $key
-     *
-     * @return void
-     */
-    public function remove($key)
-    {
-        $this->unset($key);
     }
 }
