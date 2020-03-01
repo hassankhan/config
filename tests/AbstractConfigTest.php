@@ -148,7 +148,7 @@ class AbstractConfigTest extends TestCase
             'host' => 'localhost',
             'name' => 'mydatabase'
         ]);
-        $this->assertTrue(is_array($this->config->get('database')));
+        $this->assertInternalType('array', $this->config->get('database'));
         $this->assertEquals('localhost', $this->config->get('database.host'));
     }
 
@@ -161,7 +161,7 @@ class AbstractConfigTest extends TestCase
             'host' => 'localhost',
             'name' => 'mydatabase'
         ]);
-        $this->assertTrue(is_array($this->config->get('database')));
+        $this->assertInternalType('array', $this->config->get('database'));
         $this->config->set('database.host', '127.0.0.1');
         $expected = [
             'host' => '127.0.0.1',
@@ -227,7 +227,7 @@ class AbstractConfigTest extends TestCase
             'host' => 'localhost',
             'name' => 'mydatabase'
         ]);
-        $this->assertTrue(is_array($this->config->get('database')));
+        $this->assertInternalType('array', $this->config->get('database'));
         $this->assertEquals('localhost', $this->config->get('database.host'));
         $this->config->set('database.host', null);
         $this->assertNull($this->config->get('database.host'));

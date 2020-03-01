@@ -90,7 +90,7 @@ EOD;
         $this->writer->toFile($this->data, $this->temp_file);
 
         $this->assertFileExists($this->temp_file);
-        $this->assertEquals(file_get_contents($this->temp_file), file_get_contents(__DIR__.'/../mocks/pass/config4.ini'));
+        $this->assertFileEquals($this->temp_file, __DIR__.'/../mocks/pass/config4.ini');
     }
 
     /**
