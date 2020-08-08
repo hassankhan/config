@@ -43,8 +43,9 @@ class SerializeTest extends TestCase
 
     /**
      * @covers                   Noodlehaus\Parser\Serialize::parseFile()
+     * @covers                   Noodlehaus\Parser\Serialize::parse()
      * @expectedException        Noodlehaus\Exception\ParseException
-     * @expectedExceptionMessage Syntax error
+     * @expectedExceptionMessage unserialize(): Error at offset 57 of 58 bytes
      */
     public function testLoadInvalidSerialize()
     {
@@ -54,6 +55,7 @@ class SerializeTest extends TestCase
     /**
      * @covers Noodlehaus\Parser\Serialize::parseFile()
      * @covers Noodlehaus\Parser\Serialize::parseString()
+     * @covers Noodlehaus\Parser\Serialize::parse()
      */
     public function testLoadSerialize()
     {

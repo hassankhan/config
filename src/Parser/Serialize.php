@@ -45,13 +45,7 @@ class Serialize implements ParserInterface
         $serializedData = @unserialize($data);
         if($serializedData === false){
 
-            $error = [
-                'message' => $php_errormsg,
-                'type'    => 'unserialize error',
-                'file'    => $filename,
-            ];
-
-            throw new ParseException($error);
+            throw new ParseException(error_get_last());
         }
 
         return $serializedData;
