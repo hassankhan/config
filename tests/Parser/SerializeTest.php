@@ -43,11 +43,10 @@ class SerializeTest extends TestCase
 
     /**
      * @covers                   Noodlehaus\Parser\Serialize::parseFile()
-     * @covers                   Noodlehaus\Parser\Serialize::parse()
      * @expectedException        Noodlehaus\Exception\ParseException
      * @expectedExceptionMessage Syntax error
      */
-    public function testLoadInvalidJson()
+    public function testLoadInvalidSerialize()
     {
         $this->serialize->parseFile(__DIR__ . '/../mocks/fail/error.txt');
     }
@@ -55,7 +54,6 @@ class SerializeTest extends TestCase
     /**
      * @covers Noodlehaus\Parser\Serialize::parseFile()
      * @covers Noodlehaus\Parser\Serialize::parseString()
-     * @covers Noodlehaus\Parser\Serialize::parse()
      */
     public function testLoadSerialize()
     {
