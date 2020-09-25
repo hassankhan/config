@@ -31,7 +31,8 @@ class Config extends AbstractConfig
         'Noodlehaus\Parser\Ini',
         'Noodlehaus\Parser\Json',
         'Noodlehaus\Parser\Xml',
-        'Noodlehaus\Parser\Yaml'
+        'Noodlehaus\Parser\Yaml',
+        'Noodlehaus\Parser\Properties'
     ];
 
     /**
