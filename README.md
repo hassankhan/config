@@ -9,7 +9,7 @@
 [![Gitter][ico-gitter]][link-gitter]
 
 Config is a file configuration loader that supports PHP, INI, XML, JSON,
-and YML files and strings.
+YML and Properties files and strings.
 
 ## Requirements
 
