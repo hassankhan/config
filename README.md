@@ -8,14 +8,15 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Gitter][ico-gitter]][link-gitter]
 
-Config is a file configuration loader that supports PHP, INI, XML, JSON,
-and YML files and strings.
+Config is a file configuration loader that supports PHP, INI, XML, JSON, YML and TOML files and strings.
 
 ## Requirements
 
 Config requires PHP 5.5.9+.
 
 > **IMPORTANT:** If you want to use YAML files or strings, require the [Symfony Yaml component](https://github.com/symfony/Yaml) in your `composer.json`.
+
+> **IMPORTANT:** If you want to use TOML files or strings, require the [TOML parser for PHP](https://github.com/yosymfony/Toml) in your `composer.json`.
 
 ## Installation
 
