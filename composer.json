@@ -19,10 +19,12 @@
         "phpunit/phpunit": "~4.8.36 || ~5.7 || ~6.5 || ~7.5",
         "scrutinizer/ocular": "~1.1",
         "squizlabs/php_codesniffer": "~2.2",
-        "symfony/yaml": "~3.4"
+        "symfony/yaml": "~3.4",
+        "yosymfony/toml": "^1.0"
     },
     "suggest": {
-        "symfony/yaml": "~3.4"
+        "symfony/yaml": "~3.4",
+        "yosymfony/toml": "^1.0"
     },
     "autoload": {
         "psr-4": {
