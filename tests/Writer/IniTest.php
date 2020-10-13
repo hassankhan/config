@@ -56,7 +56,7 @@ class IniTest extends TestCase
      */
     public function testGetSupportedExtensions()
     {
-        $expected = ['ini', 'properties'];
+        $expected = ['ini'];
         $actual = $this->writer->getSupportedExtensions();
         $this->assertEquals($expected, $actual);
     }

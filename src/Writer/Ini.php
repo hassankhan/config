@@ -9,7 +9,6 @@ namespace Noodlehaus\Writer;
  * @author     Jesus A. Domingo <jesus.domingo@gmail.com>
  * @author     Hassan Khan <contact@hassankhan.me>
  * @author     Filip Š <projects@filips.si>
- * @author     Mark de Groot <mail@markdegroot.nl>
  * @link       https://github.com/noodlehaus/config
  * @license    MIT
  */
@@ -29,7 +28,7 @@ class Ini extends AbstractWriter
      */
     public static function getSupportedExtensions()
     {
-        return ['ini', 'properties'];
+        return ['ini'];
     }
 
     /**
