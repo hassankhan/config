@@ -9,7 +9,7 @@
 [![Gitter][ico-gitter]][link-gitter]
 
 Config is a file configuration loader that supports PHP, INI, XML, JSON,
-YML and Properties files and strings.
+YML, Properties and serialized files and strings.
 
 ## Requirements
 
@@ -185,6 +185,7 @@ $config = Config::load('config.json');
 $ini = $config->toString(new Ini()); // Encode to string if you want to save the file yourself
 
 $config->toFile('config.yaml');
+$config->toFile('config.txt', new Serialize()); // you can also force the writer
 ```
 
 ### Using with default values
