@@ -8,7 +8,8 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Gitter][ico-gitter]][link-gitter]
 
-Config is a file configuration loader that supports PHP, INI, XML, JSON, YML and serialized files and strings.
+Config is a file configuration loader that supports PHP, INI, XML, JSON,
+YML, Properties and serialized files and strings.
 
 ## Requirements
 

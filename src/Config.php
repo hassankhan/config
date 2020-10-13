@@ -32,6 +32,7 @@ class Config extends AbstractConfig
         'Noodlehaus\Parser\Json',
         'Noodlehaus\Parser\Xml',
         'Noodlehaus\Parser\Yaml',
+        'Noodlehaus\Parser\Properties',
         'Noodlehaus\Parser\Serialize'
     ];
 
@@ -45,6 +46,7 @@ class Config extends AbstractConfig
         'Noodlehaus\Writer\Json',
         'Noodlehaus\Writer\Xml',
         'Noodlehaus\Writer\Yaml',
+        'Noodlehaus\Writer\Properties',
         'Noodlehaus\Writer\Serialize'
     ];
 
