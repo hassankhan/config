@@ -46,7 +46,7 @@ class Xml implements ParserInterface
     /**
      * Completes parsing of XML data
      *
-     * @param  array $data
+     * @param  \SimpleXMLElement|null $data
      * @param  string $filename
      *
      * @return array|null
