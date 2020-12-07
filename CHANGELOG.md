@@ -2,6 +2,18 @@
 
 All notable changes to `Config` will be documented in this file
 
+## 2.2.0 - 2020-12-07
+
+### Added
+- Serialization support (#127)
+- Support for Properties files (#128)
+
+### Fixed
+- Test enhancement (#126)
+- Typehint on Xml parser, parse method (#130)
+
+### Fixed
+
 ## 2.1.0 - 2019-09-01
 
 ### Added
