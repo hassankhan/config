@@ -25,7 +25,7 @@ jobs:
         run: php -v
 
       - name: Install dependencies
-        run: composer install --no-interaction --no-progress --no-suggest --prefer-dist
+        run: composer install --no-interaction --no-progress --prefer-dist
 
       - name: PHP Unit tests
         run: vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
