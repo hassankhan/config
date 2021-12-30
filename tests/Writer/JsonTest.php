@@ -3,10 +3,12 @@
 namespace Noodlehaus\Writer\Test;
 
 use Noodlehaus\Writer\Json;
+use Yoast\PHPUnitPolyfills\Polyfills\ExpectException;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 class JsonTest extends TestCase
 {
+    use ExpectException;
     /**
      * @var Json
      */
@@ -90,11 +92,11 @@ class JsonTest extends TestCase
     /**
      * @covers Noodlehaus\Writer\Json::toString()
      * @covers Noodlehaus\Writer\Json::toFile()
-     * @expectedException        Noodlehaus\Exception\WriteException
-     * @expectedExceptionMessage There was an error writing the file
      */
     public function testUnwritableFile()
     {
+        $this->expectException(\Noodlehaus\Exception\WriteException::class);
+        $this->expectExceptionMessage('There was an error writing the file');
         chmod($this->temp_file, 0444);
 
         $this->writer->toFile($this->data, $this->temp_file);
