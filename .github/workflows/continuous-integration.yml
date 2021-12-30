@@ -20,9 +20,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
             php-version: ${{ matrix.php-versions }}
-      
-      - name: Check PHP Version
-        run: php -v
 
       - name: Install dependencies
         run: composer install --no-interaction --no-progress --prefer-dist
@@ -31,5 +28,5 @@ jobs:
         run: vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
       
       - name: Upload code coverage data
-        if: ${{ matrix.php-versions }} == '7.3'
+        if: ${{ matrix.php-versions == '7.3' }}
         run: php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
