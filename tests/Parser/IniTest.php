@@ -61,10 +61,18 @@ class IniTest extends TestCase
     public function testLoadInvalidIni()
     {
         if (PHP_VERSION_ID < 70400 && PHP_VERSION_ID >= 50500) {
-            $this->expectException(\Noodlehaus\Exception\ParseException::class);
-            $this->expectExceptionMessage("syntax error, unexpected \$end, expecting ']'");
+            $exceptionMessage = "syntax error, unexpected \$end, expecting ']'";
         } else {
-            $this->expectExceptionMessage("syntax error, unexpected end of file, expecting ']' in Unknown on line 1");
+            $exceptionMessage = "syntax error, unexpected end of file, expecting ']' in Unknown on line 1";
+        }
+
+        if (PHP_VERSION_ID < 50600 && PHP_VERSION_ID >= 50500) {
+            $this->setExpectedException(
+                '\Noodlehaus\Exception\ParseException', $exceptionMessage
+            );
+        } else {
+            $this->expectException(\Noodlehaus\Exception\ParseException::class);
+            $this->expectExceptionMessage($exceptionMessage);
         }
         
         $this->ini->parseString(file_get_contents(__DIR__ . '/../mocks/fail/error.ini'));
