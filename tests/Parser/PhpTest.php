@@ -36,32 +36,32 @@ class PhpTest extends TestCase
     /**
      * @covers                   Noodlehaus\Parser\Php::parseFile()
      * @covers                   Noodlehaus\Parser\Php::parse()
-     * @expectedException        Noodlehaus\Exception\UnsupportedFormatException
-     * @expectedExceptionMessage PHP data does not return an array
      */
     public function testLoadInvalidPhp()
     {
+        $this->expectException(\Noodlehaus\Exception\UnsupportedFormatException::class);
+        $this->expectExceptionMessage('PHP data does not return an array');
         $this->php->parseFile(__DIR__ . '/../mocks/fail/error.php');
     }
 
     /**
      * @covers                   Noodlehaus\Parser\Php::parseFile()
-     * @expectedException        Noodlehaus\Exception\ParseException
-     * @expectedExceptionMessage PHP file threw an exception
      */
     public function testLoadExceptionalPhpFile()
     {
+        $this->expectException(\Noodlehaus\Exception\ParseException::class);
+        $this->expectExceptionMessage('PHP file threw an exception');
         $this->php->parseFile(__DIR__ . '/../mocks/fail/error-exception.php');
     }
 
     /**
      * @covers                   Noodlehaus\Parser\Php::parseString()
      * @covers                   Noodlehaus\Parser\Php::isolate()
-     * @expectedException        Noodlehaus\Exception\ParseException
-     * @expectedExceptionMessage PHP string threw an exception
      */
     public function testLoadExceptionalPhpString()
     {
+        $this->expectException(\Noodlehaus\Exception\ParseException::class);
+        $this->expectExceptionMessage('PHP string threw an exception');
         $this->php->parseString(file_get_contents(__DIR__ . '/../mocks/fail/error-exception.php'));
     }
 

@@ -36,11 +36,11 @@ class XmlTest extends TestCase
     /**
      * @covers                   Noodlehaus\Parser\Xml::parseFile()
      * @covers                   Noodlehaus\Parser\Xml::parse()
-     * @expectedException        Noodlehaus\Exception\ParseException
-     * @expectedExceptionMessage Opening and ending tag mismatch: name line 4
      */
     public function testLoadInvalidXml()
     {
+        $this->expectException(\Noodlehaus\Exception\ParseException::class);
+        $this->expectExceptionMessage('Opening and ending tag mismatch: name line 4');
         $this->xml->parseFile(__DIR__ . '/../mocks/fail/error.xml');
     }
 

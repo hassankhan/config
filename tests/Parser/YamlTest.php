@@ -36,22 +36,22 @@ class YamlTest extends TestCase
     /**
      * @covers                   Noodlehaus\Parser\Yaml::parseFile()
      * @covers                   Noodlehaus\Parser\Yaml::parse()
-     * @expectedException        Noodlehaus\Exception\ParseException
-     * @expectedExceptionMessage Error parsing YAML file
      */
     public function testLoadInvalidYamlFile()
     {
+        $this->expectException(\Noodlehaus\Exception\ParseException::class);
+        $this->expectExceptionMessage('Error parsing YAML file');
         $this->yaml->parseFile(__DIR__ . '/../mocks/fail/error.yaml');
     }
 
     /**
      * @covers                   Noodlehaus\Parser\Yaml::parseString()
      * @covers                   Noodlehaus\Parser\Yaml::parse()
-     * @expectedException        Noodlehaus\Exception\ParseException
-     * @expectedExceptionMessage Error parsing YAML string
      */
     public function testLoadInvalidYamlString()
     {
+        $this->expectException(\Noodlehaus\Exception\ParseException::class);
+        $this->expectExceptionMessage('Error parsing YAML string');
         $this->yaml->parseString(file_get_contents(__DIR__ . '/../mocks/fail/error.yaml'));
     }
 

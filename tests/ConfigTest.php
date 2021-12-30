@@ -19,11 +19,11 @@ class ConfigTest extends TestCase
      * @covers                   Noodlehaus\Config::load()
      * @covers                   Noodlehaus\Config::loadFromFile()
      * @covers                   Noodlehaus\Config::getParser()
-     * @expectedException        Noodlehaus\Exception\UnsupportedFormatException
-     * @expectedExceptionMessage Unsupported configuration format
      */
     public function testLoadWithUnsupportedFormat()
     {
+        $this->expectException(\Noodlehaus\Exception\UnsupportedFormatException::class);
+        $this->expectExceptionMessage('Unsupported configuration format');
         $config = Config::load(__DIR__ . '/mocks/fail/error.lib');
         // $this->markTestIncomplete('Not yet implemented');
     }
@@ -32,11 +32,11 @@ class ConfigTest extends TestCase
      * @covers                   Noodlehaus\Config::__construct()
      * @covers                   Noodlehaus\Config::loadFromFile()
      * @covers                   Noodlehaus\Config::getParser()
-     * @expectedException        Noodlehaus\Exception\UnsupportedFormatException
-     * @expectedExceptionMessage Unsupported configuration format
      */
     public function testConstructWithUnsupportedFormat()
     {
+        $this->expectException(\Noodlehaus\Exception\UnsupportedFormatException::class);
+        $this->expectExceptionMessage('Unsupported configuration format');
         $config = new Config(__DIR__ . '/mocks/fail/error.lib');
     }
 
@@ -46,11 +46,11 @@ class ConfigTest extends TestCase
      * @covers                   Noodlehaus\Config::getParser()
      * @covers                   Noodlehaus\Config::getPathFromArray()
      * @covers                   Noodlehaus\Config::getValidPath()
-     * @expectedException        Noodlehaus\Exception\FileNotFoundException
-     * @expectedExceptionMessage Configuration file: [ladadeedee] cannot be found
      */
     public function testConstructWithInvalidPath()
     {
+        $this->expectException(\Noodlehaus\Exception\FileNotFoundException::class);
+        $this->expectExceptionMessage('Configuration file: [ladadeedee] cannot be found');
         $config = new Config('ladadeedee');
     }
 
@@ -60,10 +60,10 @@ class ConfigTest extends TestCase
      * @covers            Noodlehaus\Config::getParser()
      * @covers            Noodlehaus\Config::getPathFromArray()
      * @covers            Noodlehaus\Config::getValidPath()
-     * @expectedException Noodlehaus\Exception\EmptyDirectoryException
      */
     public function testConstructWithEmptyDirectory()
     {
+        $this->expectException(\Noodlehaus\Exception\EmptyDirectoryException::class);
         $config = new Config(__DIR__ . '/mocks/empty');
     }
 
@@ -91,10 +91,10 @@ class ConfigTest extends TestCase
      * @covers            Noodlehaus\Config::getParser()
      * @covers            Noodlehaus\Config::getPathFromArray()
      * @covers            Noodlehaus\Config::getValidPath()
-     * @expectedException Noodlehaus\Exception\FileNotFoundException
      */
     public function testConstructWithArrayWithNonexistentFile()
     {
+        $this->expectException(\Noodlehaus\Exception\FileNotFoundException::class);
         $paths = [__DIR__ . '/mocks/pass/config.xml', __DIR__ . '/mocks/pass/config3.json'];
         $config = new Config($paths);
 

@@ -36,11 +36,11 @@ class SerializeTest extends TestCase
     /**
      * @covers                   Noodlehaus\Parser\Serialize::parseFile()
      * @covers                   Noodlehaus\Parser\Serialize::parse()
-     * @expectedException        Noodlehaus\Exception\ParseException
-     * @expectedExceptionMessage unserialize(): Error at offset 57 of 58 bytes
      */
     public function testLoadInvalidSerialize()
     {
+        $this->expectException(\Noodlehaus\Exception\ParseException::class);
+        $this->expectExceptionMessage('unserialize(): Error at offset 57 of 58 bytes');
         $this->serialize->parseFile(__DIR__ . '/../mocks/fail/error.txt');
     }
 

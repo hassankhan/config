@@ -36,11 +36,11 @@ class JsonTest extends TestCase
     /**
      * @covers                   Noodlehaus\Parser\Json::parseFile()
      * @covers                   Noodlehaus\Parser\Json::parse()
-     * @expectedException        Noodlehaus\Exception\ParseException
-     * @expectedExceptionMessage Syntax error
      */
     public function testLoadInvalidJson()
     {
+        $this->expectException(\Noodlehaus\Exception\ParseException::class);
+        $this->expectExceptionMessage('Syntax error');
         $this->json->parseFile(__DIR__ . '/../mocks/fail/error.json');
     }
 

@@ -36,13 +36,13 @@ class IniTest extends TestCase
     /**
      * @covers                   Noodlehaus\Parser\Ini::parseFile()
      * @covers                   Noodlehaus\Parser\Ini::parse()
-     * @expectedException        Noodlehaus\Exception\ParseException
-     * @expectedExceptionMessage No parsable content
      * Tests the case where an INI string contains no parsable data at all, resulting in parse_ini_string
      * returning NULL, but not setting an error retrievable by error_get_last()
      */
     public function testLoadInvalidIniGBH()
     {
+        $this->expectException(\Noodlehaus\Exception\ParseException::class);
+        $this->expectExceptionMessage('No parsable content');
         $this->ini->parseFile(__DIR__ . '/../mocks/fail/error2.ini');
     }
 
@@ -58,14 +58,8 @@ class IniTest extends TestCase
             $exceptionMessage = "syntax error, unexpected end of file, expecting ']' in Unknown on line 1";
         }
 
-        if (PHP_VERSION_ID < 50600 && PHP_VERSION_ID >= 50500) {
-            $this->setExpectedException(
-                '\Noodlehaus\Exception\ParseException', $exceptionMessage
-            );
-        } else {
-            $this->expectException(\Noodlehaus\Exception\ParseException::class);
-            $this->expectExceptionMessage($exceptionMessage);
-        }
+        $this->expectException(\Noodlehaus\Exception\ParseException::class);
+        $this->expectExceptionMessage($exceptionMessage);
         
         $this->ini->parseString(file_get_contents(__DIR__ . '/../mocks/fail/error.ini'));
     }
