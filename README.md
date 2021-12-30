@@ -2,7 +2,7 @@
 
 [![Latest version][ico-version]][link-packagist]
 [![Software License][ico-license]][link-license]
-[![Build Status][ico-travis]][link-travis]
+[![Build Status][ico-gh-actions]][link-gh-actions]
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
@@ -260,7 +260,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://img.shields.io/packagist/v/hassankhan/config.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/hassankhan/config/master.svg?style=flat-square
+[ico-gh-actions]: https://img.shields.io/github/workflow/status/hassankhan/config/Continuous%20Integration/master?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/hassankhan/config.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/hassankhan/config.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/hassankhan/config.svg?style=flat-square
@@ -268,7 +268,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [link-packagist]: https://packagist.org/packages/hassankhan/config
 [link-license]: http://hassankhan.mit-license.org
-[link-travis]: https://travis-ci.org/hassankhan/config
+[link-gh-actions]: https://github.com/hassankhan/config/actions?query=workflow%3A%22Continuous+Integration%22+branch%3Amaster
 [link-scrutinizer]: https://scrutinizer-ci.com/g/hassankhan/config/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/hassankhan/config
 [link-downloads]: https://packagist.org/packages/hassankhan/config
