@@ -23,8 +23,13 @@ jobs:
 
       - name: Install dependencies
         run: composer install --no-interaction --no-progress --prefer-dist
-
+      
       - name: PHP Unit tests
+        if: ${{ matrix.php-versions != '7.3' }}
+        run: vendor/bin/phpunit
+
+      - name: PHP Unit tests generating coverage data
+        if: ${{ matrix.php-versions == '7.3' }}
         run: vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
       
       - name: Upload code coverage data
