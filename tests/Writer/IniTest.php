@@ -3,10 +3,12 @@
 namespace Noodlehaus\Writer\Test;
 
 use Noodlehaus\Writer\Ini;
+use Yoast\PHPUnitPolyfills\Polyfills\ExpectException;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 class IniTest extends TestCase
 {
+    use ExpectException;
     /**
      * @var Ini
      */

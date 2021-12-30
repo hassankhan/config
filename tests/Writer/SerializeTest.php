@@ -3,10 +3,12 @@
 namespace Noodlehaus\Writer\Test;
 
 use Noodlehaus\Writer\Serialize;
+use Yoast\PHPUnitPolyfills\Polyfills\ExpectException;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 class SerializeTest extends TestCase
 {
+    use ExpectException;
     /**
      * @var Serialize
      */

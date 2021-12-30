@@ -3,10 +3,12 @@
 namespace Noodlehaus\Writer\Test;
 
 use Noodlehaus\Writer\Properties;
+use Yoast\PHPUnitPolyfills\Polyfills\ExpectException;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 class PropertiesTest extends TestCase
 {
+    use ExpectException;
     /**
      * @var Properties
      */

@@ -3,10 +3,12 @@
 namespace Noodlehaus\Writer\Test;
 
 use Noodlehaus\Writer\Xml;
+use Yoast\PHPUnitPolyfills\Polyfills\ExpectException;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 class XmlTest extends TestCase
 {
+    use ExpectException;
     /**
      * @var Xml
      */

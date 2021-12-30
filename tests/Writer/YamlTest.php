@@ -3,10 +3,12 @@
 namespace Noodlehaus\Writer\Test;
 
 use Noodlehaus\Writer\Yaml;
+use Yoast\PHPUnitPolyfills\Polyfills\ExpectException;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 class YamlTest extends TestCase
 {
+    use ExpectException;
     /**
      * @var Yaml
      */
