@@ -2,6 +2,13 @@
 
 All notable changes to `Config` will be documented in this file
 
+## 3.0.0 - 2021-12-30
+
+### Added
+- Move CI to GitHub actions (#132, #136 and #137)
+- PHP 8.0 support, adding it to the build matrix (#138 and #139)
+- PHP 8.1 support, adding it to the build matrix (#135, #140 and #141)
+
 ## 2.2.0 - 2020-12-07
 
 ### Added
@@ -11,8 +18,6 @@ All notable changes to `Config` will be documented in this file
 ### Fixed
 - Test enhancement (#126)
 - Typehint on Xml parser, parse method (#130)
-
-### Fixed
 
 ## 2.1.0 - 2019-09-01
 
