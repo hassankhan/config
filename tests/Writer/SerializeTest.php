@@ -3,7 +3,7 @@
 namespace Noodlehaus\Writer\Test;
 
 use Noodlehaus\Writer\Serialize;
-use PHPUnit\Framework\TestCase;
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 class SerializeTest extends TestCase
 {
@@ -26,7 +26,7 @@ class SerializeTest extends TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function set_up()
     {
         $this->writer = new Serialize();
         $this->temp_file = tempnam(sys_get_temp_dir(), 'config.txt');
@@ -49,7 +49,7 @@ class SerializeTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown()
+    protected function tear_down()
     {
         unlink($this->temp_file);
     }

@@ -16,10 +16,11 @@
         "php": ">=5.5.9"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.8.36 || ~5.7 || ~6.5 || ~7.5",
+        "phpunit/phpunit": "~4.8.36 || ~5.7 || ~6.5 || ~7.5 || ~8.5",
         "scrutinizer/ocular": "~1.1",
         "squizlabs/php_codesniffer": "~2.2",
-        "symfony/yaml": "~3.4"
+        "symfony/yaml": "~3.4",
+        "yoast/phpunit-polyfills": "^1.0"
     },
     "suggest": {
         "symfony/yaml": "~3.4"
