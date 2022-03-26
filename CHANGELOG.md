@@ -2,6 +2,11 @@
 
 All notable changes to `Config` will be documented in this file
 
+## 3.0.1 - 2022-03-26
+
+### Added
+- Fix merge method (#145 and #147)
+
 ## 3.0.0 - 2021-12-30
 
 ### Added
