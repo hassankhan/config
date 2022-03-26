@@ -290,6 +290,8 @@ class AbstractConfigTest extends TestCase
             ]
         );
 
+        // Trigger the cache
+        $this->config->get('host');
         $this->config->merge($remote);
 
         $this->assertEquals('127.0.0.1', $this->config['host']);
