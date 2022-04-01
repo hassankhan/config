@@ -34,5 +34,8 @@
         "psr-4": {
             "Noodlehaus\\Test\\": "tests"
         }
+    },
+    "config": {
+        "sort-packages": true
     }
 }
