@@ -454,6 +454,12 @@ class AbstractConfigTest extends TestCase
     /**
      * Tests to verify that Iterator is properly implemented by using a foreach
      * loop on the test config
+     *
+     * @covers Noodlehaus\Config::current()
+     * @covers Noodlehaus\Config::next()
+     * @covers Noodlehaus\Config::key()
+     * @covers Noodlehaus\Config::valid()
+     * @covers Noodlehaus\Config::rewind()
      */
     public function testIterator()
     {
@@ -480,6 +486,9 @@ class AbstractConfigTest extends TestCase
         }
     }
 
+    /**
+     * @covers Noodlehaus\Config::get()
+     */
     public function testGetShouldNotSet()
     {
         $this->config->get('invalid', 'default');
