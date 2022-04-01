@@ -18,9 +18,9 @@ class ConfigTest extends TestCase
     protected $config;
 
     /**
-     * @covers                   Noodlehaus\Config::load()
-     * @covers                   Noodlehaus\Config::loadFromFile()
-     * @covers                   Noodlehaus\Config::getParser()
+     * @covers Noodlehaus\Config::load()
+     * @covers Noodlehaus\Config::loadFromFile()
+     * @covers Noodlehaus\Config::getParser()
      */
     public function testLoadWithUnsupportedFormat()
     {
@@ -31,9 +31,9 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\Config::__construct()
-     * @covers                   Noodlehaus\Config::loadFromFile()
-     * @covers                   Noodlehaus\Config::getParser()
+     * @covers Noodlehaus\Config::__construct()
+     * @covers Noodlehaus\Config::loadFromFile()
+     * @covers Noodlehaus\Config::getParser()
      */
     public function testConstructWithUnsupportedFormat()
     {
@@ -43,11 +43,11 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\Config::__construct()
-     * @covers                   Noodlehaus\Config::loadFromFile()
-     * @covers                   Noodlehaus\Config::getParser()
-     * @covers                   Noodlehaus\Config::getPathFromArray()
-     * @covers                   Noodlehaus\Config::getValidPath()
+     * @covers Noodlehaus\Config::__construct()
+     * @covers Noodlehaus\Config::loadFromFile()
+     * @covers Noodlehaus\Config::getParser()
+     * @covers Noodlehaus\Config::getPathFromArray()
+     * @covers Noodlehaus\Config::getValidPath()
      */
     public function testConstructWithInvalidPath()
     {
@@ -57,11 +57,11 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers            Noodlehaus\Config::__construct()
-     * @covers            Noodlehaus\Config::loadFromFile()
-     * @covers            Noodlehaus\Config::getParser()
-     * @covers            Noodlehaus\Config::getPathFromArray()
-     * @covers            Noodlehaus\Config::getValidPath()
+     * @covers Noodlehaus\Config::__construct()
+     * @covers Noodlehaus\Config::loadFromFile()
+     * @covers Noodlehaus\Config::getParser()
+     * @covers Noodlehaus\Config::getPathFromArray()
+     * @covers Noodlehaus\Config::getValidPath()
      */
     public function testConstructWithEmptyDirectory()
     {
@@ -88,11 +88,11 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers            Noodlehaus\Config::__construct()
-     * @covers            Noodlehaus\Config::loadFromFile()
-     * @covers            Noodlehaus\Config::getParser()
-     * @covers            Noodlehaus\Config::getPathFromArray()
-     * @covers            Noodlehaus\Config::getValidPath()
+     * @covers Noodlehaus\Config::__construct()
+     * @covers Noodlehaus\Config::loadFromFile()
+     * @covers Noodlehaus\Config::getParser()
+     * @covers Noodlehaus\Config::getPathFromArray()
+     * @covers Noodlehaus\Config::getValidPath()
      */
     public function testConstructWithArrayWithNonexistentFile()
     {
@@ -252,8 +252,8 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers       Noodlehaus\Config::toFile()
-     * @covers       Noodlehaus\Config::getWriter()
+     * @covers Noodlehaus\Config::toFile()
+     * @covers Noodlehaus\Config::getWriter()
      */
     public function testWritesToFile()
     {
@@ -266,7 +266,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers       Noodlehaus\Config::toString()
+     * @covers Noodlehaus\Config::toString()
      */
     public function testWritesToString()
     {
