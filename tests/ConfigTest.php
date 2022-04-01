@@ -218,7 +218,7 @@ class ConfigTest extends TestCase
      */
     public function testConstructWithFileParser()
     {
-        $config = new Config(__DIR__ . '/mocks/pass/json.config', new Parser\Json);
+        $config = new Config(__DIR__ . '/mocks/pass/json.config', new JsonParser());
 
         $expected = 'localhost';
         $actual   = $config->get('host');
