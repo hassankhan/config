@@ -3,12 +3,10 @@
 namespace Noodlehaus\Writer\Test;
 
 use Noodlehaus\Writer\Xml;
-use Yoast\PHPUnitPolyfills\Polyfills\ExpectException;
-use Yoast\PHPUnitPolyfills\TestCases\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class XmlTest extends TestCase
 {
-    use ExpectException;
     /**
      * @var Xml
      */
@@ -28,7 +26,7 @@ class XmlTest extends TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function set_up()
+    protected function setUp(): void
     {
         $this->writer = new Xml();
         $this->temp_file = tempnam(sys_get_temp_dir(), 'config.xml');

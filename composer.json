@@ -19,8 +19,7 @@
         "phpunit/phpunit": "^9.5",
         "scrutinizer/ocular": "^1.9",
         "squizlabs/php_codesniffer": "^3.6",
-        "symfony/yaml": "^5.4",
-        "yoast/phpunit-polyfills": "^1.0"
+        "symfony/yaml": "^5.4"
     },
     "suggest": {
         "symfony/yaml": "^5.4"
