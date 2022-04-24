@@ -3,12 +3,10 @@
 namespace Noodlehaus\Writer\Test;
 
 use Noodlehaus\Writer\Properties;
-use Yoast\PHPUnitPolyfills\Polyfills\ExpectException;
-use Yoast\PHPUnitPolyfills\TestCases\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class PropertiesTest extends TestCase
 {
-    use ExpectException;
     /**
      * @var Properties
      */
@@ -28,7 +26,7 @@ class PropertiesTest extends TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function set_up()
+    protected function setUp(): void
     {
         $this->writer = new Properties();
         $this->temp_file = tempnam(sys_get_temp_dir(), 'config.properties');

@@ -5,3 +5,7 @@ node_modules
 
 # Ignore files from PHPStorm
 .idea
+
+# Ignore test & coverage files
+.phpunit.result.cache
+coverage.clover

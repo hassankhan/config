@@ -3,12 +3,10 @@
 namespace Noodlehaus\Writer\Test;
 
 use Noodlehaus\Writer\Serialize;
-use Yoast\PHPUnitPolyfills\Polyfills\ExpectException;
-use Yoast\PHPUnitPolyfills\TestCases\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class SerializeTest extends TestCase
 {
-    use ExpectException;
     /**
      * @var Serialize
      */
@@ -28,7 +26,7 @@ class SerializeTest extends TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function set_up()
+    protected function setUp(): void
     {
         $this->writer = new Serialize();
         $this->temp_file = tempnam(sys_get_temp_dir(), 'config.txt');

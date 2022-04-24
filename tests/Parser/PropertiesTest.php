@@ -3,7 +3,7 @@
 namespace Noodlehaus\Parser\Test;
 
 use Noodlehaus\Parser\Properties;
-use Yoast\PHPUnitPolyfills\TestCases\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class PropertiesTest extends TestCase
 {
@@ -16,7 +16,7 @@ class PropertiesTest extends TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function set_up()
+    protected function setUp(): void
     {
         $this->properties = new Properties();
     }

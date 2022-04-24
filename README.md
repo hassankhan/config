@@ -13,7 +13,7 @@ YML, Properties and serialized files and strings.
 
 ## Requirements
 
-Config requires PHP 5.5.9+.
+Config requires PHP 7.4+.
 
 > **IMPORTANT:** If you want to use YAML files or strings, require the [Symfony Yaml component](https://github.com/symfony/Yaml) in your `composer.json`.
 
