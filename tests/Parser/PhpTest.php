@@ -31,7 +31,7 @@ class PhpTest extends TestCase
     {
         $expected = ['php'];
         $actual   = $this->php->getSupportedExtensions();
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -77,11 +77,11 @@ class PhpTest extends TestCase
         $file = $this->php->parseFile(__DIR__ . '/../mocks/pass/config.php');
         $string = $this->php->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config.php'));
 
-        $this->assertEquals('localhost', $file['host']);
-        $this->assertEquals('80', $file['port']);
+        $this->assertSame('localhost', $file['host']);
+        $this->assertSame(80, $file['port']);
 
-        $this->assertEquals('localhost', $string['host']);
-        $this->assertEquals('80', $string['port']);
+        $this->assertSame('localhost', $string['host']);
+        $this->assertSame(80, $string['port']);
     }
 
     /**
@@ -95,11 +95,11 @@ class PhpTest extends TestCase
         $file = $this->php->parseFile(__DIR__ . '/../mocks/pass/config-exec.php');
         $string = $this->php->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config-exec.php'));
 
-        $this->assertEquals('localhost', $file['host']);
-        $this->assertEquals('80', $file['port']);
+        $this->assertSame('localhost', $file['host']);
+        $this->assertSame(80, $file['port']);
 
-        $this->assertEquals('localhost', $string['host']);
-        $this->assertEquals('80', $string['port']);
+        $this->assertSame('localhost', $string['host']);
+        $this->assertSame(80, $string['port']);
     }
 
     /**
@@ -113,10 +113,10 @@ class PhpTest extends TestCase
         $file = $this->php->parseFile(__DIR__ . '/../mocks/pass/config-var.php');
         $string = $this->php->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config-var.php'));
 
-        $this->assertEquals('localhost', $file['host']);
-        $this->assertEquals('80', $file['port']);
+        $this->assertSame('localhost', $file['host']);
+        $this->assertSame(80, $file['port']);
 
-        $this->assertEquals('localhost', $string['host']);
-        $this->assertEquals('80', $string['port']);
+        $this->assertSame('localhost', $string['host']);
+        $this->assertSame(80, $string['port']);
     }
 }

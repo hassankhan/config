@@ -57,7 +57,7 @@ class PropertiesTest extends TestCase
     {
         $expected = ['properties'];
         $actual = $this->writer->getSupportedExtensions();
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -78,7 +78,7 @@ key\:with\=colonAndEqualsSign = This is the value for the key "key:with=colonAnd
 path = c:\\wiki\\templates
 
 EOD;
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**

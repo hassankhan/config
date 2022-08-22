@@ -61,7 +61,7 @@ class XmlTest extends TestCase
     {
         $expected = ['xml'];
         $actual = $this->writer->getSupportedExtensions();
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -76,7 +76,7 @@ class XmlTest extends TestCase
 <config><application><name>configuration</name><secret>s3cr3t</secret></application><host>localhost</host><port>80</port><servers><server1>host1</server1><server2>host2</server2><server3>host3</server3></servers></config>
 
 EOD;
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**

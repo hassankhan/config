@@ -82,7 +82,7 @@ class ConfigTest extends TestCase
         $expected = 'localhost';
         $actual   = $config->get('host');
 
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -101,7 +101,7 @@ class ConfigTest extends TestCase
         $expected = 'localhost';
         $actual   = $config->get('host');
 
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -119,7 +119,7 @@ class ConfigTest extends TestCase
         $expected = 'localhost';
         $actual   = $config->get('host');
 
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -137,7 +137,7 @@ class ConfigTest extends TestCase
         $expected = 'localhost';
         $actual   = $config->get('host');
 
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -154,7 +154,7 @@ class ConfigTest extends TestCase
         $expected = 'localhost';
         $actual   = $config->get('host');
 
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -171,7 +171,7 @@ class ConfigTest extends TestCase
         $expected = 'localhost';
         $actual   = $config->get('host');
 
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -188,7 +188,7 @@ class ConfigTest extends TestCase
         $expected = 'localhost';
         $actual   = $config->get('host');
 
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -205,7 +205,7 @@ class ConfigTest extends TestCase
         $expected = [];
         $actual   = $config->all();
 
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -221,7 +221,7 @@ class ConfigTest extends TestCase
         $expected = 'localhost';
         $actual   = $config->get('host');
 
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -236,7 +236,7 @@ class ConfigTest extends TestCase
         $expected = 'localhost';
         $actual   = $config->get('host');
 
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**

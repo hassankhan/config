@@ -28,7 +28,7 @@ class PropertiesTest extends TestCase
     {
         $expected = ['properties'];
         $actual = $this->properties->getSupportedExtensions();
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -40,13 +40,13 @@ class PropertiesTest extends TestCase
     {
         $config = $this->properties->parseFile(__DIR__.'/../mocks/pass/config.properties');
 
-        $this->assertEquals('https://en.wikipedia.org/', @$config['website']);
-        $this->assertEquals('English', @$config['language']);
-        $this->assertEquals('Welcome to Wikipedia!', @$config['message']);
-        $this->assertEquals('valueOverOneLine\\', @$config['key']);
-        $this->assertEquals('This is the value that could be looked up with the key "key with spaces".', @$config['key with spaces']);
-        $this->assertEquals('This is the value for the key "key:with=colonAndEqualsSign"', @$config['key:with=colonAndEqualsSign']);
-        $this->assertEquals('c:\\wiki\\templates', @$config['path']);
+        $this->assertSame('https://en.wikipedia.org/', @$config['website']);
+        $this->assertSame('English', @$config['language']);
+        $this->assertSame('Welcome to Wikipedia!', @$config['message']);
+        $this->assertSame('valueOverOneLine\\', @$config['key']);
+        $this->assertSame('This is the value that could be looked up with the key "key with spaces".', @$config['key with spaces']);
+        $this->assertSame('This is the value for the key "key:with=colonAndEqualsSign"', @$config['key:with=colonAndEqualsSign']);
+        $this->assertSame('c:\\wiki\\templates', @$config['path']);
     }
 
     /**

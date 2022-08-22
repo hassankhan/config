@@ -61,7 +61,7 @@ class JsonTest extends TestCase
     {
         $expected = ['json'];
         $actual = $this->writer->getSupportedExtensions();
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -72,7 +72,7 @@ class JsonTest extends TestCase
         $actual = $this->writer->toString($this->data, false);
         $expected = '{"application":{"name":"configuration","secret":"s3cr3t"},"host":"localhost","port":80,"servers":["host1","host2","host3"]}';
 
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
