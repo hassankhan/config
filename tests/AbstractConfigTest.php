@@ -52,8 +52,8 @@ class AbstractConfigTest extends TestCase
                 'port'    => 80,
             ]
         );
-        $this->assertEquals('localhost', $config->get('host'));
-        $this->assertEquals(80, $config->get('port'));
+        $this->assertSame('localhost', $config->get('host'));
+        $this->assertSame(80, $config->get('port'));
     }
 
     /**
@@ -61,7 +61,7 @@ class AbstractConfigTest extends TestCase
      */
     public function testGet()
     {
-        $this->assertEquals('localhost', $this->config->get('host'));
+        $this->assertSame('localhost', $this->config->get('host'));
     }
 
     /**
@@ -69,7 +69,7 @@ class AbstractConfigTest extends TestCase
      */
     public function testGetWithDefaultValue()
     {
-        $this->assertEquals(128, $this->config->get('ttl', 128));
+        $this->assertSame(128, $this->config->get('ttl', 128));
     }
 
     /**
@@ -77,7 +77,7 @@ class AbstractConfigTest extends TestCase
      */
     public function testGetNestedKey()
     {
-        $this->assertEquals('configuration', $this->config->get('application.name'));
+        $this->assertSame('configuration', $this->config->get('application.name'));
     }
 
     /**
@@ -85,7 +85,7 @@ class AbstractConfigTest extends TestCase
      */
     public function testGetNestedKeyWithDefaultValue()
     {
-        $this->assertEquals(128, $this->config->get('application.ttl', 128));
+        $this->assertSame(128, $this->config->get('application.ttl', 128));
     }
 
     /**
@@ -110,7 +110,7 @@ class AbstractConfigTest extends TestCase
     public function testGetReturnsArray()
     {
         $this->assertArrayHasKey('name', $this->config->get('application'));
-        $this->assertEquals('configuration', $this->config->get('application.name'));
+        $this->assertSame('configuration', $this->config->get('application.name'));
         $this->assertCount(3, $this->config->get('application'));
     }
 
@@ -120,7 +120,7 @@ class AbstractConfigTest extends TestCase
     public function testSet()
     {
         $this->config->set('region', 'apac');
-        $this->assertEquals('apac', $this->config->get('region'));
+        $this->assertSame('apac', $this->config->get('region'));
     }
 
     /**
@@ -129,7 +129,7 @@ class AbstractConfigTest extends TestCase
     public function testSetNestedKey()
     {
         $this->config->set('location.country', 'Singapore');
-        $this->assertEquals('Singapore', $this->config->get('location.country'));
+        $this->assertSame('Singapore', $this->config->get('location.country'));
     }
 
     /**
@@ -142,7 +142,7 @@ class AbstractConfigTest extends TestCase
             'name' => 'mydatabase'
         ]);
         $this->assertIsArray($this->config->get('database'));
-        $this->assertEquals('localhost', $this->config->get('database.host'));
+        $this->assertSame('localhost', $this->config->get('database.host'));
     }
 
     /**
@@ -160,7 +160,7 @@ class AbstractConfigTest extends TestCase
             'host' => '127.0.0.1',
             'name' => 'mydatabase'
         ];
-        $this->assertEquals($expected, $this->config->get('database'));
+        $this->assertSame($expected, $this->config->get('database'));
 
         $this->config->set('config', [
             'database' => [
@@ -178,13 +178,13 @@ class AbstractConfigTest extends TestCase
                 'name' => 'mydatabase'
             ]
         ];
-        $this->assertEquals($expected, $this->config->get('config'));
+        $this->assertSame($expected, $this->config->get('config'));
 
         $expected = [
             'host' => '127.0.0.1',
             'name' => 'mydatabase'
         ];
-        $this->assertEquals($expected, $this->config->get('config.database'));
+        $this->assertSame($expected, $this->config->get('config.database'));
     }
 
     /**
@@ -207,8 +207,8 @@ class AbstractConfigTest extends TestCase
           'host' => '127.0.0.1',
           'name' => 'mynewdatabase'
         ]);
-        $this->assertEquals('127.0.0.1', $this->config->get('config.database.host'));
-        $this->assertEquals('mynewdatabase', $this->config->get('config.database.name'));
+        $this->assertSame('127.0.0.1', $this->config->get('config.database.host'));
+        $this->assertSame('mynewdatabase', $this->config->get('config.database.name'));
     }
 
     /**
@@ -221,7 +221,7 @@ class AbstractConfigTest extends TestCase
             'name' => 'mydatabase'
         ]);
         $this->assertIsArray($this->config->get('database'));
-        $this->assertEquals('localhost', $this->config->get('database.host'));
+        $this->assertSame('localhost', $this->config->get('database.host'));
         $this->config->set('database.host', null);
         $this->assertNull($this->config->get('database.host'));
         $this->config->set('database', null);
@@ -278,7 +278,7 @@ class AbstractConfigTest extends TestCase
             ],
             'user' => null,
         ];
-        $this->assertEquals($all, $this->config->all());
+        $this->assertSame($all, $this->config->all());
     }
 
     /**
@@ -296,7 +296,7 @@ class AbstractConfigTest extends TestCase
         $this->config->get('host');
         $this->config->merge($remote);
 
-        $this->assertEquals('127.0.0.1', $this->config['host']);
+        $this->assertSame('127.0.0.1', $this->config['host']);
     }
 
     /**
@@ -304,7 +304,7 @@ class AbstractConfigTest extends TestCase
      */
     public function testOffsetGet()
     {
-        $this->assertEquals('localhost', $this->config['host']);
+        $this->assertSame('localhost', $this->config['host']);
     }
 
     /**
@@ -312,7 +312,7 @@ class AbstractConfigTest extends TestCase
      */
     public function testOffsetGetNestedKey()
     {
-        $this->assertEquals('configuration', $this->config['application.name']);
+        $this->assertSame('configuration', $this->config['application.name']);
     }
 
     /**
@@ -337,7 +337,7 @@ class AbstractConfigTest extends TestCase
     public function testOffsetSet()
     {
         $this->config['newkey'] = 'newvalue';
-        $this->assertEquals('newvalue', $this->config['newkey']);
+        $this->assertSame('newvalue', $this->config['newkey']);
     }
 
     /**
@@ -356,17 +356,17 @@ class AbstractConfigTest extends TestCase
     {
         /* Reset to the beginning of the test config */
         $this->config->rewind();
-        $this->assertEquals($this->config['host'], $this->config->current());
+        $this->assertSame($this->config['host'], $this->config->current());
 
         /* Step through each of the other elements of the test config */
         $this->config->next();
-        $this->assertEquals($this->config['port'], $this->config->current());
+        $this->assertSame($this->config['port'], $this->config->current());
         $this->config->next();
-        $this->assertEquals($this->config['servers'], $this->config->current());
+        $this->assertSame($this->config['servers'], $this->config->current());
         $this->config->next();
-        $this->assertEquals($this->config['application'], $this->config->current());
+        $this->assertSame($this->config['application'], $this->config->current());
         $this->config->next();
-        $this->assertEquals($this->config['user'], $this->config->current());
+        $this->assertSame($this->config['user'], $this->config->current());
 
         /* Step beyond the end and confirm the result */
         $this->config->next();
@@ -380,17 +380,17 @@ class AbstractConfigTest extends TestCase
     {
         /* Reset to the beginning of the test config */
         $this->config->rewind();
-        $this->assertEquals('host', $this->config->key());
+        $this->assertSame('host', $this->config->key());
 
         /* Step through each of the other elements of the test config */
         $this->config->next();
-        $this->assertEquals('port', $this->config->key());
+        $this->assertSame('port', $this->config->key());
         $this->config->next();
-        $this->assertEquals('servers', $this->config->key());
+        $this->assertSame('servers', $this->config->key());
         $this->config->next();
-        $this->assertEquals('application', $this->config->key());
+        $this->assertSame('application', $this->config->key());
         $this->config->next();
-        $this->assertEquals('user', $this->config->key());
+        $this->assertSame('user', $this->config->key());
 
         /* Step beyond the end and confirm the result */
         $this->config->next();
@@ -406,10 +406,10 @@ class AbstractConfigTest extends TestCase
         $this->config->rewind();
 
         /* Step through each of the other elements of the test config */
-        $this->assertEquals($this->config['port'], $this->config->next());
-        $this->assertEquals($this->config['servers'], $this->config->next());
-        $this->assertEquals($this->config['application'], $this->config->next());
-        $this->assertEquals($this->config['user'], $this->config->next());
+        $this->assertSame($this->config['port'], $this->config->next());
+        $this->assertSame($this->config['servers'], $this->config->next());
+        $this->assertSame($this->config['application'], $this->config->next());
+        $this->assertSame($this->config['user'], $this->config->next());
 
         /* Step beyond the end and confirm the result */
         $this->assertFalse($this->config->next());
@@ -423,10 +423,10 @@ class AbstractConfigTest extends TestCase
         /* Rewind from somewhere out in the array */
         $this->config->next();
         $this->config->next();
-        $this->assertEquals($this->config['host'], $this->config->rewind());
+        $this->assertSame($this->config['host'], $this->config->rewind());
 
         /* Rewind again from the beginning of the array */
-        $this->assertEquals($this->config['host'], $this->config->rewind());
+        $this->assertSame($this->config['host'], $this->config->rewind());
     }
 
     /**
@@ -482,8 +482,8 @@ class AbstractConfigTest extends TestCase
         $idxConfig = 0;
 
         foreach ($this->config as $configKey => $configValue) {
-            $this->assertEquals($expectedKeys[$idxConfig], $configKey);
-            $this->assertEquals($expectedValues[$idxConfig], $configValue);
+            $this->assertSame($expectedKeys[$idxConfig], $configKey);
+            $this->assertSame($expectedValues[$idxConfig], $configValue);
             $idxConfig++;
         }
     }

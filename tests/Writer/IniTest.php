@@ -58,7 +58,7 @@ class IniTest extends TestCase
     {
         $expected = ['ini'];
         $actual = $this->writer->getSupportedExtensions();
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -77,7 +77,7 @@ name=config
 description=Config Reader and Writer
 
 EOD;
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**

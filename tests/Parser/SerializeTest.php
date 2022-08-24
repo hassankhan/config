@@ -31,7 +31,7 @@ class SerializeTest extends TestCase
     {
         $expected = ['txt'];
         $actual   = $this->serialize->getSupportedExtensions();
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -55,10 +55,10 @@ class SerializeTest extends TestCase
         $file = $this->serialize->parseFile(__DIR__ . '/../mocks/pass/config.txt');
         $string = $this->serialize->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config.txt'));
 
-        $this->assertEquals('localhost', $file['host']);
-        $this->assertEquals('80', $file['port']);
+        $this->assertSame('localhost', $file['host']);
+        $this->assertSame(80, $file['port']);
 
-        $this->assertEquals('localhost', $string['host']);
-        $this->assertEquals('80', $string['port']);
+        $this->assertSame('localhost', $string['host']);
+        $this->assertSame(80, $string['port']);
     }
 }

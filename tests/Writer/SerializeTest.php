@@ -61,7 +61,7 @@ class SerializeTest extends TestCase
     {
         $expected = ['txt'];
         $actual = $this->writer->getSupportedExtensions();
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -72,7 +72,7 @@ class SerializeTest extends TestCase
         $actual = $this->writer->toString($this->data, false);
         $expected = 'a:4:{s:11:"application";a:2:{s:4:"name";s:13:"configuration";s:6:"secret";s:6:"s3cr3t";}s:4:"host";s:9:"localhost";s:4:"port";i:80;s:7:"servers";a:3:{i:0;s:5:"host1";i:1;s:5:"host2";i:2;s:5:"host3";}}';
 
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**

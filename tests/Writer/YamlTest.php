@@ -61,7 +61,7 @@ class YamlTest extends TestCase
     {
         $expected = ['yaml'];
         $actual = $this->writer->getSupportedExtensions();
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -82,7 +82,7 @@ servers:
     - host3
 
 EOD;
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**

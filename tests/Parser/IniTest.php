@@ -31,7 +31,7 @@ class IniTest extends TestCase
     {
         $expected = ['ini'];
         $actual   = $this->ini->getSupportedExtensions();
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -75,11 +75,11 @@ class IniTest extends TestCase
         $file = $this->ini->parseFile(__DIR__ . '/../mocks/pass/config.ini');
         $string = $this->ini->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config.ini'));
 
-        $this->assertEquals('localhost', $file['host']);
-        $this->assertEquals('80', $file['port']);
+        $this->assertSame('localhost', $file['host']);
+        $this->assertSame('80', $file['port']);
 
-        /*$this->assertEquals('localhost', $string['host']);
-        $this->assertEquals('80', $string['port']);*/
+        /*$this->assertSame('localhost', $string['host']);
+        $this->assertSame(80, $string['port']);*/
     }
 
     /**
@@ -95,12 +95,12 @@ class IniTest extends TestCase
 
         $expected = ['host1', 'host2', 'host3'];
 
-        $this->assertEquals($expected, $file['network']['group']['servers']);
-        $this->assertEquals('localhost', $file['network']['http']['host']);
-        $this->assertEquals('80', $file['network']['http']['port']);
+        $this->assertSame($expected, $file['network']['group']['servers']);
+        $this->assertSame('localhost', $file['network']['http']['host']);
+        $this->assertSame('80', $file['network']['http']['port']);
 
-        $this->assertEquals($expected, $string['network']['group']['servers']);
-        $this->assertEquals('localhost', $string['network']['http']['host']);
-        $this->assertEquals('80', $string['network']['http']['port']);
+        $this->assertSame($expected, $string['network']['group']['servers']);
+        $this->assertSame('localhost', $string['network']['http']['host']);
+        $this->assertSame('80', $string['network']['http']['port']);
     }
 }

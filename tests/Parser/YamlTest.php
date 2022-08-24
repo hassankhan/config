@@ -31,7 +31,7 @@ class YamlTest extends TestCase
     {
         $expected = ['yaml', 'yml'];
         $actual   = $this->yaml->getSupportedExtensions();
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -63,8 +63,8 @@ class YamlTest extends TestCase
     public function testLoadYaml()
     {
         $actual = $this->yaml->parseFile(__DIR__ . '/../mocks/pass/config.yaml');
-        $this->assertEquals('localhost', $actual['host']);
-        $this->assertEquals('80', $actual['port']);
+        $this->assertSame('localhost', $actual['host']);
+        $this->assertSame(80, $actual['port']);
     }
 
     /**
@@ -73,8 +73,8 @@ class YamlTest extends TestCase
     public function testLoadYml()
     {
         $actual = $this->yaml->parseFile(__DIR__ . '/../mocks/pass/config.yml');
-        $this->assertEquals('localhost', $actual['host']);
-        $this->assertEquals('80', $actual['port']);
+        $this->assertSame('localhost', $actual['host']);
+        $this->assertSame(80, $actual['port']);
     }
 
     /**
@@ -83,7 +83,7 @@ class YamlTest extends TestCase
     public function testLoadYamlString()
     {
         $actual = $this->yaml->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config.yaml'));
-        $this->assertEquals('localhost', $actual['host']);
-        $this->assertEquals('80', $actual['port']);
+        $this->assertSame('localhost', $actual['host']);
+        $this->assertSame(80, $actual['port']);
     }
 }
