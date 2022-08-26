@@ -229,6 +229,25 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
+     * @covers Noodlehaus\AbstractConfig::remove()
+     */
+    public function testRemoveNestedKey()
+    {
+        $this->config->remove('application.name');
+        $this->assertTrue(is_array($this->config->get('application')));
+        $this->assertArrayNotHasKey('name', $this->config->get('application'));
+    }
+
+    /**
+     * @covers Noodlehaus\AbstractConfig::remove()
+     */
+    public function testRemoveArray()
+    {
+        $this->config->remove('application');
+        $this->assertArrayNotHasKey('application', $this->config->all());
+    }
+
+    /**
      * @covers Noodlehaus\AbstractConfig::has()
      */
     public function testHas()
@@ -346,7 +365,7 @@ class AbstractConfigTest extends TestCase
     public function testOffsetUnset()
     {
         unset($this->config['application']);
-        $this->assertNull($this->config['application']);
+        $this->assertArrayNotHasKey('application', $this->config->all());
     }
 
     /**
@@ -496,14 +515,5 @@ class AbstractConfigTest extends TestCase
         $this->config->get('invalid', 'default');
         $actual = $this->config->get('invalid', 'expected');
         $this->assertSame('expected', $actual);
-    }
-
-    /**
-     * @covers Noodlehaus\AbstractConfig::remove()
-     */
-    public function testRemove()
-    {
-        $this->config->remove('application');
-        $this->assertNull($this->config['application']);
     }
 }
