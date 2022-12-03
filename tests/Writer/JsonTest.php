@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\Writer\Test;
+namespace Noodlehaus\Test\Writer;
 
 use Noodlehaus\Writer\Json;
 use PHPUnit\Framework\TestCase;
@@ -55,7 +55,7 @@ class JsonTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Writer\Json::getSupportedExtensions()
+     * @covers \Noodlehaus\Writer\Json::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
@@ -65,7 +65,7 @@ class JsonTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Writer\Json::toString()
+     * @covers \Noodlehaus\Writer\Json::toString()
      */
     public function testEncodeJson()
     {
@@ -76,8 +76,8 @@ class JsonTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Writer\Json::toString()
-     * @covers Noodlehaus\Writer\Json::toFile()
+     * @covers \Noodlehaus\Writer\Json::toString()
+     * @covers \Noodlehaus\Writer\Json::toFile()
      */
     public function testWriteJson()
     {
@@ -88,8 +88,8 @@ class JsonTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Writer\Json::toString()
-     * @covers Noodlehaus\Writer\Json::toFile()
+     * @covers \Noodlehaus\Writer\Json::toString()
+     * @covers \Noodlehaus\Writer\Json::toFile()
      */
     public function testUnwritableFile()
     {

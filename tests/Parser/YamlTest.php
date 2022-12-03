@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\Parser\Test;
+namespace Noodlehaus\Test\Parser;
 
 use Noodlehaus\Parser\Yaml;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +25,7 @@ class YamlTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Yaml::getSupportedExtensions()
+     * @covers \Noodlehaus\Parser\Yaml::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
@@ -35,8 +35,8 @@ class YamlTest extends TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\Parser\Yaml::parseFile()
-     * @covers                   Noodlehaus\Parser\Yaml::parse()
+     * @covers \Noodlehaus\Parser\Yaml::parseFile()
+     * @covers \Noodlehaus\Parser\Yaml::parse()
      */
     public function testLoadInvalidYamlFile()
     {
@@ -46,8 +46,8 @@ class YamlTest extends TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\Parser\Yaml::parseString()
-     * @covers                   Noodlehaus\Parser\Yaml::parse()
+     * @covers \Noodlehaus\Parser\Yaml::parseString()
+     * @covers \Noodlehaus\Parser\Yaml::parse()
      */
     public function testLoadInvalidYamlString()
     {
@@ -57,8 +57,8 @@ class YamlTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Yaml::parseFile()
-     * @covers Noodlehaus\Parser\Yaml::parse()
+     * @covers \Noodlehaus\Parser\Yaml::parseFile()
+     * @covers \Noodlehaus\Parser\Yaml::parse()
      */
     public function testLoadYaml()
     {
@@ -68,7 +68,7 @@ class YamlTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Yaml::parse()
+     * @covers \Noodlehaus\Parser\Yaml::parse()
      */
     public function testLoadYml()
     {
@@ -78,7 +78,7 @@ class YamlTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Yaml::parseString()
+     * @covers \Noodlehaus\Parser\Yaml::parseString()
      */
     public function testLoadYamlString()
     {

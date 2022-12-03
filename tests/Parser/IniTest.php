@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\Parser\Test;
+namespace Noodlehaus\Test\Parser;
 
 use Noodlehaus\Parser\Ini;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +25,7 @@ class IniTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Ini::getSupportedExtensions()
+     * @covers \Noodlehaus\Parser\Ini::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
@@ -35,8 +35,8 @@ class IniTest extends TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\Parser\Ini::parseFile()
-     * @covers                   Noodlehaus\Parser\Ini::parse()
+     * @covers \Noodlehaus\Parser\Ini::parseFile()
+     * @covers \Noodlehaus\Parser\Ini::parse()
      * Tests the case where an INI string contains no parsable data at all, resulting in parse_ini_string
      * returning NULL, but not setting an error retrievable by error_get_last()
      */
@@ -48,8 +48,8 @@ class IniTest extends TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\Parser\Ini::parseString()
-     * @covers                   Noodlehaus\Parser\Ini::parse()
+     * @covers \Noodlehaus\Parser\Ini::parseString()
+     * @covers \Noodlehaus\Parser\Ini::parse()
      */
     public function testLoadInvalidIni()
     {
@@ -66,9 +66,9 @@ class IniTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Ini::parseFile()
-     * @covers Noodlehaus\Parser\Ini::parseString()
-     * @covers Noodlehaus\Parser\Ini::parse()
+     * @covers \Noodlehaus\Parser\Ini::parseFile()
+     * @covers \Noodlehaus\Parser\Ini::parseString()
+     * @covers \Noodlehaus\Parser\Ini::parse()
      */
     public function testLoadIni()
     {
@@ -83,10 +83,10 @@ class IniTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Ini::parseFile()
-     * @covers Noodlehaus\Parser\Ini::parseString()
-     * @covers Noodlehaus\Parser\Ini::parse()
-     * @covers Noodlehaus\Parser\Ini::expandDottedKey()
+     * @covers \Noodlehaus\Parser\Ini::parseFile()
+     * @covers \Noodlehaus\Parser\Ini::parseString()
+     * @covers \Noodlehaus\Parser\Ini::parse()
+     * @covers \Noodlehaus\Parser\Ini::expandDottedKey()
      */
     public function testLoadIniWithDottedName()
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\Parser\Test;
+namespace Noodlehaus\Test\Parser;
 
 use Noodlehaus\Parser\Properties;
 use PHPUnit\Framework\TestCase;
@@ -22,7 +22,7 @@ class PropertiesTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Properties::getSupportedExtensions()
+     * @covers \Noodlehaus\Parser\Properties::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
@@ -32,9 +32,9 @@ class PropertiesTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Properties::parseFile()
-     * @covers Noodlehaus\Parser\Properties::parseString()
-     * @covers Noodlehaus\Parser\Properties::parse()
+     * @covers \Noodlehaus\Parser\Properties::parseFile()
+     * @covers \Noodlehaus\Parser\Properties::parseString()
+     * @covers \Noodlehaus\Parser\Properties::parse()
      */
     public function testLoadProperties()
     {
@@ -50,8 +50,8 @@ class PropertiesTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Ini::parseFile()
-     * @covers Noodlehaus\Parser\Ini::parse()
+     * @covers \Noodlehaus\Parser\Ini::parseFile()
+     * @covers \Noodlehaus\Parser\Ini::parse()
      */
     public function testLoadInvalidIniGBH()
     {

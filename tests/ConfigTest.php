@@ -1,6 +1,8 @@
 <?php
-namespace Noodlehaus;
 
+namespace Noodlehaus\Test;
+
+use Noodlehaus\Config;
 use Noodlehaus\Parser\Json as JsonParser;
 use Noodlehaus\Writer\Json as JsonWriter;
 use PHPUnit\Framework\TestCase;
@@ -16,9 +18,9 @@ class ConfigTest extends TestCase
     protected $config;
 
     /**
-     * @covers Noodlehaus\Config::load()
-     * @covers Noodlehaus\Config::loadFromFile()
-     * @covers Noodlehaus\Config::getParser()
+     * @covers Config::load()
+     * @covers Config::loadFromFile()
+     * @covers Config::getParser()
      */
     public function testLoadWithUnsupportedFormat()
     {
@@ -29,9 +31,9 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::loadFromFile()
-     * @covers Noodlehaus\Config::getParser()
+     * @covers Config::__construct()
+     * @covers Config::loadFromFile()
+     * @covers Config::getParser()
      */
     public function testConstructWithUnsupportedFormat()
     {
@@ -41,11 +43,11 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::loadFromFile()
-     * @covers Noodlehaus\Config::getParser()
-     * @covers Noodlehaus\Config::getPathFromArray()
-     * @covers Noodlehaus\Config::getValidPath()
+     * @covers Config::__construct()
+     * @covers Config::loadFromFile()
+     * @covers Config::getParser()
+     * @covers Config::getPathFromArray()
+     * @covers Config::getValidPath()
      */
     public function testConstructWithInvalidPath()
     {
@@ -55,11 +57,11 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::loadFromFile()
-     * @covers Noodlehaus\Config::getParser()
-     * @covers Noodlehaus\Config::getPathFromArray()
-     * @covers Noodlehaus\Config::getValidPath()
+     * @covers Config::__construct()
+     * @covers Config::loadFromFile()
+     * @covers Config::getParser()
+     * @covers Config::getPathFromArray()
+     * @covers Config::getValidPath()
      */
     public function testConstructWithEmptyDirectory()
     {
@@ -68,11 +70,11 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::loadFromFile()
-     * @covers Noodlehaus\Config::getParser()
-     * @covers Noodlehaus\Config::getPathFromArray()
-     * @covers Noodlehaus\Config::getValidPath()
+     * @covers Config::__construct()
+     * @covers Config::loadFromFile()
+     * @covers Config::getParser()
+     * @covers Config::getPathFromArray()
+     * @covers Config::getValidPath()
      */
     public function testConstructWithArray()
     {
@@ -86,11 +88,11 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::loadFromFile()
-     * @covers Noodlehaus\Config::getParser()
-     * @covers Noodlehaus\Config::getPathFromArray()
-     * @covers Noodlehaus\Config::getValidPath()
+     * @covers Config::__construct()
+     * @covers Config::loadFromFile()
+     * @covers Config::getParser()
+     * @covers Config::getPathFromArray()
+     * @covers Config::getValidPath()
      */
     public function testConstructWithArrayWithNonexistentFile()
     {
@@ -105,11 +107,11 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::loadFromFile()
-     * @covers Noodlehaus\Config::getParser()
-     * @covers Noodlehaus\Config::getPathFromArray()
-     * @covers Noodlehaus\Config::getValidPath()
+     * @covers Config::__construct()
+     * @covers Config::loadFromFile()
+     * @covers Config::getParser()
+     * @covers Config::getPathFromArray()
+     * @covers Config::getValidPath()
      */
     public function testConstructWithArrayWithOptionalFile()
     {
@@ -123,11 +125,11 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::loadFromFile()
-     * @covers Noodlehaus\Config::getParser()
-     * @covers Noodlehaus\Config::getPathFromArray()
-     * @covers Noodlehaus\Config::getValidPath()
+     * @covers Config::__construct()
+     * @covers Config::loadFromFile()
+     * @covers Config::getParser()
+     * @covers Config::getPathFromArray()
+     * @covers Config::getValidPath()
      */
     public function testConstructWithArrayWithOptionalNonexistentFile()
     {
@@ -141,11 +143,11 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::loadFromFile()
-     * @covers Noodlehaus\Config::getParser()
-     * @covers Noodlehaus\Config::getPathFromArray()
-     * @covers Noodlehaus\Config::getValidPath()
+     * @covers Config::__construct()
+     * @covers Config::loadFromFile()
+     * @covers Config::getParser()
+     * @covers Config::getPathFromArray()
+     * @covers Config::getValidPath()
      */
     public function testConstructWithDirectory()
     {
@@ -158,11 +160,11 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::loadFromFile()
-     * @covers Noodlehaus\Config::getParser()
-     * @covers Noodlehaus\Config::getPathFromArray()
-     * @covers Noodlehaus\Config::getValidPath()
+     * @covers Config::__construct()
+     * @covers Config::loadFromFile()
+     * @covers Config::getParser()
+     * @covers Config::getPathFromArray()
+     * @covers Config::getValidPath()
      */
     public function testConstructWithYml()
     {
@@ -175,11 +177,11 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::loadFromFile()
-     * @covers Noodlehaus\Config::getParser()
-     * @covers Noodlehaus\Config::getPathFromArray()
-     * @covers Noodlehaus\Config::getValidPath()
+     * @covers Config::__construct()
+     * @covers Config::loadFromFile()
+     * @covers Config::getParser()
+     * @covers Config::getPathFromArray()
+     * @covers Config::getValidPath()
      */
     public function testConstructWithYmlDist()
     {
@@ -192,11 +194,11 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::loadFromFile()
-     * @covers Noodlehaus\Config::getParser()
-     * @covers Noodlehaus\Config::getPathFromArray()
-     * @covers Noodlehaus\Config::getValidPath()
+     * @covers Config::__construct()
+     * @covers Config::loadFromFile()
+     * @covers Config::getParser()
+     * @covers Config::getPathFromArray()
+     * @covers Config::getValidPath()
      */
     public function testConstructWithEmptyYml()
     {
@@ -209,10 +211,10 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::loadFromFile()
-     * @covers Noodlehaus\Config::getPathFromArray()
-     * @covers Noodlehaus\Config::getValidPath()
+     * @covers Config::__construct()
+     * @covers Config::loadFromFile()
+     * @covers Config::getPathFromArray()
+     * @covers Config::getValidPath()
      */
     public function testConstructWithFileParser()
     {
@@ -225,13 +227,13 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::__construct()
-     * @covers Noodlehaus\Config::loadFromString()
+     * @covers Config::__construct()
+     * @covers Config::loadFromString()
      */
     public function testConstructWithStringParser()
     {
         $settings = file_get_contents(__DIR__ . '/mocks/pass/config.php');
-        $config = new Config($settings, new Parser\Php, true);
+        $config = new Config($settings, new \Noodlehaus\Parser\Php, true);
 
         $expected = 'localhost';
         $actual   = $config->get('host');
@@ -240,8 +242,8 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers       Noodlehaus\Config::__construct()
-     * @covers       Noodlehaus\Config::get()
+     * @covers Config::__construct()
+     * @covers Config::get()
      * @dataProvider specialConfigProvider()
      */
     public function testGetReturnsArrayMergedArray($config)
@@ -250,8 +252,8 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::toFile()
-     * @covers Noodlehaus\Config::getWriter()
+     * @covers Config::toFile()
+     * @covers Config::getWriter()
      */
     public function testWritesToFile()
     {
@@ -264,7 +266,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::toString()
+     * @covers Config::toString()
      */
     public function testWritesToString()
     {

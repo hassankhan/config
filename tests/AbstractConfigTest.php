@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus;
+namespace Noodlehaus\Test;
 
 use Noodlehaus\Test\Fixture\SimpleConfig;
 use PHPUnit\Framework\TestCase;
@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 class AbstractConfigTest extends TestCase
 {
     /**
-     * @var Config
+     * @var \Noodlehaus\Config
      */
     protected $config;
 
@@ -41,8 +41,8 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::__construct()
-     * @covers Noodlehaus\AbstractConfig::getDefaults()
+     * @covers \Noodlehaus\AbstractConfig::__construct()
+     * @covers \Noodlehaus\AbstractConfig::getDefaults()
      */
     public function testDefaultOptionsSetOnInstantiation()
     {
@@ -57,7 +57,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::get()
+     * @covers \Noodlehaus\AbstractConfig::get()
      */
     public function testGet()
     {
@@ -65,7 +65,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::get()
+     * @covers \Noodlehaus\AbstractConfig::get()
      */
     public function testGetWithDefaultValue()
     {
@@ -73,7 +73,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::get()
+     * @covers \Noodlehaus\AbstractConfig::get()
      */
     public function testGetNestedKey()
     {
@@ -81,7 +81,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::get()
+     * @covers \Noodlehaus\AbstractConfig::get()
      */
     public function testGetNestedKeyWithDefaultValue()
     {
@@ -89,7 +89,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::get()
+     * @covers \Noodlehaus\AbstractConfig::get()
      */
     public function testGetNonexistentKey()
     {
@@ -97,7 +97,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::get()
+     * @covers \Noodlehaus\AbstractConfig::get()
      */
     public function testGetNonexistentNestedKey()
     {
@@ -105,7 +105,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::get()
+     * @covers \Noodlehaus\AbstractConfig::get()
      */
     public function testGetReturnsArray()
     {
@@ -115,7 +115,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::set()
+     * @covers \Noodlehaus\AbstractConfig::set()
      */
     public function testSet()
     {
@@ -124,7 +124,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::set()
+     * @covers \Noodlehaus\AbstractConfig::set()
      */
     public function testSetNestedKey()
     {
@@ -133,7 +133,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::set()
+     * @covers \Noodlehaus\AbstractConfig::set()
      */
     public function testSetArray()
     {
@@ -146,7 +146,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::set()
+     * @covers \Noodlehaus\AbstractConfig::set()
      */
     public function testCacheWithNestedArray()
     {
@@ -188,7 +188,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::set()
+     * @covers \Noodlehaus\AbstractConfig::set()
      */
     public function testCacheWithNestedMiddleArray()
     {
@@ -212,7 +212,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::set()
+     * @covers \Noodlehaus\AbstractConfig::set()
      */
     public function testSetAndUnsetArray()
     {
@@ -229,7 +229,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::has()
+     * @covers \Noodlehaus\AbstractConfig::has()
      */
     public function testHas()
     {
@@ -239,7 +239,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::has()
+     * @covers \Noodlehaus\AbstractConfig::has()
      */
     public function testHasNestedKey()
     {
@@ -250,7 +250,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::has()
+     * @covers \Noodlehaus\AbstractConfig::has()
      */
     public function testHasCache()
     {
@@ -259,7 +259,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::all()
+     * @covers \Noodlehaus\AbstractConfig::all()
      */
     public function testAll()
     {
@@ -282,7 +282,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::merge()
+     * @covers \Noodlehaus\AbstractConfig::merge()
      */
     public function testMerge()
     {
@@ -300,7 +300,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::offsetGet()
+     * @covers \Noodlehaus\AbstractConfig::offsetGet()
      */
     public function testOffsetGet()
     {
@@ -308,7 +308,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::offsetGet()
+     * @covers \Noodlehaus\AbstractConfig::offsetGet()
      */
     public function testOffsetGetNestedKey()
     {
@@ -316,7 +316,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::offsetExists()
+     * @covers \Noodlehaus\AbstractConfig::offsetExists()
      */
     public function testOffsetExists()
     {
@@ -324,7 +324,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::offsetExists()
+     * @covers \Noodlehaus\AbstractConfig::offsetExists()
      */
     public function testOffsetExistsReturnsFalseOnNonexistentKey()
     {
@@ -332,7 +332,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::offsetSet()
+     * @covers \Noodlehaus\AbstractConfig::offsetSet()
      */
     public function testOffsetSet()
     {
@@ -341,7 +341,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::offsetUnset()
+     * @covers \Noodlehaus\AbstractConfig::offsetUnset()
      */
     public function testOffsetUnset()
     {
@@ -350,7 +350,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::current()
+     * @covers \Noodlehaus\AbstractConfig::current()
      */
     public function testCurrent()
     {
@@ -374,7 +374,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::key()
+     * @covers \Noodlehaus\AbstractConfig::key()
      */
     public function testKey()
     {
@@ -398,7 +398,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::next()
+     * @covers \Noodlehaus\AbstractConfig::next()
      */
     public function testNext()
     {
@@ -416,7 +416,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::rewind()
+     * @covers \Noodlehaus\AbstractConfig::rewind()
      */
     public function testRewind()
     {
@@ -430,7 +430,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::valid()
+     * @covers \Noodlehaus\AbstractConfig::valid()
      */
     public function testValid()
     {
@@ -457,11 +457,11 @@ class AbstractConfigTest extends TestCase
      * Tests to verify that Iterator is properly implemented by using a foreach
      * loop on the test config
      *
-     * @covers Noodlehaus\Config::current()
-     * @covers Noodlehaus\Config::next()
-     * @covers Noodlehaus\Config::key()
-     * @covers Noodlehaus\Config::valid()
-     * @covers Noodlehaus\Config::rewind()
+     * @covers \Noodlehaus\Config::current()
+     * @covers \Noodlehaus\Config::next()
+     * @covers \Noodlehaus\Config::key()
+     * @covers \Noodlehaus\Config::valid()
+     * @covers \Noodlehaus\Config::rewind()
      */
     public function testIterator()
     {
@@ -489,7 +489,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Config::get()
+     * @covers \Noodlehaus\Config::get()
      */
     public function testGetShouldNotSet()
     {
@@ -499,7 +499,7 @@ class AbstractConfigTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\AbstractConfig::remove()
+     * @covers \Noodlehaus\AbstractConfig::remove()
      */
     public function testRemove()
     {

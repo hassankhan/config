@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\Parser\Test;
+namespace Noodlehaus\Test\Parser;
 
 use Noodlehaus\Parser\Xml;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +25,7 @@ class XmlTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Xml::getSupportedExtensions()
+     * @covers \Noodlehaus\Parser\Xml::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
@@ -35,8 +35,8 @@ class XmlTest extends TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\Parser\Xml::parseFile()
-     * @covers                   Noodlehaus\Parser\Xml::parse()
+     * @covers \Noodlehaus\Parser\Xml::parseFile()
+     * @covers \Noodlehaus\Parser\Xml::parse()
      */
     public function testLoadInvalidXml()
     {
@@ -46,9 +46,9 @@ class XmlTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Xml::parseFile()
-     * @covers Noodlehaus\Parser\Xml::parseString()
-     * @covers Noodlehaus\Parser\Xml::parse()
+     * @covers \Noodlehaus\Parser\Xml::parseFile()
+     * @covers \Noodlehaus\Parser\Xml::parseString()
+     * @covers \Noodlehaus\Parser\Xml::parse()
      */
     public function testLoadXml()
     {

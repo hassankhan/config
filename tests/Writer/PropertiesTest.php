@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\Writer\Test;
+namespace Noodlehaus\Test\Writer;
 
 use Noodlehaus\Writer\Properties;
 use PHPUnit\Framework\TestCase;
@@ -51,7 +51,7 @@ class PropertiesTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Writer\Properties::getSupportedExtensions()
+     * @covers \Noodlehaus\Writer\Properties::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
@@ -61,8 +61,8 @@ class PropertiesTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Writer\Properties::toString()
-     * @covers Noodlehaus\Writer\Properties::toProperties()
+     * @covers \Noodlehaus\Writer\Properties::toString()
+     * @covers \Noodlehaus\Writer\Properties::toProperties()
      */
     public function testEncodeProperties()
     {
@@ -82,9 +82,9 @@ EOD;
     }
 
     /**
-     * @covers Noodlehaus\Writer\Properties::toString()
-     * @covers Noodlehaus\Writer\Properties::toFile()
-     * @covers Noodlehaus\Writer\Properties::toProperties()
+     * @covers \Noodlehaus\Writer\Properties::toString()
+     * @covers \Noodlehaus\Writer\Properties::toFile()
+     * @covers \Noodlehaus\Writer\Properties::toProperties()
      */
     public function testWriteProperties()
     {
@@ -95,9 +95,9 @@ EOD;
     }
 
     /**
-     * @covers Noodlehaus\Writer\Properties::toString()
-     * @covers Noodlehaus\Writer\Properties::toFile()
-     * @covers Noodlehaus\Writer\Properties::toProperties()
+     * @covers \Noodlehaus\Writer\Properties::toString()
+     * @covers \Noodlehaus\Writer\Properties::toFile()
+     * @covers \Noodlehaus\Writer\Properties::toProperties()
      */
     public function testUnwritableFile()
     {

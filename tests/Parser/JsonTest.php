@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\Parser\Test;
+namespace Noodlehaus\Test\Parser;
 
 use Noodlehaus\Parser\Json;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +25,7 @@ class JsonTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Json::getSupportedExtensions()
+     * @covers \Noodlehaus\Parser\Json::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
@@ -35,8 +35,8 @@ class JsonTest extends TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\Parser\Json::parseFile()
-     * @covers                   Noodlehaus\Parser\Json::parse()
+     * @covers \Noodlehaus\Parser\Json::parseFile()
+     * @covers \Noodlehaus\Parser\Json::parse()
      */
     public function testLoadInvalidJson()
     {
@@ -46,9 +46,9 @@ class JsonTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Json::parseFile()
-     * @covers Noodlehaus\Parser\Json::parseString()
-     * @covers Noodlehaus\Parser\Json::parse()
+     * @covers \Noodlehaus\Parser\Json::parseFile()
+     * @covers \Noodlehaus\Parser\Json::parseString()
+     * @covers \Noodlehaus\Parser\Json::parse()
      */
     public function testLoadJson()
     {
