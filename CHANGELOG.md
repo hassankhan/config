@@ -2,6 +2,20 @@
 
 All notable changes to `Config` will be documented in this file
 
+## 3.1.0 - 2022-12-20
+
+### Added
+* PHP 8.2 to the build matrix (#154)
+
+### Fixed
+* Use assertEquals instead of assertSame (#153)
+* Namespaces in tests (#154)
+
+### Removed
+* .travis.yml file (#152)
+* support for the end of life PHP versions (#144)
+
+
 ## 3.0.1 - 2022-03-26
 
 ### Added
