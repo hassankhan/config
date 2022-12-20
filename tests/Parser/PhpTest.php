@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\Parser\Test;
+namespace Noodlehaus\Test\Parser;
 
 use Noodlehaus\Parser\Php;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +25,7 @@ class PhpTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Php::getSupportedExtensions()
+     * @covers \Noodlehaus\Parser\Php::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
@@ -35,8 +35,8 @@ class PhpTest extends TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\Parser\Php::parseFile()
-     * @covers                   Noodlehaus\Parser\Php::parse()
+     * @covers \Noodlehaus\Parser\Php::parseFile()
+     * @covers \Noodlehaus\Parser\Php::parse()
      */
     public function testLoadInvalidPhp()
     {
@@ -46,7 +46,7 @@ class PhpTest extends TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\Parser\Php::parseFile()
+     * @covers \Noodlehaus\Parser\Php::parseFile()
      */
     public function testLoadExceptionalPhpFile()
     {
@@ -56,8 +56,8 @@ class PhpTest extends TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\Parser\Php::parseString()
-     * @covers                   Noodlehaus\Parser\Php::isolate()
+     * @covers \Noodlehaus\Parser\Php::parseString()
+     * @covers \Noodlehaus\Parser\Php::isolate()
      */
     public function testLoadExceptionalPhpString()
     {
@@ -67,10 +67,10 @@ class PhpTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Php::parseFile()
-     * @covers Noodlehaus\Parser\Php::parseString()
-     * @covers Noodlehaus\Parser\Php::isolate()
-     * @covers Noodlehaus\Parser\Php::parse()
+     * @covers \Noodlehaus\Parser\Php::parseFile()
+     * @covers \Noodlehaus\Parser\Php::parseString()
+     * @covers \Noodlehaus\Parser\Php::isolate()
+     * @covers \Noodlehaus\Parser\Php::parse()
      */
     public function testLoadPhpArray()
     {
@@ -85,10 +85,10 @@ class PhpTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Php::parseFile()
-     * @covers Noodlehaus\Parser\Php::parseString()
-     * @covers Noodlehaus\Parser\Php::isolate()
-     * @covers Noodlehaus\Parser\Php::parse()
+     * @covers \Noodlehaus\Parser\Php::parseFile()
+     * @covers \Noodlehaus\Parser\Php::parseString()
+     * @covers \Noodlehaus\Parser\Php::isolate()
+     * @covers \Noodlehaus\Parser\Php::parse()
      */
     public function testLoadPhpCallable()
     {
@@ -103,10 +103,10 @@ class PhpTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Php::parseFile()
-     * @covers Noodlehaus\Parser\Php::parseString()
-     * @covers Noodlehaus\Parser\Php::isolate()
-     * @covers Noodlehaus\Parser\Php::parse()
+     * @covers \Noodlehaus\Parser\Php::parseFile()
+     * @covers \Noodlehaus\Parser\Php::parseString()
+     * @covers \Noodlehaus\Parser\Php::isolate()
+     * @covers \Noodlehaus\Parser\Php::parse()
      */
     public function testLoadPhpVariable()
     {

@@ -44,7 +44,7 @@ class Ini implements ParserInterface
      * Completes parsing of INI data
      *
      * @param  array   $data
-     * @param  strring $filename
+     * @param  string $filename
      *
      * @throws ParseException If there is an error parsing the INI data
      */

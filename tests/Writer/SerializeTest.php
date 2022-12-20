@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\Writer\Test;
+namespace Noodlehaus\Test\Writer;
 
 use Noodlehaus\Writer\Serialize;
 use PHPUnit\Framework\TestCase;
@@ -55,7 +55,7 @@ class SerializeTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Writer\Serialize::getSupportedExtensions()
+     * @covers \Noodlehaus\Writer\Serialize::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
@@ -65,7 +65,7 @@ class SerializeTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Writer\Serialize::toString()
+     * @covers \Noodlehaus\Writer\Serialize::toString()
      */
     public function testSerialize()
     {
@@ -76,8 +76,8 @@ class SerializeTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Writer\Serialize::toString()
-     * @covers Noodlehaus\Writer\Serialize::toFile()
+     * @covers \Noodlehaus\Writer\Serialize::toString()
+     * @covers \Noodlehaus\Writer\Serialize::toFile()
      */
     public function testWriteSerialize()
     {
@@ -88,8 +88,8 @@ class SerializeTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Writer\Serialize::toString()
-     * @covers Noodlehaus\Writer\Serialize::toFile()
+     * @covers \Noodlehaus\Writer\Serialize::toString()
+     * @covers \Noodlehaus\Writer\Serialize::toFile()
      */
     public function testUnwritableFile()
     {

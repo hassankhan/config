@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\Writer\Test;
+namespace Noodlehaus\Test\Writer;
 
 use Noodlehaus\Writer\Xml;
 use PHPUnit\Framework\TestCase;
@@ -55,7 +55,7 @@ class XmlTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Writer\Xml::getSupportedExtensions()
+     * @covers \Noodlehaus\Writer\Xml::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
@@ -65,8 +65,8 @@ class XmlTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Writer\Xml::toString()
-     * @covers Noodlehaus\Writer\Xml::toXML()
+     * @covers \Noodlehaus\Writer\Xml::toString()
+     * @covers \Noodlehaus\Writer\Xml::toXML()
      */
     public function testEncodeXml()
     {
@@ -80,9 +80,9 @@ EOD;
     }
 
     /**
-     * @covers Noodlehaus\Writer\Xml::toFile()
-     * @covers Noodlehaus\Writer\Xml::toString()
-     * @covers Noodlehaus\Writer\Xml::toXML()
+     * @covers \Noodlehaus\Writer\Xml::toFile()
+     * @covers \Noodlehaus\Writer\Xml::toString()
+     * @covers \Noodlehaus\Writer\Xml::toXML()
      */
     public function testWriteXml()
     {
@@ -93,8 +93,8 @@ EOD;
     }
 
     /**
-     * @covers Noodlehaus\Writer\Xml::toFile()
-     * @covers Noodlehaus\Writer\Xml::toXML()
+     * @covers \Noodlehaus\Writer\Xml::toFile()
+     * @covers \Noodlehaus\Writer\Xml::toXML()
      */
     public function testUnwritableFile()
     {

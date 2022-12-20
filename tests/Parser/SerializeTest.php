@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\Parser\Test;
+namespace Noodlehaus\Test\Parser;
 
 use Noodlehaus\Parser\Serialize;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +25,7 @@ class SerializeTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Serialize::getSupportedExtensions()
+     * @covers \Noodlehaus\Parser\Serialize::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
@@ -35,8 +35,8 @@ class SerializeTest extends TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\Parser\Serialize::parseFile()
-     * @covers                   Noodlehaus\Parser\Serialize::parse()
+     * @covers \Noodlehaus\Parser\Serialize::parseFile()
+     * @covers \Noodlehaus\Parser\Serialize::parse()
      */
     public function testLoadInvalidSerialize()
     {
@@ -46,9 +46,9 @@ class SerializeTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Serialize::parseFile()
-     * @covers Noodlehaus\Parser\Serialize::parseString()
-     * @covers Noodlehaus\Parser\Serialize::parse()
+     * @covers \Noodlehaus\Parser\Serialize::parseFile()
+     * @covers \Noodlehaus\Parser\Serialize::parseString()
+     * @covers \Noodlehaus\Parser\Serialize::parse()
      */
     public function testLoadSerialize()
     {

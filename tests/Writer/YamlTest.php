@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\Writer\Test;
+namespace Noodlehaus\Test\Writer;
 
 use Noodlehaus\Writer\Yaml;
 use PHPUnit\Framework\TestCase;
@@ -55,7 +55,7 @@ class YamlTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Writer\Yaml::getSupportedExtensions()
+     * @covers \Noodlehaus\Writer\Yaml::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
@@ -65,7 +65,7 @@ class YamlTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Writer\Yaml::toString()
+     * @covers \Noodlehaus\Writer\Yaml::toString()
      */
     public function testEncodeYaml()
     {
@@ -86,8 +86,8 @@ EOD;
     }
 
     /**
-     * @covers Noodlehaus\Writer\Yaml::toString()
-     * @covers Noodlehaus\Writer\Yaml::toFile()
+     * @covers \Noodlehaus\Writer\Yaml::toString()
+     * @covers \Noodlehaus\Writer\Yaml::toFile()
      */
     public function testWriteYaml()
     {
@@ -97,8 +97,8 @@ EOD;
     }
 
     /**
-     * @covers Noodlehaus\Writer\Yaml::toString()
-     * @covers Noodlehaus\Writer\Yaml::toFile()
+     * @covers \Noodlehaus\Writer\Yaml::toString()
+     * @covers \Noodlehaus\Writer\Yaml::toFile()
      */
     public function testUnwritableFile()
     {
