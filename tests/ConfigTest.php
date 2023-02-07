@@ -309,4 +309,24 @@ class ConfigTest extends TestCase
             ]
         ];
     }
+    
+    /**
+     * @covers Noodlehaus\Config::__construct()
+     * @covers Noodlehaus\Config::loadFromFile()
+     * @covers Noodlehaus\Config::getPathFromArray()
+     * @covers Noodlehaus\Config::getValidPath()
+     *
+     * @see https://github.com/hassankhan/config/pull/151
+     * @see https://github.com/hassankhan/config/issues/143
+     */
+    public function testPull151Issue143()
+    {
+        $config = new Config(__DIR__ . '/mocks/pass/json.config', new JsonParser());
+
+        $expected = $config->get('application.name');
+        $actual   = $config->get('application')->get('name');
+
+        $this->assertEquals($expected, $actual);
+    }
+
 }
