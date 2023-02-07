@@ -63,7 +63,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
     public function get($key, $default = null)
     {
         if ($this->has($key)) {
-            return $this->cache[$key];
+            return is_array($this->cache[$key]) ? Config::load(json_encode($this->cache[$key]), new Parser\Json, true) : $this->cache[$key];
         }
 
         return $default;
