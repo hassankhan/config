@@ -7,20 +7,11 @@ use PHPUnit\Framework\TestCase;
 
 class JsonTest extends TestCase
 {
-    /**
-     * @var Json
-     */
-    protected $writer;
+    protected Json $writer;
 
-    /**
-     * @var string
-     */
-    protected $temp_file;
+    protected string $temp_file;
 
-    /**
-     * @var array
-     */
-    protected $data;
+    protected array $data;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -57,7 +48,7 @@ class JsonTest extends TestCase
     /**
      * @covers \Noodlehaus\Writer\Json::getSupportedExtensions()
      */
-    public function testGetSupportedExtensions()
+    public function testGetSupportedExtensions(): void
     {
         $expected = ['json'];
         $actual = $this->writer->getSupportedExtensions();
@@ -67,7 +58,7 @@ class JsonTest extends TestCase
     /**
      * @covers \Noodlehaus\Writer\Json::toString()
      */
-    public function testEncodeJson()
+    public function testEncodeJson(): void
     {
         $actual = $this->writer->toString($this->data, false);
         $expected = '{"application":{"name":"configuration","secret":"s3cr3t"},"host":"localhost","port":80,"servers":["host1","host2","host3"]}';
@@ -79,7 +70,7 @@ class JsonTest extends TestCase
      * @covers \Noodlehaus\Writer\Json::toString()
      * @covers \Noodlehaus\Writer\Json::toFile()
      */
-    public function testWriteJson()
+    public function testWriteJson(): void
     {
         $this->writer->toFile($this->data, $this->temp_file);
 
@@ -91,7 +82,7 @@ class JsonTest extends TestCase
      * @covers \Noodlehaus\Writer\Json::toString()
      * @covers \Noodlehaus\Writer\Json::toFile()
      */
-    public function testUnwritableFile()
+    public function testUnwritableFile(): void
     {
         $this->expectException(\Noodlehaus\Exception\WriteException::class);
         $this->expectExceptionMessage('There was an error writing the file');

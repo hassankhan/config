@@ -10,10 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 class PhpTest extends TestCase
 {
-    /**
-     * @var Php
-     */
-    protected $php;
+    protected Php $php;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -27,7 +24,7 @@ class PhpTest extends TestCase
     /**
      * @covers \Noodlehaus\Parser\Php::getSupportedExtensions()
      */
-    public function testGetSupportedExtensions()
+    public function testGetSupportedExtensions(): void
     {
         $expected = ['php'];
         $actual   = $this->php->getSupportedExtensions();
@@ -38,7 +35,7 @@ class PhpTest extends TestCase
      * @covers \Noodlehaus\Parser\Php::parseFile()
      * @covers \Noodlehaus\Parser\Php::parse()
      */
-    public function testLoadInvalidPhp()
+    public function testLoadInvalidPhp(): void
     {
         $this->expectException(\Noodlehaus\Exception\UnsupportedFormatException::class);
         $this->expectExceptionMessage('PHP data does not return an array');
@@ -48,7 +45,7 @@ class PhpTest extends TestCase
     /**
      * @covers \Noodlehaus\Parser\Php::parseFile()
      */
-    public function testLoadExceptionalPhpFile()
+    public function testLoadExceptionalPhpFile(): void
     {
         $this->expectException(\Noodlehaus\Exception\ParseException::class);
         $this->expectExceptionMessage('PHP file threw an exception');
@@ -59,7 +56,7 @@ class PhpTest extends TestCase
      * @covers \Noodlehaus\Parser\Php::parseString()
      * @covers \Noodlehaus\Parser\Php::isolate()
      */
-    public function testLoadExceptionalPhpString()
+    public function testLoadExceptionalPhpString(): void
     {
         $this->expectException(\Noodlehaus\Exception\ParseException::class);
         $this->expectExceptionMessage('PHP string threw an exception');
@@ -72,7 +69,7 @@ class PhpTest extends TestCase
      * @covers \Noodlehaus\Parser\Php::isolate()
      * @covers \Noodlehaus\Parser\Php::parse()
      */
-    public function testLoadPhpArray()
+    public function testLoadPhpArray(): void
     {
         $file = $this->php->parseFile(__DIR__ . '/../mocks/pass/config.php');
         $string = $this->php->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config.php'));
@@ -90,7 +87,7 @@ class PhpTest extends TestCase
      * @covers \Noodlehaus\Parser\Php::isolate()
      * @covers \Noodlehaus\Parser\Php::parse()
      */
-    public function testLoadPhpCallable()
+    public function testLoadPhpCallable(): void
     {
         $file = $this->php->parseFile(__DIR__ . '/../mocks/pass/config-exec.php');
         $string = $this->php->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config-exec.php'));
@@ -108,7 +105,7 @@ class PhpTest extends TestCase
      * @covers \Noodlehaus\Parser\Php::isolate()
      * @covers \Noodlehaus\Parser\Php::parse()
      */
-    public function testLoadPhpVariable()
+    public function testLoadPhpVariable(): void
     {
         $file = $this->php->parseFile(__DIR__ . '/../mocks/pass/config-var.php');
         $string = $this->php->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config-var.php'));

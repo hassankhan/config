@@ -10,10 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 class IniTest extends TestCase
 {
-    /**
-     * @var Ini
-     */
-    protected $ini;
+    protected Ini $ini;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -27,7 +24,7 @@ class IniTest extends TestCase
     /**
      * @covers \Noodlehaus\Parser\Ini::getSupportedExtensions()
      */
-    public function testGetSupportedExtensions()
+    public function testGetSupportedExtensions(): void
     {
         $expected = ['ini'];
         $actual   = $this->ini->getSupportedExtensions();
@@ -40,7 +37,7 @@ class IniTest extends TestCase
      * Tests the case where an INI string contains no parsable data at all, resulting in parse_ini_string
      * returning NULL, but not setting an error retrievable by error_get_last()
      */
-    public function testLoadInvalidIniGBH()
+    public function testLoadInvalidIniGBH(): void
     {
         $this->expectException(\Noodlehaus\Exception\ParseException::class);
         $this->expectExceptionMessage('No parsable content');
@@ -51,7 +48,7 @@ class IniTest extends TestCase
      * @covers \Noodlehaus\Parser\Ini::parseString()
      * @covers \Noodlehaus\Parser\Ini::parse()
      */
-    public function testLoadInvalidIni()
+    public function testLoadInvalidIni(): void
     {
         if (PHP_VERSION_ID < 70400 && PHP_VERSION_ID >= 50500) {
             $exceptionMessage = "syntax error, unexpected \$end, expecting ']'";
@@ -70,7 +67,7 @@ class IniTest extends TestCase
      * @covers \Noodlehaus\Parser\Ini::parseString()
      * @covers \Noodlehaus\Parser\Ini::parse()
      */
-    public function testLoadIni()
+    public function testLoadIni(): void
     {
         $file = $this->ini->parseFile(__DIR__ . '/../mocks/pass/config.ini');
         $string = $this->ini->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config.ini'));
@@ -88,7 +85,7 @@ class IniTest extends TestCase
      * @covers \Noodlehaus\Parser\Ini::parse()
      * @covers \Noodlehaus\Parser\Ini::expandDottedKey()
      */
-    public function testLoadIniWithDottedName()
+    public function testLoadIniWithDottedName(): void
     {
         $file = $this->ini->parseFile(__DIR__ . '/../mocks/pass/config2.ini');
         $string = $this->ini->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config2.ini'));
