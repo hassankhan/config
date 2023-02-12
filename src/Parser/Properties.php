@@ -19,7 +19,7 @@ class Properties implements ParserInterface
      * {@inheritdoc}
      * Parses a Properties file as an array.
      */
-    public function parseFile($filename)
+    public function parseFile(string $filename): array
     {
         return $this->parse(file_get_contents($filename));
     }
@@ -28,12 +28,12 @@ class Properties implements ParserInterface
      * {@inheritdoc}
      * Parses a Properties string as an array.
      */
-    public function parseString($config)
+    public function parseString(string $config): array
     {
         return $this->parse($config);
     }
 
-    private function parse($txtProperties)
+    private function parse(string $txtProperties): array
     {
         $result = [];
 
@@ -53,7 +53,7 @@ class Properties implements ParserInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSupportedExtensions()
+    public static function getSupportedExtensions(): array
     {
         return ['properties'];
     }
