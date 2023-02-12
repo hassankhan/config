@@ -6,7 +6,7 @@ use Noodlehaus\AbstractConfig;
 
 class SimpleConfig extends AbstractConfig
 {
-    protected function getDefaults()
+    protected function getDefaults(): array
     {
         return [
             'host' => 'localhost',
