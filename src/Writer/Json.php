@@ -21,7 +21,7 @@ class Json extends AbstractWriter
      * {@inheritdoc}
      * Writes an array to a JSON file.
      */
-    public function toFile($config, $filename)
+    public function toFile(array $config, string $filename): string
     {
         $data = $this->toString($config);
         $success = @file_put_contents($filename, $data.PHP_EOL);
@@ -36,7 +36,7 @@ class Json extends AbstractWriter
      * {@inheritdoc}
      * Writes an array to a JSON string.
      */
-    public function toString($config, $pretty = true)
+    public function toString(array $config, bool $pretty = true): string
     {
         return json_encode($config, $pretty ? (JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) : 0);
     }
@@ -44,7 +44,7 @@ class Json extends AbstractWriter
     /**
      * {@inheritdoc}
      */
-    public static function getSupportedExtensions()
+    public static function getSupportedExtensions(): array
     {
         return ['json'];
     }

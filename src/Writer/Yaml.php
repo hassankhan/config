@@ -21,7 +21,7 @@ class Yaml extends AbstractWriter
      * {@inheritdoc}
      * Writes an array to a Yaml string.
      */
-    public function toString($config, $pretty = true)
+    public function toString(array $config, bool $pretty = true): string
     {
         return YamlParser::dump($config);
     }
@@ -29,7 +29,7 @@ class Yaml extends AbstractWriter
     /**
      * {@inheritdoc}
      */
-    public static function getSupportedExtensions()
+    public static function getSupportedExtensions(): array
     {
         return ['yaml'];
     }

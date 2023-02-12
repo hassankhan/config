@@ -19,7 +19,7 @@ class Properties extends AbstractWriter
      * {@inheritdoc}
      * Writes an array to a Properties string.
      */
-    public function toString($config, $pretty = true)
+    public function toString(array $config, bool $pretty = true): string
     {
         return $this->toProperties($config);
     }
@@ -27,18 +27,15 @@ class Properties extends AbstractWriter
     /**
      * {@inheritdoc}
      */
-    public static function getSupportedExtensions()
+    public static function getSupportedExtensions(): array
     {
         return ['properties'];
     }
 
     /**
      * Converts array to Properties string.
-     * @param array $arr    Array to be converted
-     *
-     * @return string Converted array as Properties
      */
-    protected function toProperties(array $arr)
+    protected function toProperties(array $arr): string
     {
         $converted = '';
 
