@@ -12,17 +12,14 @@ use PHPUnit\Framework\TestCase;
  */
 class ConfigTest extends TestCase
 {
-    /**
-     * @var Config
-     */
-    protected $config;
+    protected Config $config;
 
     /**
      * @covers Config::load()
      * @covers Config::loadFromFile()
      * @covers Config::getParser()
      */
-    public function testLoadWithUnsupportedFormat()
+    public function testLoadWithUnsupportedFormat(): void
     {
         $this->expectException(\Noodlehaus\Exception\UnsupportedFormatException::class);
         $this->expectExceptionMessage('Unsupported configuration format');
@@ -35,7 +32,7 @@ class ConfigTest extends TestCase
      * @covers Config::loadFromFile()
      * @covers Config::getParser()
      */
-    public function testConstructWithUnsupportedFormat()
+    public function testConstructWithUnsupportedFormat(): void
     {
         $this->expectException(\Noodlehaus\Exception\UnsupportedFormatException::class);
         $this->expectExceptionMessage('Unsupported configuration format');
@@ -49,7 +46,7 @@ class ConfigTest extends TestCase
      * @covers Config::getPathFromArray()
      * @covers Config::getValidPath()
      */
-    public function testConstructWithInvalidPath()
+    public function testConstructWithInvalidPath(): void
     {
         $this->expectException(\Noodlehaus\Exception\FileNotFoundException::class);
         $this->expectExceptionMessage('Configuration file: [ladadeedee] cannot be found');
@@ -63,7 +60,7 @@ class ConfigTest extends TestCase
      * @covers Config::getPathFromArray()
      * @covers Config::getValidPath()
      */
-    public function testConstructWithEmptyDirectory()
+    public function testConstructWithEmptyDirectory(): void
     {
         $this->expectException(\Noodlehaus\Exception\EmptyDirectoryException::class);
         $config = new Config(__DIR__ . '/mocks/empty');
@@ -76,7 +73,7 @@ class ConfigTest extends TestCase
      * @covers Config::getPathFromArray()
      * @covers Config::getValidPath()
      */
-    public function testConstructWithArray()
+    public function testConstructWithArray(): void
     {
         $paths = [__DIR__ . '/mocks/pass/config.xml', __DIR__ . '/mocks/pass/config2.json'];
         $config = new Config($paths);
@@ -94,7 +91,7 @@ class ConfigTest extends TestCase
      * @covers Config::getPathFromArray()
      * @covers Config::getValidPath()
      */
-    public function testConstructWithArrayWithNonexistentFile()
+    public function testConstructWithArrayWithNonexistentFile(): void
     {
         $this->expectException(\Noodlehaus\Exception\FileNotFoundException::class);
         $paths = [__DIR__ . '/mocks/pass/config.xml', __DIR__ . '/mocks/pass/config3.json'];
@@ -113,7 +110,7 @@ class ConfigTest extends TestCase
      * @covers Config::getPathFromArray()
      * @covers Config::getValidPath()
      */
-    public function testConstructWithArrayWithOptionalFile()
+    public function testConstructWithArrayWithOptionalFile(): void
     {
         $paths = [__DIR__ . '/mocks/pass/config.xml', '?' . __DIR__ . '/mocks/pass/config2.json'];
         $config = new Config($paths);
@@ -131,7 +128,7 @@ class ConfigTest extends TestCase
      * @covers Config::getPathFromArray()
      * @covers Config::getValidPath()
      */
-    public function testConstructWithArrayWithOptionalNonexistentFile()
+    public function testConstructWithArrayWithOptionalNonexistentFile(): void
     {
         $paths = [__DIR__ . '/mocks/pass/config.xml', '?' . __DIR__ . '/mocks/pass/config3.json'];
         $config = new Config($paths);
@@ -149,7 +146,7 @@ class ConfigTest extends TestCase
      * @covers Config::getPathFromArray()
      * @covers Config::getValidPath()
      */
-    public function testConstructWithDirectory()
+    public function testConstructWithDirectory(): void
     {
         $config = new Config(__DIR__ . '/mocks/dir');
 
@@ -166,7 +163,7 @@ class ConfigTest extends TestCase
      * @covers Config::getPathFromArray()
      * @covers Config::getValidPath()
      */
-    public function testConstructWithYml()
+    public function testConstructWithYml(): void
     {
         $config = new Config(__DIR__ . '/mocks/pass/config.yml');
 
@@ -183,7 +180,7 @@ class ConfigTest extends TestCase
      * @covers Config::getPathFromArray()
      * @covers Config::getValidPath()
      */
-    public function testConstructWithYmlDist()
+    public function testConstructWithYmlDist(): void
     {
         $config = new Config(__DIR__ . '/mocks/pass/config.yml.dist');
 
@@ -200,7 +197,7 @@ class ConfigTest extends TestCase
      * @covers Config::getPathFromArray()
      * @covers Config::getValidPath()
      */
-    public function testConstructWithEmptyYml()
+    public function testConstructWithEmptyYml(): void
     {
         $config = new Config(__DIR__ . '/mocks/pass/empty.yaml');
 
@@ -216,7 +213,7 @@ class ConfigTest extends TestCase
      * @covers Config::getPathFromArray()
      * @covers Config::getValidPath()
      */
-    public function testConstructWithFileParser()
+    public function testConstructWithFileParser(): void
     {
         $config = new Config(__DIR__ . '/mocks/pass/json.config', new JsonParser());
 
@@ -230,7 +227,7 @@ class ConfigTest extends TestCase
      * @covers Config::__construct()
      * @covers Config::loadFromString()
      */
-    public function testConstructWithStringParser()
+    public function testConstructWithStringParser(): void
     {
         $settings = file_get_contents(__DIR__ . '/mocks/pass/config.php');
         $config = new Config($settings, new \Noodlehaus\Parser\Php, true);
@@ -246,7 +243,7 @@ class ConfigTest extends TestCase
      * @covers Config::get()
      * @dataProvider specialConfigProvider()
      */
-    public function testGetReturnsArrayMergedArray($config)
+    public function testGetReturnsArrayMergedArray($config): void
     {
         $this->assertCount(4, $config->get('servers'));
     }
@@ -255,7 +252,7 @@ class ConfigTest extends TestCase
      * @covers Config::toFile()
      * @covers Config::getWriter()
      */
-    public function testWritesToFile()
+    public function testWritesToFile(): void
     {
         $config = new Config(json_encode(['foo' => 'bar']), new JsonParser(), true);
         $filename = tempnam(sys_get_temp_dir(), 'config').'.json';
@@ -268,7 +265,7 @@ class ConfigTest extends TestCase
     /**
      * @covers Config::toString()
      */
-    public function testWritesToString()
+    public function testWritesToString(): void
     {
         $config = new Config(json_encode(['foo' => 'bar']), new JsonParser(), true);
 
@@ -280,7 +277,7 @@ class ConfigTest extends TestCase
     /**
      * Provides names of example configuration files
      */
-    public function configProvider()
+    public function configProvider(): array
     {
         return array_merge(
             [
@@ -297,7 +294,7 @@ class ConfigTest extends TestCase
     /**
      * Provides names of example configuration files (for array and directory)
      */
-    public function specialConfigProvider()
+    public function specialConfigProvider(): array
     {
         return [
             [

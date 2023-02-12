@@ -10,10 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 class SerializeTest extends TestCase
 {
-    /**
-     * @var Serialize
-     */
-    protected $serialize;
+    protected Serialize $serialize;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -27,7 +24,7 @@ class SerializeTest extends TestCase
     /**
      * @covers \Noodlehaus\Parser\Serialize::getSupportedExtensions()
      */
-    public function testGetSupportedExtensions()
+    public function testGetSupportedExtensions(): void
     {
         $expected = ['txt'];
         $actual   = $this->serialize->getSupportedExtensions();
@@ -38,7 +35,7 @@ class SerializeTest extends TestCase
      * @covers \Noodlehaus\Parser\Serialize::parseFile()
      * @covers \Noodlehaus\Parser\Serialize::parse()
      */
-    public function testLoadInvalidSerialize()
+    public function testLoadInvalidSerialize(): void
     {
         $this->expectException(\Noodlehaus\Exception\ParseException::class);
         $this->expectExceptionMessage('unserialize(): Error at offset 57 of 58 bytes');
@@ -50,7 +47,7 @@ class SerializeTest extends TestCase
      * @covers \Noodlehaus\Parser\Serialize::parseString()
      * @covers \Noodlehaus\Parser\Serialize::parse()
      */
-    public function testLoadSerialize()
+    public function testLoadSerialize(): void
     {
         $file = $this->serialize->parseFile(__DIR__ . '/../mocks/pass/config.txt');
         $string = $this->serialize->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config.txt'));

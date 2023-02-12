@@ -13,7 +13,7 @@ class Serialize extends AbstractWriter
     /**
      * {@inheritdoc}
      */
-    public function toString($config, $pretty = true)
+    public function toString(array $config, bool $pretty = true): string
     {
         return serialize($config);
     }
@@ -21,7 +21,7 @@ class Serialize extends AbstractWriter
     /**
      * {@inheritdoc}
      */
-    public static function getSupportedExtensions()
+    public static function getSupportedExtensions(): array
     {
         return ['txt'];
     }

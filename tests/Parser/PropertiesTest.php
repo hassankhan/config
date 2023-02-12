@@ -7,10 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class PropertiesTest extends TestCase
 {
-    /**
-     * @var Properties
-     */
-    protected $properties;
+    protected Properties $properties;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -24,7 +21,7 @@ class PropertiesTest extends TestCase
     /**
      * @covers \Noodlehaus\Parser\Properties::getSupportedExtensions()
      */
-    public function testGetSupportedExtensions()
+    public function testGetSupportedExtensions(): void
     {
         $expected = ['properties'];
         $actual = $this->properties->getSupportedExtensions();
@@ -36,7 +33,7 @@ class PropertiesTest extends TestCase
      * @covers \Noodlehaus\Parser\Properties::parseString()
      * @covers \Noodlehaus\Parser\Properties::parse()
      */
-    public function testLoadProperties()
+    public function testLoadProperties(): void
     {
         $config = $this->properties->parseFile(__DIR__.'/../mocks/pass/config.properties');
 
@@ -53,7 +50,7 @@ class PropertiesTest extends TestCase
      * @covers \Noodlehaus\Parser\Ini::parseFile()
      * @covers \Noodlehaus\Parser\Ini::parse()
      */
-    public function testLoadInvalidIniGBH()
+    public function testLoadInvalidIniGBH(): void
     {
         $config = $this->properties->parseFile(__DIR__.'/../mocks/fail/error.properties');
 

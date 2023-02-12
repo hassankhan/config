@@ -10,10 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 class XmlTest extends TestCase
 {
-    /**
-     * @var Xml
-     */
-    protected $xml;
+    protected Xml $xml;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -27,7 +24,7 @@ class XmlTest extends TestCase
     /**
      * @covers \Noodlehaus\Parser\Xml::getSupportedExtensions()
      */
-    public function testGetSupportedExtensions()
+    public function testGetSupportedExtensions(): void
     {
         $expected = ['xml'];
         $actual   = $this->xml->getSupportedExtensions();
@@ -38,7 +35,7 @@ class XmlTest extends TestCase
      * @covers \Noodlehaus\Parser\Xml::parseFile()
      * @covers \Noodlehaus\Parser\Xml::parse()
      */
-    public function testLoadInvalidXml()
+    public function testLoadInvalidXml(): void
     {
         $this->expectException(\Noodlehaus\Exception\ParseException::class);
         $this->expectExceptionMessage('Opening and ending tag mismatch: name line 4');
@@ -50,7 +47,7 @@ class XmlTest extends TestCase
      * @covers \Noodlehaus\Parser\Xml::parseString()
      * @covers \Noodlehaus\Parser\Xml::parse()
      */
-    public function testLoadXml()
+    public function testLoadXml(): void
     {
         $file = $this->xml->parseFile(__DIR__ . '/../mocks/pass/config.xml');
         $string = $this->xml->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config.xml'));

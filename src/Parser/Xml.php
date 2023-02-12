@@ -22,12 +22,12 @@ class Xml implements ParserInterface
      *
      * @throws ParseException If there is an error parsing the XML file
      */
-    public function parseFile($filename)
+    public function parseFile(string $filename): array
     {
         libxml_use_internal_errors(true);
         $data = simplexml_load_file($filename, null, LIBXML_NOERROR);
 
-        return (array)$this->parse($data, $filename);
+        return (array) $this->parse($data, $filename);
     }
 
     /**
@@ -36,24 +36,24 @@ class Xml implements ParserInterface
      *
      * @throws ParseException If there is an error parsing the XML string
      */
-    public function parseString($config)
+    public function parseString(string $config): array
     {
         libxml_use_internal_errors(true);
         $data = simplexml_load_string($config, null, LIBXML_NOERROR);
-        return (array)$this->parse($data);
+        return (array) $this->parse($data);
     }
 
     /**
      * Completes parsing of XML data
      *
-     * @param  \SimpleXMLElement|null $data
-     * @param  string $filename
+     * @param  \SimpleXMLElement|false|null $data
+     * @param  string|null $filename
      *
      * @return array|null
      *
      * @throws ParseException If there is an error parsing the XML data
      */
-    protected function parse($data = null, $filename = null)
+    protected function parse($data = null, ?string $filename = null): ?array
     {
         if ($data === false) {
             $errors      = libxml_get_errors();
@@ -68,15 +68,13 @@ class Xml implements ParserInterface
             throw new ParseException($error);
         }
 
-        $data = json_decode(json_encode($data), true);
-
-        return $data;
+        return json_decode(json_encode($data), true);
     }
 
     /**
      * {@inheritDoc}
      */
-    public static function getSupportedExtensions()
+    public static function getSupportedExtensions(): array
     {
         return ['xml'];
     }

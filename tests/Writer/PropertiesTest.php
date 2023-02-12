@@ -7,20 +7,11 @@ use PHPUnit\Framework\TestCase;
 
 class PropertiesTest extends TestCase
 {
-    /**
-     * @var Properties
-     */
-    protected $writer;
+    protected Properties $writer;
 
-    /**
-     * @var string
-     */
-    protected $temp_file;
+    protected string $temp_file;
 
-    /**
-     * @var array
-     */
-    protected $data;
+    protected array $data;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -45,7 +36,7 @@ class PropertiesTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tear_down()
+    protected function tearDown(): void
     {
         unlink($this->temp_file);
     }
@@ -53,7 +44,7 @@ class PropertiesTest extends TestCase
     /**
      * @covers \Noodlehaus\Writer\Properties::getSupportedExtensions()
      */
-    public function testGetSupportedExtensions()
+    public function testGetSupportedExtensions(): void
     {
         $expected = ['properties'];
         $actual = $this->writer->getSupportedExtensions();
@@ -64,7 +55,7 @@ class PropertiesTest extends TestCase
      * @covers \Noodlehaus\Writer\Properties::toString()
      * @covers \Noodlehaus\Writer\Properties::toProperties()
      */
-    public function testEncodeProperties()
+    public function testEncodeProperties(): void
     {
         $actual = $this->writer->toString($this->data);
         $expected = <<< 'EOD'
@@ -86,7 +77,7 @@ EOD;
      * @covers \Noodlehaus\Writer\Properties::toFile()
      * @covers \Noodlehaus\Writer\Properties::toProperties()
      */
-    public function testWriteProperties()
+    public function testWriteProperties(): void
     {
         $this->writer->toFile($this->data, $this->temp_file);
 
@@ -99,7 +90,7 @@ EOD;
      * @covers \Noodlehaus\Writer\Properties::toFile()
      * @covers \Noodlehaus\Writer\Properties::toProperties()
      */
-    public function testUnwritableFile()
+    public function testUnwritableFile(): void
     {
         $this->expectException(\Noodlehaus\Exception\WriteException::class);
         $this->expectExceptionMessage('There was an error writing the file');
