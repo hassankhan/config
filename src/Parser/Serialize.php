@@ -11,7 +11,6 @@ use Noodlehaus\Exception\ParseException;
  */
 class Serialize implements ParserInterface
 {
-
     /**
      * {@inheritdoc}
      */
@@ -29,7 +28,6 @@ class Serialize implements ParserInterface
     {
         return (array) $this->parse($config);
     }
-
 
     /**
      * Completes parsing of JSON data

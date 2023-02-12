@@ -14,7 +14,6 @@ namespace Noodlehaus\Parser;
  */
 abstract class AbstractParser implements ParserInterface
 {
-
     /**
      * String with configuration
      */
