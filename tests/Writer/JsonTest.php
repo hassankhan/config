@@ -40,7 +40,7 @@ class JsonTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tear_down()
+    protected function tearDown(): void
     {
         unlink($this->temp_file);
     }
