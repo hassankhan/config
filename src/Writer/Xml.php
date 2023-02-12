@@ -25,7 +25,7 @@ class Xml extends AbstractWriter
     public function toString(array $config, bool $pretty = true): string
     {
         $xml = $this->toXML($config);
-        if ($pretty == false) {
+        if (!$pretty) {
             return $xml;
         }
 
