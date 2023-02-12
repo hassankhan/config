@@ -26,7 +26,7 @@ class Json implements ParserInterface
     {
         $data = json_decode(file_get_contents($filename), true);
 
-        return (array)$this->parse($data, $filename);
+        return (array) $this->parse($data, $filename);
     }
 
     /**
@@ -39,7 +39,7 @@ class Json implements ParserInterface
     {
         $data = json_decode($config, true);
 
-        return (array)$this->parse($data);
+        return (array) $this->parse($data);
     }
 
     /**

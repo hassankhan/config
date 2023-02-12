@@ -92,6 +92,7 @@ class Ini implements ParserInterface
                 unset($data[$key]);
             }
         }
+
         return $data;
     }
 

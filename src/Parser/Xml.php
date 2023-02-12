@@ -27,7 +27,7 @@ class Xml implements ParserInterface
         libxml_use_internal_errors(true);
         $data = simplexml_load_file($filename, null, LIBXML_NOERROR);
 
-        return (array)$this->parse($data, $filename);
+        return (array) $this->parse($data, $filename);
     }
 
     /**
@@ -40,7 +40,7 @@ class Xml implements ParserInterface
     {
         libxml_use_internal_errors(true);
         $data = simplexml_load_string($config, null, LIBXML_NOERROR);
-        return (array)$this->parse($data);
+        return (array) $this->parse($data);
     }
 
     /**
@@ -68,9 +68,7 @@ class Xml implements ParserInterface
             throw new ParseException($error);
         }
 
-        $data = json_decode(json_encode($data), true);
-
-        return $data;
+        return json_decode(json_encode($data), true);
     }
 
     /**

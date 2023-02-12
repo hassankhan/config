@@ -37,7 +37,7 @@ class Yaml implements ParserInterface
             );
         }
 
-        return (array)$this->parse($data);
+        return (array) $this->parse($data);
     }
 
     /**
@@ -59,7 +59,7 @@ class Yaml implements ParserInterface
             );
         }
 
-        return (array)$this->parse($data);
+        return (array) $this->parse($data);
     }
 
     /**
