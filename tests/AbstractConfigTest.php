@@ -247,6 +247,7 @@ class AbstractConfigTest extends TestCase
         $this->assertTrue($this->config->has('application.runtime'));
         $this->assertFalse($this->config->has('application.not_exist'));
         $this->assertFalse($this->config->has('not_exist.name'));
+        $this->assertFalse($this->config->has('application.name.not_exist'));
     }
 
     /**
