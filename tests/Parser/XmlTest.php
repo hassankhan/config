@@ -61,4 +61,21 @@ class XmlTest extends TestCase
         $this->assertSame('localhost', $string['host']);
         $this->assertSame('80', $string['port']);
     }
+
+    /**
+     * @covers Noodlehaus\Parser\Xml::parseFile()
+     * @covers Noodlehaus\Parser\Xml::parseString()
+     * @covers Noodlehaus\Parser\Xml::parse()
+     */
+    public function testLoadXmlWithAttributes()
+    {
+        $file = $this->xml->parseFile(__DIR__ . '/../mocks/pass/config-with-attributes.xml');
+        $string = $this->xml->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config-with-attributes.xml'));
+
+        $this->assertEquals('localhost', $file['host']);
+        $this->assertEquals('80', $file['port']);
+
+        $this->assertEquals('localhost', $string['host']);
+        $this->assertEquals('80', $string['port']);
+    }
 }
