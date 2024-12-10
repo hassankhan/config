@@ -231,6 +231,11 @@ $conf1->merge($conf2);
 Examples of simple, valid configuration files can be found [here](tests/mocks/pass).
 
 
+## Performance
+
+Please note that there is a significant drop in performance with configurations in the `yaml` format: Load configuration was 1ms in both `json` and `php` while the same configuration was 5ms with yaml.
+
+
 ## Testing
 
 ``` bash
