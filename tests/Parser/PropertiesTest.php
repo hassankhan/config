@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\Parser\Test;
+namespace Noodlehaus\Test\Parser;
 
 use Noodlehaus\Parser\Properties;
 use PHPUnit\Framework\TestCase;
@@ -22,36 +22,36 @@ class PropertiesTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Properties::getSupportedExtensions()
+     * @covers \Noodlehaus\Parser\Properties::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
         $expected = ['properties'];
         $actual = $this->properties->getSupportedExtensions();
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
-     * @covers Noodlehaus\Parser\Properties::parseFile()
-     * @covers Noodlehaus\Parser\Properties::parseString()
-     * @covers Noodlehaus\Parser\Properties::parse()
+     * @covers \Noodlehaus\Parser\Properties::parseFile()
+     * @covers \Noodlehaus\Parser\Properties::parseString()
+     * @covers \Noodlehaus\Parser\Properties::parse()
      */
     public function testLoadProperties()
     {
         $config = $this->properties->parseFile(__DIR__.'/../mocks/pass/config.properties');
 
-        $this->assertEquals('https://en.wikipedia.org/', @$config['website']);
-        $this->assertEquals('English', @$config['language']);
-        $this->assertEquals('Welcome to Wikipedia!', @$config['message']);
-        $this->assertEquals('valueOverOneLine\\', @$config['key']);
-        $this->assertEquals('This is the value that could be looked up with the key "key with spaces".', @$config['key with spaces']);
-        $this->assertEquals('This is the value for the key "key:with=colonAndEqualsSign"', @$config['key:with=colonAndEqualsSign']);
-        $this->assertEquals('c:\\wiki\\templates', @$config['path']);
+        $this->assertSame('https://en.wikipedia.org/', @$config['website']);
+        $this->assertSame('English', @$config['language']);
+        $this->assertSame('Welcome to Wikipedia!', @$config['message']);
+        $this->assertSame('valueOverOneLine\\', @$config['key']);
+        $this->assertSame('This is the value that could be looked up with the key "key with spaces".', @$config['key with spaces']);
+        $this->assertSame('This is the value for the key "key:with=colonAndEqualsSign"', @$config['key:with=colonAndEqualsSign']);
+        $this->assertSame('c:\\wiki\\templates', @$config['path']);
     }
 
     /**
-     * @covers Noodlehaus\Parser\Ini::parseFile()
-     * @covers Noodlehaus\Parser\Ini::parse()
+     * @covers \Noodlehaus\Parser\Ini::parseFile()
+     * @covers \Noodlehaus\Parser\Ini::parse()
      */
     public function testLoadInvalidIniGBH()
     {

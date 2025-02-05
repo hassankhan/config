@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\Parser\Test;
+namespace Noodlehaus\Test\Parser;
 
 use Noodlehaus\Parser\Yaml;
 use PHPUnit\Framework\TestCase;
@@ -25,18 +25,18 @@ class YamlTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Yaml::getSupportedExtensions()
+     * @covers \Noodlehaus\Parser\Yaml::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
         $expected = ['yaml', 'yml'];
         $actual   = $this->yaml->getSupportedExtensions();
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
-     * @covers                   Noodlehaus\Parser\Yaml::parseFile()
-     * @covers                   Noodlehaus\Parser\Yaml::parse()
+     * @covers \Noodlehaus\Parser\Yaml::parseFile()
+     * @covers \Noodlehaus\Parser\Yaml::parse()
      */
     public function testLoadInvalidYamlFile()
     {
@@ -46,8 +46,8 @@ class YamlTest extends TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\Parser\Yaml::parseString()
-     * @covers                   Noodlehaus\Parser\Yaml::parse()
+     * @covers \Noodlehaus\Parser\Yaml::parseString()
+     * @covers \Noodlehaus\Parser\Yaml::parse()
      */
     public function testLoadInvalidYamlString()
     {
@@ -57,33 +57,33 @@ class YamlTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Yaml::parseFile()
-     * @covers Noodlehaus\Parser\Yaml::parse()
+     * @covers \Noodlehaus\Parser\Yaml::parseFile()
+     * @covers \Noodlehaus\Parser\Yaml::parse()
      */
     public function testLoadYaml()
     {
         $actual = $this->yaml->parseFile(__DIR__ . '/../mocks/pass/config.yaml');
-        $this->assertEquals('localhost', $actual['host']);
-        $this->assertEquals('80', $actual['port']);
+        $this->assertSame('localhost', $actual['host']);
+        $this->assertSame(80, $actual['port']);
     }
 
     /**
-     * @covers Noodlehaus\Parser\Yaml::parse()
+     * @covers \Noodlehaus\Parser\Yaml::parse()
      */
     public function testLoadYml()
     {
         $actual = $this->yaml->parseFile(__DIR__ . '/../mocks/pass/config.yml');
-        $this->assertEquals('localhost', $actual['host']);
-        $this->assertEquals('80', $actual['port']);
+        $this->assertSame('localhost', $actual['host']);
+        $this->assertSame(80, $actual['port']);
     }
 
     /**
-     * @covers Noodlehaus\Parser\Yaml::parseString()
+     * @covers \Noodlehaus\Parser\Yaml::parseString()
      */
     public function testLoadYamlString()
     {
         $actual = $this->yaml->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config.yaml'));
-        $this->assertEquals('localhost', $actual['host']);
-        $this->assertEquals('80', $actual['port']);
+        $this->assertSame('localhost', $actual['host']);
+        $this->assertSame(80, $actual['port']);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\Parser\Test;
+namespace Noodlehaus\Test\Parser;
 
 use Noodlehaus\Parser\Serialize;
 use PHPUnit\Framework\TestCase;
@@ -25,18 +25,18 @@ class SerializeTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Serialize::getSupportedExtensions()
+     * @covers \Noodlehaus\Parser\Serialize::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
         $expected = ['txt'];
         $actual   = $this->serialize->getSupportedExtensions();
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
-     * @covers                   Noodlehaus\Parser\Serialize::parseFile()
-     * @covers                   Noodlehaus\Parser\Serialize::parse()
+     * @covers \Noodlehaus\Parser\Serialize::parseFile()
+     * @covers \Noodlehaus\Parser\Serialize::parse()
      */
     public function testLoadInvalidSerialize()
     {
@@ -46,19 +46,19 @@ class SerializeTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Serialize::parseFile()
-     * @covers Noodlehaus\Parser\Serialize::parseString()
-     * @covers Noodlehaus\Parser\Serialize::parse()
+     * @covers \Noodlehaus\Parser\Serialize::parseFile()
+     * @covers \Noodlehaus\Parser\Serialize::parseString()
+     * @covers \Noodlehaus\Parser\Serialize::parse()
      */
     public function testLoadSerialize()
     {
         $file = $this->serialize->parseFile(__DIR__ . '/../mocks/pass/config.txt');
         $string = $this->serialize->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config.txt'));
 
-        $this->assertEquals('localhost', $file['host']);
-        $this->assertEquals('80', $file['port']);
+        $this->assertSame('localhost', $file['host']);
+        $this->assertSame(80, $file['port']);
 
-        $this->assertEquals('localhost', $string['host']);
-        $this->assertEquals('80', $string['port']);
+        $this->assertSame('localhost', $string['host']);
+        $this->assertSame(80, $string['port']);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\Writer\Test;
+namespace Noodlehaus\Test\Writer;
 
 use Noodlehaus\Writer\Ini;
 use PHPUnit\Framework\TestCase;
@@ -52,18 +52,18 @@ class IniTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Writer\Ini::getSupportedExtensions()
+     * @covers \Noodlehaus\Writer\Ini::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
         $expected = ['ini'];
         $actual = $this->writer->getSupportedExtensions();
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
-     * @covers Noodlehaus\Writer\Ini::toString()
-     * @covers Noodlehaus\Writer\Ini::toINI()
+     * @covers \Noodlehaus\Writer\Ini::toString()
+     * @covers \Noodlehaus\Writer\Ini::toINI()
      */
     public function testEncodeIni()
     {
@@ -77,13 +77,13 @@ name=config
 description=Config Reader and Writer
 
 EOD;
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
-     * @covers Noodlehaus\Writer\Ini::toString()
-     * @covers Noodlehaus\Writer\Ini::toFile()
-     * @covers Noodlehaus\Writer\Ini::toINI()
+     * @covers \Noodlehaus\Writer\Ini::toString()
+     * @covers \Noodlehaus\Writer\Ini::toFile()
+     * @covers \Noodlehaus\Writer\Ini::toINI()
      */
     public function testWriteIni()
     {
@@ -94,9 +94,9 @@ EOD;
     }
 
     /**
-     * @covers Noodlehaus\Writer\Ini::toString()
-     * @covers Noodlehaus\Writer\Ini::toFile()
-     * @covers Noodlehaus\Writer\Ini::toINI()
+     * @covers \Noodlehaus\Writer\Ini::toString()
+     * @covers \Noodlehaus\Writer\Ini::toFile()
+     * @covers \Noodlehaus\Writer\Ini::toINI()
      */
     public function testUnwritableFile()
     {

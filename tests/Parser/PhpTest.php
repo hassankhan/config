@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\Parser\Test;
+namespace Noodlehaus\Test\Parser;
 
 use Noodlehaus\Parser\Php;
 use PHPUnit\Framework\TestCase;
@@ -25,18 +25,18 @@ class PhpTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Php::getSupportedExtensions()
+     * @covers \Noodlehaus\Parser\Php::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
         $expected = ['php'];
         $actual   = $this->php->getSupportedExtensions();
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
-     * @covers                   Noodlehaus\Parser\Php::parseFile()
-     * @covers                   Noodlehaus\Parser\Php::parse()
+     * @covers \Noodlehaus\Parser\Php::parseFile()
+     * @covers \Noodlehaus\Parser\Php::parse()
      */
     public function testLoadInvalidPhp()
     {
@@ -46,7 +46,7 @@ class PhpTest extends TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\Parser\Php::parseFile()
+     * @covers \Noodlehaus\Parser\Php::parseFile()
      */
     public function testLoadExceptionalPhpFile()
     {
@@ -56,8 +56,8 @@ class PhpTest extends TestCase
     }
 
     /**
-     * @covers                   Noodlehaus\Parser\Php::parseString()
-     * @covers                   Noodlehaus\Parser\Php::isolate()
+     * @covers \Noodlehaus\Parser\Php::parseString()
+     * @covers \Noodlehaus\Parser\Php::isolate()
      */
     public function testLoadExceptionalPhpString()
     {
@@ -67,56 +67,56 @@ class PhpTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Php::parseFile()
-     * @covers Noodlehaus\Parser\Php::parseString()
-     * @covers Noodlehaus\Parser\Php::isolate()
-     * @covers Noodlehaus\Parser\Php::parse()
+     * @covers \Noodlehaus\Parser\Php::parseFile()
+     * @covers \Noodlehaus\Parser\Php::parseString()
+     * @covers \Noodlehaus\Parser\Php::isolate()
+     * @covers \Noodlehaus\Parser\Php::parse()
      */
     public function testLoadPhpArray()
     {
         $file = $this->php->parseFile(__DIR__ . '/../mocks/pass/config.php');
         $string = $this->php->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config.php'));
 
-        $this->assertEquals('localhost', $file['host']);
-        $this->assertEquals('80', $file['port']);
+        $this->assertSame('localhost', $file['host']);
+        $this->assertSame(80, $file['port']);
 
-        $this->assertEquals('localhost', $string['host']);
-        $this->assertEquals('80', $string['port']);
+        $this->assertSame('localhost', $string['host']);
+        $this->assertSame(80, $string['port']);
     }
 
     /**
-     * @covers Noodlehaus\Parser\Php::parseFile()
-     * @covers Noodlehaus\Parser\Php::parseString()
-     * @covers Noodlehaus\Parser\Php::isolate()
-     * @covers Noodlehaus\Parser\Php::parse()
+     * @covers \Noodlehaus\Parser\Php::parseFile()
+     * @covers \Noodlehaus\Parser\Php::parseString()
+     * @covers \Noodlehaus\Parser\Php::isolate()
+     * @covers \Noodlehaus\Parser\Php::parse()
      */
     public function testLoadPhpCallable()
     {
         $file = $this->php->parseFile(__DIR__ . '/../mocks/pass/config-exec.php');
         $string = $this->php->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config-exec.php'));
 
-        $this->assertEquals('localhost', $file['host']);
-        $this->assertEquals('80', $file['port']);
+        $this->assertSame('localhost', $file['host']);
+        $this->assertSame(80, $file['port']);
 
-        $this->assertEquals('localhost', $string['host']);
-        $this->assertEquals('80', $string['port']);
+        $this->assertSame('localhost', $string['host']);
+        $this->assertSame(80, $string['port']);
     }
 
     /**
-     * @covers Noodlehaus\Parser\Php::parseFile()
-     * @covers Noodlehaus\Parser\Php::parseString()
-     * @covers Noodlehaus\Parser\Php::isolate()
-     * @covers Noodlehaus\Parser\Php::parse()
+     * @covers \Noodlehaus\Parser\Php::parseFile()
+     * @covers \Noodlehaus\Parser\Php::parseString()
+     * @covers \Noodlehaus\Parser\Php::isolate()
+     * @covers \Noodlehaus\Parser\Php::parse()
      */
     public function testLoadPhpVariable()
     {
         $file = $this->php->parseFile(__DIR__ . '/../mocks/pass/config-var.php');
         $string = $this->php->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config-var.php'));
 
-        $this->assertEquals('localhost', $file['host']);
-        $this->assertEquals('80', $file['port']);
+        $this->assertSame('localhost', $file['host']);
+        $this->assertSame(80, $file['port']);
 
-        $this->assertEquals('localhost', $string['host']);
-        $this->assertEquals('80', $string['port']);
+        $this->assertSame('localhost', $string['host']);
+        $this->assertSame(80, $string['port']);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\Parser\Test;
+namespace Noodlehaus\Test\Parser;
 
 use Noodlehaus\Parser\Json;
 use PHPUnit\Framework\TestCase;
@@ -25,18 +25,18 @@ class JsonTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Json::getSupportedExtensions()
+     * @covers \Noodlehaus\Parser\Json::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
         $expected = ['json'];
         $actual   = $this->json->getSupportedExtensions();
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
-     * @covers                   Noodlehaus\Parser\Json::parseFile()
-     * @covers                   Noodlehaus\Parser\Json::parse()
+     * @covers \Noodlehaus\Parser\Json::parseFile()
+     * @covers \Noodlehaus\Parser\Json::parse()
      */
     public function testLoadInvalidJson()
     {
@@ -46,19 +46,19 @@ class JsonTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Json::parseFile()
-     * @covers Noodlehaus\Parser\Json::parseString()
-     * @covers Noodlehaus\Parser\Json::parse()
+     * @covers \Noodlehaus\Parser\Json::parseFile()
+     * @covers \Noodlehaus\Parser\Json::parseString()
+     * @covers \Noodlehaus\Parser\Json::parse()
      */
     public function testLoadJson()
     {
         $file = $this->json->parseFile(__DIR__ . '/../mocks/pass/config.json');
         $string = $this->json->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config.json'));
 
-        $this->assertEquals('localhost', $file['host']);
-        $this->assertEquals('80', $file['port']);
+        $this->assertSame('localhost', $file['host']);
+        $this->assertSame(80, $file['port']);
 
-        $this->assertEquals('localhost', $string['host']);
-        $this->assertEquals('80', $string['port']);
+        $this->assertSame('localhost', $string['host']);
+        $this->assertSame(80, $string['port']);
     }
 }

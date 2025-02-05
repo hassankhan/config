@@ -1,6 +1,6 @@
 <?php
 
-namespace Noodlehaus\Parser\Test;
+namespace Noodlehaus\Test\Parser;
 
 use Noodlehaus\Parser\Xml;
 use PHPUnit\Framework\TestCase;
@@ -25,18 +25,18 @@ class XmlTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Xml::getSupportedExtensions()
+     * @covers \Noodlehaus\Parser\Xml::getSupportedExtensions()
      */
     public function testGetSupportedExtensions()
     {
         $expected = ['xml'];
         $actual   = $this->xml->getSupportedExtensions();
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
-     * @covers                   Noodlehaus\Parser\Xml::parseFile()
-     * @covers                   Noodlehaus\Parser\Xml::parse()
+     * @covers \Noodlehaus\Parser\Xml::parseFile()
+     * @covers \Noodlehaus\Parser\Xml::parse()
      */
     public function testLoadInvalidXml()
     {
@@ -46,19 +46,19 @@ class XmlTest extends TestCase
     }
 
     /**
-     * @covers Noodlehaus\Parser\Xml::parseFile()
-     * @covers Noodlehaus\Parser\Xml::parseString()
-     * @covers Noodlehaus\Parser\Xml::parse()
+     * @covers \Noodlehaus\Parser\Xml::parseFile()
+     * @covers \Noodlehaus\Parser\Xml::parseString()
+     * @covers \Noodlehaus\Parser\Xml::parse()
      */
     public function testLoadXml()
     {
         $file = $this->xml->parseFile(__DIR__ . '/../mocks/pass/config.xml');
         $string = $this->xml->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config.xml'));
 
-        $this->assertEquals('localhost', $file['host']);
-        $this->assertEquals('80', $file['port']);
+        $this->assertSame('localhost', $file['host']);
+        $this->assertSame('80', $file['port']);
 
-        $this->assertEquals('localhost', $string['host']);
-        $this->assertEquals('80', $string['port']);
+        $this->assertSame('localhost', $string['host']);
+        $this->assertSame('80', $string['port']);
     }
 }
