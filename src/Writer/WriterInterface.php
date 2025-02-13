@@ -20,7 +20,7 @@ interface WriterInterface
     /**
      * Writes a configuration from `$config` to `$filename`.
      *
-     *@throws WriteException if the data could not be written to the file
+     * @throws WriteException if the data could not be written to the file
      */
     public function toFile(array $config, string $filename): string;
 

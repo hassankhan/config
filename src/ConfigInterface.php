@@ -18,7 +18,6 @@ interface ConfigInterface
      * Nested keys are similar to JSON paths that use the dot
      * dot notation.
      *
-     * @param  string $key
      * @param  mixed  $default
      *
      * @return mixed
@@ -29,7 +28,6 @@ interface ConfigInterface
      * Function for setting configuration values, using
      * either simple or nested keys.
      *
-     * @param  string $key
      * @param  mixed  $value
      *
      * @return void

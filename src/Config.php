@@ -48,11 +48,7 @@ class Config extends AbstractConfig
     /**
      * Static method for loading a Config instance.
      *
-     * @param  string|array          $values  Filenames or string with configuration
-     * @param  ParserInterface|null  $parser  Configuration parser
-     * @param  bool                  $string  Enable loading from string
-     *
-     * @return Config
+     * @param  string|array  $values  Filenames or string with configuration
      */
     public static function load($values, ?ParserInterface $parser = null, bool $string = false): self
     {
@@ -62,9 +58,7 @@ class Config extends AbstractConfig
     /**
      * Loads a Config instance.
      *
-     * @param  string|array          $values  Filenames or string with configuration
-     * @param  ParserInterface|null  $parser  Configuration parser
-     * @param  bool                  $string  Enable loading from string
+     * @param  string|array  $values  Filenames or string with configuration
      */
     public function __construct($values, ?ParserInterface $parser = null, bool $string = false)
     {
@@ -81,7 +75,6 @@ class Config extends AbstractConfig
      * Loads configuration from file.
      *
      * @param  string|array          $path    Filenames or directories with configuration
-     * @param  ParserInterface|null  $parser  Configuration parser
      *
      * @throws EmptyDirectoryException If `$path` is an empty directory
      */
@@ -241,8 +234,6 @@ class Config extends AbstractConfig
      * Checks `$path` to see if it is either an array, a directory, or a file.
      *
      * @param  string|array $path
-     *
-     * @return array
      *
      * @throws EmptyDirectoryException If `$path` is an empty directory
      * @throws FileNotFoundException   If a file is not found at `$path`
