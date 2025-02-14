@@ -7,8 +7,6 @@ on:
       - 'tests/**'
       - composer.json
   push:
-    branches:
-      - develop
     paths:
       - 'src/**'
       - 'tests/**'
