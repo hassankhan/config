@@ -20,7 +20,7 @@ abstract class AbstractWriter implements WriterInterface
     /**
      * {@inheritdoc}
      */
-    public function toFile($config, $filename)
+    public function toFile(array $config, string $filename): string
     {
         $contents = $this->toString($config);
         $success = @file_put_contents($filename, $contents);

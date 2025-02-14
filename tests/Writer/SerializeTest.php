@@ -7,20 +7,11 @@ use PHPUnit\Framework\TestCase;
 
 class SerializeTest extends TestCase
 {
-    /**
-     * @var Serialize
-     */
-    protected $writer;
+    protected Serialize $writer;
 
-    /**
-     * @var string
-     */
-    protected $temp_file;
+    protected string $temp_file;
 
-    /**
-     * @var array
-     */
-    protected $data;
+    protected array $data;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -49,7 +40,7 @@ class SerializeTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tear_down()
+    protected function tearDown(): void
     {
         unlink($this->temp_file);
     }
@@ -57,7 +48,7 @@ class SerializeTest extends TestCase
     /**
      * @covers \Noodlehaus\Writer\Serialize::getSupportedExtensions()
      */
-    public function testGetSupportedExtensions()
+    public function testGetSupportedExtensions(): void
     {
         $expected = ['txt'];
         $actual = $this->writer->getSupportedExtensions();
@@ -67,7 +58,7 @@ class SerializeTest extends TestCase
     /**
      * @covers \Noodlehaus\Writer\Serialize::toString()
      */
-    public function testSerialize()
+    public function testSerialize(): void
     {
         $actual = $this->writer->toString($this->data, false);
         $expected = 'a:4:{s:11:"application";a:2:{s:4:"name";s:13:"configuration";s:6:"secret";s:6:"s3cr3t";}s:4:"host";s:9:"localhost";s:4:"port";i:80;s:7:"servers";a:3:{i:0;s:5:"host1";i:1;s:5:"host2";i:2;s:5:"host3";}}';
@@ -79,7 +70,7 @@ class SerializeTest extends TestCase
      * @covers \Noodlehaus\Writer\Serialize::toString()
      * @covers \Noodlehaus\Writer\Serialize::toFile()
      */
-    public function testWriteSerialize()
+    public function testWriteSerialize(): void
     {
         $this->writer->toFile($this->data, $this->temp_file);
 
@@ -91,7 +82,7 @@ class SerializeTest extends TestCase
      * @covers \Noodlehaus\Writer\Serialize::toString()
      * @covers \Noodlehaus\Writer\Serialize::toFile()
      */
-    public function testUnwritableFile()
+    public function testUnwritableFile(): void
     {
         $this->expectException(\Noodlehaus\Exception\WriteException::class);
         $this->expectExceptionMessage('There was an error writing the file');

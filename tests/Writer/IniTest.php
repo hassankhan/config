@@ -7,20 +7,11 @@ use PHPUnit\Framework\TestCase;
 
 class IniTest extends TestCase
 {
-    /**
-     * @var Ini
-     */
-    protected $writer;
+    protected Ini $writer;
 
-    /**
-     * @var string
-     */
-    protected $temp_file;
+    protected string $temp_file;
 
-    /**
-     * @var array
-     */
-    protected $data;
+    protected array $data;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -46,7 +37,7 @@ class IniTest extends TestCase
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tear_down()
+    protected function tearDown(): void
     {
         unlink($this->temp_file);
     }
@@ -54,7 +45,7 @@ class IniTest extends TestCase
     /**
      * @covers \Noodlehaus\Writer\Ini::getSupportedExtensions()
      */
-    public function testGetSupportedExtensions()
+    public function testGetSupportedExtensions(): void
     {
         $expected = ['ini'];
         $actual = $this->writer->getSupportedExtensions();
@@ -65,7 +56,7 @@ class IniTest extends TestCase
      * @covers \Noodlehaus\Writer\Ini::toString()
      * @covers \Noodlehaus\Writer\Ini::toINI()
      */
-    public function testEncodeIni()
+    public function testEncodeIni(): void
     {
         $actual = $this->writer->toString($this->data);
         $expected = <<< 'EOD'
@@ -85,7 +76,7 @@ EOD;
      * @covers \Noodlehaus\Writer\Ini::toFile()
      * @covers \Noodlehaus\Writer\Ini::toINI()
      */
-    public function testWriteIni()
+    public function testWriteIni(): void
     {
         $this->writer->toFile($this->data, $this->temp_file);
 
@@ -98,7 +89,7 @@ EOD;
      * @covers \Noodlehaus\Writer\Ini::toFile()
      * @covers \Noodlehaus\Writer\Ini::toINI()
      */
-    public function testUnwritableFile()
+    public function testUnwritableFile(): void
     {
         $this->expectException(\Noodlehaus\Exception\WriteException::class);
         $this->expectExceptionMessage('There was an error writing the file');

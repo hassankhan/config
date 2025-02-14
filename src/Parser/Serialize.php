@@ -11,11 +11,10 @@ use Noodlehaus\Exception\ParseException;
  */
 class Serialize implements ParserInterface
 {
-
     /**
      * {@inheritdoc}
      */
-    public function parseFile($filename)
+    public function parseFile(string $filename): array
     {
         $data = file_get_contents($filename);
 
@@ -25,26 +24,21 @@ class Serialize implements ParserInterface
     /**
      * {@inheritdoc}
      */
-    public function parseString($config)
+    public function parseString(string $config): array
     {
         return (array) $this->parse($config);
     }
 
-
     /**
      * Completes parsing of JSON data
      *
-     * @param  string  $data
-     * @param  string $filename
-     * @return array|null
-     *
      * @throws ParseException If there is an error parsing the serialized data
      */
-    protected function parse($data = null, $filename = null)
+    protected function parse(string $data, ?string $filename = null): ?array
     {
         $serializedData = @unserialize($data);
-        if($serializedData === false){
 
+        if ($serializedData === false) {
             throw new ParseException(error_get_last());
         }
 
@@ -54,7 +48,7 @@ class Serialize implements ParserInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSupportedExtensions()
+    public static function getSupportedExtensions(): array
     {
         return ['txt'];
     }

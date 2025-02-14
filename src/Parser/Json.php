@@ -22,11 +22,11 @@ class Json implements ParserInterface
      *
      * @throws ParseException If there is an error parsing the JSON file
      */
-    public function parseFile($filename)
+    public function parseFile(string $filename): array
     {
         $data = json_decode(file_get_contents($filename), true);
 
-        return (array)$this->parse($data, $filename);
+        return (array) $this->parse($data, $filename);
     }
 
     /**
@@ -35,23 +35,19 @@ class Json implements ParserInterface
      *
      * @throws ParseException If there is an error parsing the JSON string
      */
-    public function parseString($config)
+    public function parseString(string $config): array
     {
         $data = json_decode($config, true);
 
-        return (array)$this->parse($data);
+        return (array) $this->parse($data);
     }
 
     /**
      * Completes parsing of JSON data
      *
-     * @param  array  $data
-     * @param  string $filename
-     * @return array|null
-     *
      * @throws ParseException If there is an error parsing the JSON data
      */
-    protected function parse($data = null, $filename = null)
+    protected function parse(?array $data = null, ?string $filename = null): ?array
     {
         if (json_last_error() !== JSON_ERROR_NONE) {
             $error_message  = 'Syntax error';
@@ -74,7 +70,7 @@ class Json implements ParserInterface
     /**
      * {@inheritDoc}
      */
-    public static function getSupportedExtensions()
+    public static function getSupportedExtensions(): array
     {
         return ['json'];
     }

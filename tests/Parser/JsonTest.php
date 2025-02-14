@@ -10,10 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 class JsonTest extends TestCase
 {
-    /**
-     * @var Json
-     */
-    protected $json;
+    protected Json $json;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -27,7 +24,7 @@ class JsonTest extends TestCase
     /**
      * @covers \Noodlehaus\Parser\Json::getSupportedExtensions()
      */
-    public function testGetSupportedExtensions()
+    public function testGetSupportedExtensions(): void
     {
         $expected = ['json'];
         $actual   = $this->json->getSupportedExtensions();
@@ -38,7 +35,7 @@ class JsonTest extends TestCase
      * @covers \Noodlehaus\Parser\Json::parseFile()
      * @covers \Noodlehaus\Parser\Json::parse()
      */
-    public function testLoadInvalidJson()
+    public function testLoadInvalidJson(): void
     {
         $this->expectException(\Noodlehaus\Exception\ParseException::class);
         $this->expectExceptionMessage('Syntax error');
@@ -50,7 +47,7 @@ class JsonTest extends TestCase
      * @covers \Noodlehaus\Parser\Json::parseString()
      * @covers \Noodlehaus\Parser\Json::parse()
      */
-    public function testLoadJson()
+    public function testLoadJson(): void
     {
         $file = $this->json->parseFile(__DIR__ . '/../mocks/pass/config.json');
         $string = $this->json->parseString(file_get_contents(__DIR__ . '/../mocks/pass/config.json'));

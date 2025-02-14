@@ -18,7 +18,7 @@ class Ini extends AbstractWriter
      * {@inheritdoc}
      * Writes an array to a Ini string.
      */
-    public function toString($config, $pretty = true)
+    public function toString(array $config, bool $pretty = true): string
     {
         return $this->toINI($config);
     }
@@ -26,21 +26,17 @@ class Ini extends AbstractWriter
     /**
      * {@inheritdoc}
      */
-    public static function getSupportedExtensions()
+    public static function getSupportedExtensions(): array
     {
         return ['ini'];
     }
 
     /**
      * Converts array to INI string.
-     * @param array $arr    Array to be converted
-     * @param array $parent Parent array
-     *
-     * @return string Converted array as INI
      *
      * @see https://stackoverflow.com/a/17317168/6523409/
      */
-    protected function toINI(array $arr, array $parent = [])
+    protected function toINI(array $arr, array $parent = []): string
     {
         $converted = '';
 

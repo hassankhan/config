@@ -25,7 +25,7 @@ class Php implements ParserInterface
      * @throws ParseException             If the PHP file throws an exception
      * @throws UnsupportedFormatException If the PHP file does not return an array
      */
-    public function parseFile($filename)
+    public function parseFile(string $filename): array
     {
         // Run the fileEval the string, if it throws an exception, rethrow it
         try {
@@ -40,7 +40,7 @@ class Php implements ParserInterface
         }
 
         // Complete parsing
-        return (array)$this->parse($data, $filename);
+        return $this->parse($data, $filename);
     }
 
     /**
@@ -50,7 +50,7 @@ class Php implements ParserInterface
      * @throws ParseException             If the PHP string throws an exception
      * @throws UnsupportedFormatException If the PHP string does not return an array
      */
-    public function parseString($config)
+    public function parseString(string $config): array
     {
         // Handle PHP start tag
         $config = trim($config);
@@ -71,19 +71,19 @@ class Php implements ParserInterface
         }
 
         // Complete parsing
-        return (array)$this->parse($data);
+        return $this->parse($data);
     }
 
     /**
      * Completes parsing of PHP data
      *
-     * @param  array $data
-     * @param  string $filename
+     * @param  array|callable|null $data
+     * @param  string|null         $filename
      *
-     * @return array|null
+     * @return array
      * @throws UnsupportedFormatException
      */
-    protected function parse($data = null, $filename = null)
+    protected function parse($data = null, ?string $filename = null): array
     {
         // If we have a callable, run it and expect an array back
         if (is_callable($data)) {
@@ -103,9 +103,9 @@ class Php implements ParserInterface
      *
      * @param  string $EGsfKPdue7ahnMTy
      *
-     * @return array
+     * @return array|callable
      */
-    protected function isolate($EGsfKPdue7ahnMTy)
+    protected function isolate(string $EGsfKPdue7ahnMTy)
     {
         return eval($EGsfKPdue7ahnMTy);
     }
@@ -113,7 +113,7 @@ class Php implements ParserInterface
     /**
      * {@inheritDoc}
      */
-    public static function getSupportedExtensions()
+    public static function getSupportedExtensions(): array
     {
         return ['php'];
     }

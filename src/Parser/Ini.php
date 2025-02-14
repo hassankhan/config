@@ -22,7 +22,7 @@ class Ini implements ParserInterface
      *
      * @throws ParseException If there is an error parsing the INI file
      */
-    public function parseFile($filename)
+    public function parseFile(string $filename): array
     {
         $data = @parse_ini_file($filename, true);
         return $this->parse($data, $filename);
@@ -34,7 +34,7 @@ class Ini implements ParserInterface
      *
      * @throws ParseException If there is an error parsing the INI string
      */
-    public function parseString($config)
+    public function parseString(string $config): array
     {
         $data = @parse_ini_string($config, true);
         return $this->parse($data);
@@ -43,12 +43,13 @@ class Ini implements ParserInterface
     /**
      * Completes parsing of INI data
      *
-     * @param  array   $data
-     * @param  string $filename
+     * @param  array|false|null $data
+     * @param  string|null      $filename
      *
+     * @return array
      * @throws ParseException If there is an error parsing the INI data
      */
-    protected function parse($data = null, $filename = null)
+    protected function parse($data, ?string $filename = null): array
     {
         if (!$data) {
             $error = error_get_last();
@@ -74,12 +75,8 @@ class Ini implements ParserInterface
 
     /**
      * Expand array with dotted keys to multidimensional array
-     *
-     * @param array $data
-     *
-     * @return array
      */
-    protected function expandDottedKey($data)
+    protected function expandDottedKey(array $data): array
     {
         foreach ($data as $key => $value) {
             if (($found = strpos($key, '.')) !== false) {
@@ -95,13 +92,14 @@ class Ini implements ParserInterface
                 unset($data[$key]);
             }
         }
+
         return $data;
     }
 
     /**
      * {@inheritDoc}
      */
-    public static function getSupportedExtensions()
+    public static function getSupportedExtensions(): array
     {
         return ['ini'];
     }

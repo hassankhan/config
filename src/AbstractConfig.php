@@ -18,22 +18,16 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
 {
     /**
      * Stores the configuration data
-     *
-     * @var array|null
      */
-    protected $data = null;
+    protected ?array $data = null;
 
     /**
      * Caches the configuration data
-     *
-     * @var array
      */
-    protected $cache = [];
+    protected array $cache = [];
 
     /**
      * Constructor method and sets default options, if any
-     *
-     * @param array $data
      */
     public function __construct(array $data)
     {
@@ -44,11 +38,9 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
      * Override this method in your own subclass to provide an array of default
      * options and values
      *
-     * @return array
-     *
      * @codeCoverageIgnore
      */
-    protected function getDefaults()
+    protected function getDefaults(): array
     {
         return [];
     }
@@ -60,7 +52,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
     /**
      * {@inheritDoc}
      */
-    public function get($key, $default = null)
+    public function get(string $key, $default = null)
     {
         if ($this->has($key)) {
             return $this->cache[$key];
@@ -72,7 +64,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
     /**
      * {@inheritDoc}
      */
-    public function set($key, $value)
+    public function set(string $key, $value): void
     {
         $segs = explode('.', $key);
         $root = &$this->data;
@@ -111,7 +103,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
     /**
      * {@inheritDoc}
      */
-    public function has($key)
+    public function has(string $key): bool
     {
         // Check if already cached
         if (isset($this->cache[$key])) {
@@ -139,11 +131,8 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
 
     /**
      * Merge config from another instance
-     *
-     * @param ConfigInterface $config
-     * @return ConfigInterface
      */
-    public function merge(ConfigInterface $config)
+    public function merge(ConfigInterface $config): self
     {
         $this->data = array_replace_recursive($this->data, $config->all());
         $this->cache = [];
@@ -153,7 +142,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
     /**
      * {@inheritDoc}
      */
-    public function all()
+    public function all(): array
     {
         return $this->data;
     }
@@ -183,7 +172,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
      * @return bool
      */
     #[\ReturnTypeWillChange]
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return $this->has($offset);
     }
@@ -197,7 +186,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
      * @return void
      */
     #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->set($offset, $value);
     }
@@ -210,7 +199,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
      * @return void
      */
     #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         $this->set($offset, null);
     }
@@ -280,19 +269,15 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
      * @return bool True if the current index is valid; false otherwise
      */
     #[\ReturnTypeWillChange]
-    public function valid()
+    public function valid(): bool
     {
         return (is_array($this->data) ? key($this->data) !== null : false);
     }
 
     /**
      * Remove a value using the offset as a key
-     *
-     * @param  string $key
-     *
-     * @return void
      */
-    public function remove($key)
+    public function remove(string $key): void
     {
         $this->offsetUnset($key);
     }
